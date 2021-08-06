@@ -72,7 +72,8 @@
                             <ul class="list-group rounded px-0">
                                 <li class="list-group-item list-group-item-action">
                                     <section class="media">
-                                        <img class="notification-img" src="assets/images/avatar-2.jpg" alt="avatar">
+                                        <img class="notification-img" src="admin-assets/images/avatar-2.jpg"
+                                            alt="avatar">
                                         <section class="media-body pr-2">
                                             <h5 class="notification-user">مهدی آقامحمدی</h5>
                                             <p class="notification-text">این یک متن تستی است.</p>
@@ -82,7 +83,8 @@
                                 </li>
                                 <li class="list-group-item list-group-item-action">
                                     <section class="media">
-                                        <img class="notification-img" src="assets/images/avatar-2.jpg" alt="avatar">
+                                        <img class="notification-img" src="admin-assets/images/avatar-2.jpg"
+                                            alt="avatar">
                                         <section class="media-body pr-2">
                                             <h5 class="notification-user">مهدی آقامحمدی</h5>
                                             <p class="notification-text">این یک متن تستی است.</p>
@@ -92,7 +94,8 @@
                                 </li>
                                 <li class="list-group-item list-group-item-action">
                                     <section class="media">
-                                        <img class="notification-img" src="assets/images/avatar-2.jpg" alt="avatar">
+                                        <img class="notification-img" src="admin-assets/images/avatar-2.jpg"
+                                            alt="avatar">
                                         <section class="media-body pr-2">
                                             <h5 class="notification-user">مهدی آقامحمدی</h5>
                                             <p class="notification-text">این یک متن تستی است.</p>
@@ -121,7 +124,8 @@
                                 <ul class="list-group rounded px-0">
                                     <li class="list-group-item list-group-item-action">
                                         <section class="media">
-                                            <img src="assets/images/avatar-2.jpg" alt="avatar" class="notification-img">
+                                            <img src="admin-assets/images/avatar-2.jpg" alt="avatar"
+                                                class="notification-img">
                                             <section class="media-body pr-1">
                                                 <section class="d-flex justify-content-between">
                                                     <h5 class="comment-user">مهدی آقامحمدی</h5>
