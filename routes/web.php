@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\AdminDashboardController;
+use App\Http\Controllers\Admin\Market\CategoryController;
 use Illuminate\Support\Facades\Route;
 
 /*
