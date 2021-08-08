@@ -19,7 +19,7 @@
                 </section>
                 {{-- button and search inout --}}
                 <section class="d-flex justify-content-between align-items-center mt-4 mb-3 pb-2 border-bottom">
-                    <a href="#" class="btn btn-info btn-sm">ایجاد دسته بندی</a>
+                    <a href="{{ route('admin.market.category.create') }}" class="btn btn-info btn-sm">ایجاد دسته بندی</a>
                     <div class="max-width-16-rem">
                         <input class="form-control form-control-sm form-text" type="text" name="" id="" placeholder="جستجو">
                     </div>
@@ -41,7 +41,8 @@
                                 <td>دستگاه الکترونیکی</td>
                                 <td class="width-16-rem text-left">
                                     <a href="#" class="btn btn-primary btn-sm"><i class="fa fa-edit pl-1"></i> ویرایش</a>
-                                    <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-trash-alt"></i> حذف</button>
+                                    <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-trash-alt"></i>
+                                        حذف</button>
                                 </td>
                             </tr>
                         </tbody>

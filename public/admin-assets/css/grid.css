@@ -266,6 +266,7 @@ button:hover {
     padding: 1rem;
     min-height: calc(100vh - 3.5rem);
     background-color: #f3f3f3;
+    font-size: .8rem;
 }
 
 .info-box-body h5 {
