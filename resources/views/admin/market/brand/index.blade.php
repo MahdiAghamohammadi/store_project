@@ -1,6 +1,6 @@
 @extends('admin.layouts.master')
 @section('head-tag')
-    <title>Category</title>
+    <title>Brand</title>
 @endsection
 @section('content')
     <nav aria-label="breadcrumb">
@@ -15,7 +15,7 @@
             <section class="main-body-container">
                 {{-- header --}}
                 <section class="main-body-container-header">
-                    <h5>برند</h5>
+                    <h6>برند</h6>
                 </section>
                 {{-- button and search inout --}}
                 <section class="pb-2 mt-4 mb-3 d-flex justify-content-between align-items-center border-bottom">

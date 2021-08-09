@@ -16,7 +16,7 @@
             <section class="main-body-container">
                 {{-- header --}}
                 <section class="main-body-container-header">
-                    <h5>ایجاد دسته بندی</h5>
+                    <h6>ایجاد دسته بندی</h6>
                 </section>
                 {{-- button and search inout --}}
                 <section class="d-flex justify-content-between align-items-center mt-4 mb-3 pb-2 border-bottom">
