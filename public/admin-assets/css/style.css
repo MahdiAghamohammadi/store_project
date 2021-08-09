@@ -46,6 +46,10 @@
     max-width: 16rem;
 }
 
+.max-height-2rem {
+    max-height: 2rem;
+}
+
 .width-16-rem {
     width: 16rem;
 }
