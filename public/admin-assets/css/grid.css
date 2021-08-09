@@ -163,6 +163,7 @@
     padding: 1rem 0;
     overflow: auto;
     height: 100%;
+    scrollbar-width: none;
 }
 
 .sidebar-wrapper::-webkit-scrollbar {
