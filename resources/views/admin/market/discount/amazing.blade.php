@@ -1,13 +1,13 @@
 @extends('admin.layouts.master')
 @section('head-tag')
-    <title>دسته بندی</title>
+    <title>فروش شگفت انگیز</title>
 @endsection
 @section('content')
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item font-size-12"> <a href="#">خانه</a></li>
             <li class="breadcrumb-item font-size-12"> <a href="#">بخش فروش</a></li>
-            <li class="breadcrumb-item font-size-12 active" aria-current="page"> دسته بندی</li>
+            <li class="breadcrumb-item font-size-12 active" aria-current="page"> فروش شگفت انگیز</li>
         </ol>
     </nav>
     <section class="row">
@@ -15,11 +15,12 @@
             <section class="main-body-container">
                 {{-- header --}}
                 <section class="main-body-container-header">
-                    <h6>دسته بندی</h6>
+                    <h6>فروش شگفت انگیز</h6>
                 </section>
                 {{-- button and search inout --}}
-                <section class="d-flex justify-content-between align-items-center mt-4 mb-3 pb-2 border-bottom">
-                    <a href="{{ route('admin.market.category.create') }}" class="btn btn-info btn-sm">ایجاد دسته بندی</a>
+                <section class="pb-2 mt-4 mb-3 d-flex justify-content-between align-items-center border-bottom">
+                    <a href="{{ route('admin.market.discount.amazingSale.create') }}" class="btn btn-info btn-sm">افزودن
+                        کالا به لیست فروش شگفت انگیز</a>
                     <div class="max-width-16-rem">
                         <input class="form-control form-control-sm form-text" type="text" name="" id="" placeholder="جستجو">
                     </div>
@@ -29,18 +30,22 @@
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>نام دسته بندی</th>
-                                <th>دسته والد</th>
-                                <th class="max-width-16-rem text-center"><i class="fa fa-cogs"></i> تنظیمات</th>
+                                <th>نام کالا</th>
+                                <th>درصد تخفیف</th>
+                                <th>تاریخ شروع</th>
+                                <th>تاریخ پایان</th>
+                                <th class="text-center max-width-16-rem"><i class="fa fa-cogs"></i> تنظیمات</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
                                 <th>1</th>
-                                <td>نمایشگر</td>
-                                <td>دستگاه الکترونیکی</td>
-                                <td class="width-16-rem text-left">
-                                    <a href="#" class="btn btn-primary btn-sm"><i class="fa fa-edit pl-1"></i> ویرایش</a>
+                                <th>موبایل سامسونگ</th>
+                                <td>15%</td>
+                                <td>24 اردیبهشت 99</td>
+                                <td>31 اردبیهشت 99</td>
+                                <td class="text-left width-16-rem">
+                                    <a href="#" class="btn btn-primary btn-sm"><i class="pl-1 fa fa-edit"></i> ویرایش</a>
                                     <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-trash-alt"></i>
                                         حذف</button>
                                 </td>

@@ -1,6 +1,6 @@
 @extends('admin.layouts.master')
 @section('head-tag')
-    <title>Brand</title>
+    <title>ایجاد برند</title>
 @endsection
 @section('content')
     <nav aria-label="breadcrumb">

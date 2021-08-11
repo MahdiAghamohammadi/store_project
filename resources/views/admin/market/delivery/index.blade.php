@@ -1,6 +1,6 @@
 @extends('admin.layouts.master')
 @section('head-tag')
-    <title>Delivery</title>
+    <title>روش های ارسال</title>
 @endsection
 @section('content')
     <nav aria-label="breadcrumb">

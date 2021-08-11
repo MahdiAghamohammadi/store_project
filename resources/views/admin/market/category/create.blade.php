@@ -1,6 +1,6 @@
 @extends('admin.layouts.master')
 @section('head-tag')
-    <title>Category</title>
+    <title>ایجاد دسته بندی</title>
 @endsection
 @section('content')
     <nav aria-label="breadcrumb">

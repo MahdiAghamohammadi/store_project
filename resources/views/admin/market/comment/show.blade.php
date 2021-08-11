@@ -1,6 +1,6 @@
 @extends('admin.layouts.master')
 @section('head-tag')
-    <title>Comment</title>
+    <title>نمایش نظر</title>
 @endsection
 @section('content')
     <nav aria-label="breadcrumb">
