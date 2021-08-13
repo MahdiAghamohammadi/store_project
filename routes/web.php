@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\Market\CommentController;
 use App\Http\Controllers\Admin\Market\CategoryController;
 use App\Http\Controllers\Admin\Market\DeliveryController;
 use App\Http\Controllers\Admin\Market\DiscountController;
+use App\Http\Controllers\Admin\Market\PaymentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -86,6 +87,14 @@ Route::prefix('admin')->namespace('Admin')->group(function () {
             Route::get('/change-send-status', [OrderController::class, 'changeSendStatus'])->name('admin.market.order.changeSendStatus');
             Route::get('/change-order-status', [OrderController::class, 'changeOrderStatus'])->name('admin.market.order.changeOrderStatus');
             Route::get('/cancel-order', [OrderController::class, 'cancelOrder'])->name('admin.market.order.cancelOrder');
+        });
+        // Payment
+        Route::prefix('payment')->group(function () {
+            Route::get('/', [PaymentController::class, 'index'])->name('admin.market.payment.index');
+            Route::get('/online', [PaymentController::class, 'online'])->name('admin.market.payment.online');
+            Route::get('/offline', [PaymentController::class, 'offline'])->name('admin.market.payment.offline');
+            Route::get('/attendance', [PaymentController::class, 'attendance'])->name('admin.market.payment.attendance');
+            Route::get('/confirm', [PaymentController::class, 'confirm'])->name('admin.market.payment.confirm');
         });
     });
 });
