@@ -1,18 +1,19 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Admin\Market\BrandController;
-use App\Http\Controllers\Admin\Market\OrderController;
-use App\Http\Controllers\Admin\Market\GalleyController;
 use App\Http\Controllers\Admin\AdminDashboardController;
-use App\Http\Controllers\Admin\Market\CommentController;
-use App\Http\Controllers\Admin\Market\PaymentController;
-use App\Http\Controllers\Admin\Market\ProductController;
+use App\Http\Controllers\Admin\Content\CategoryController as ContentCategoryController;
+use App\Http\Controllers\Admin\Market\BrandController;
 use App\Http\Controllers\Admin\Market\CategoryController;
+use App\Http\Controllers\Admin\Market\CommentController;
 use App\Http\Controllers\Admin\Market\DeliveryController;
 use App\Http\Controllers\Admin\Market\DiscountController;
+use App\Http\Controllers\Admin\Market\GalleyController;
+use App\Http\Controllers\Admin\Market\OrderController;
+use App\Http\Controllers\Admin\Market\PaymentController;
+use App\Http\Controllers\Admin\Market\ProductController;
 use App\Http\Controllers\Admin\Market\PropertyController;
 use App\Http\Controllers\Admin\Market\StoreController;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,7 +33,7 @@ use App\Http\Controllers\Admin\Market\StoreController;
  */
 Route::prefix('admin')->namespace('Admin')->group(function () {
     Route::get('/', [AdminDashboardController::class, 'index'])->name('admin.home');
-
+    // Market Module
     Route::prefix('market')->namespace('Market')->group(function () {
         // Category
         Route::prefix('category')->group(function () {
@@ -130,6 +131,18 @@ Route::prefix('admin')->namespace('Admin')->group(function () {
             Route::get('/edit/{id}', [StoreController::class, 'edit'])->name('admin.market.store.edit');
             Route::put('/update/{id}', [StoreController::class, 'update'])->name('admin.market.store.update');
             Route::delete('/destroy/{id}', [StoreController::class, 'destroy'])->name('admin.market.store.destroy');
+        });
+    });
+    // Content Module
+    Route::prefix('content')->namespace('Content')->group(function () {
+        // Category
+        Route::prefix('category')->group(function () {
+            Route::get('/', [ContentCategoryController::class, 'index'])->name('admin.content.category.index');
+            Route::get('/create', [ContentCategoryController::class, 'create'])->name('admin.content.category.create');
+            Route::post('/store', [ContentCategoryController::class, 'store'])->name('admin.content.category.store');
+            Route::get('/edit/{id}', [ContentCategoryController::class, 'edit'])->name('admin.content.category.edit');
+            Route::put('/update/{id}', [ContentCategoryController::class, 'update'])->name('admin.content.category.update');
+            Route::delete('/destroy/{id}', [ContentCategoryController::class, 'destroy'])->name('admin.content.category.destroy');
         });
     });
 });
