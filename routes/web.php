@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\Content\CategoryController as ContentCategoryCont
 use App\Http\Controllers\Admin\Content\CommentController as ContentCommentController;
 use App\Http\Controllers\Admin\Content\FAQController;
 use App\Http\Controllers\Admin\Content\MenuController;
+use App\Http\Controllers\Admin\Content\PageController;
 // Market
 use App\Http\Controllers\Admin\Market\BrandController;
 use App\Http\Controllers\Admin\Market\CategoryController;
@@ -175,6 +176,15 @@ Route::prefix('admin')->namespace('Admin')->group(function () {
             Route::get('/edit/{id}', [MenuController::class, 'edit'])->name('admin.content.menu.edit');
             Route::put('/update/{id}', [MenuController::class, 'update'])->name('admin.content.menu.update');
             Route::delete('/destroy/{id}', [MenuController::class, 'destroy'])->name('admin.content.menu.destroy');
+        });
+        // Page
+        Route::prefix('page')->group(function () {
+            Route::get('/', [PageController::class, 'index'])->name('admin.content.page.index');
+            Route::get('/create', [PageController::class, 'create'])->name('admin.content.page.create');
+            Route::post('/store', [PageController::class, 'store'])->name('admin.content.page.store');
+            Route::get('/edit/{id}', [PageController::class, 'edit'])->name('admin.content.page.edit');
+            Route::put('/update/{id}', [PageController::class, 'update'])->name('admin.content.page.update');
+            Route::delete('/destroy/{id}', [PageController::class, 'destroy'])->name('admin.content.page.destroy');
         });
     });
 });
