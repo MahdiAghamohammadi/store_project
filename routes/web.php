@@ -20,6 +20,9 @@ use App\Http\Controllers\Admin\Market\PaymentController;
 use App\Http\Controllers\Admin\Market\ProductController;
 use App\Http\Controllers\Admin\Market\PropertyController;
 use App\Http\Controllers\Admin\Market\StoreController;
+// Notify
+use App\Http\Controllers\Admin\Notify\EmileController;
+use App\Http\Controllers\Admin\Notify\SMSController;
 // User
 use App\Http\Controllers\Admin\User\AdminUserController;
 use App\Http\Controllers\Admin\User\CustomerController;
@@ -239,6 +242,27 @@ Route::prefix('admin')->namespace('Admin')->group(function () {
             Route::get('/edit/{id}', [PermissionController::class, 'edit'])->name('admin.user.permission.edit');
             Route::put('/update/{id}', [PermissionController::class, 'update'])->name('admin.user.permission.update');
             Route::delete('/destroy/{id}', [PermissionController::class, 'destroy'])->name('admin.user.permission.destroy');
+        });
+    });
+    // Notify module
+    Route::prefix('notify')->namespace('Notify')->group(function () {
+        // Emile
+        Route::prefix('emile')->group(function () {
+            Route::get('/', [EmileController::class, 'index'])->name('admin.notify.emile.index');
+            Route::get('/create', [EmileController::class, 'create'])->name('admin.notify.emile.create');
+            Route::post('/store', [EmileController::class, 'store'])->name('admin.notify.emile.store');
+            Route::get('/edit/{id}', [EmileController::class, 'edit'])->name('admin.notify.emile.edit');
+            Route::put('/update/{id}', [EmileController::class, 'update'])->name('admin.notify.emile.update');
+            Route::delete('/destroy/{id}', [EmileController::class, 'destroy'])->name('admin.notify.emile.destroy');
+        });
+        // SMS
+        Route::prefix('sms')->group(function () {
+            Route::get('/', [SMSController::class, 'index'])->name('admin.notify.sms.index');
+            Route::get('/create', [SMSController::class, 'create'])->name('admin.notify.sms.create');
+            Route::post('/store', [SMSController::class, 'store'])->name('admin.notify.sms.store');
+            Route::get('/edit/{id}', [SMSController::class, 'edit'])->name('admin.notify.sms.edit');
+            Route::put('/update/{id}', [SMSController::class, 'update'])->name('admin.notify.sms.update');
+            Route::delete('/destroy/{id}', [SMSController::class, 'destroy'])->name('admin.notify.sms.destroy');
         });
     });
 });
