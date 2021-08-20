@@ -292,3 +292,7 @@ Route::prefix('admin')->namespace('Admin')->group(function () {
         Route::delete('/destroy/{id}', [SettingController::class, 'destroy'])->name('admin.setting.destroy');
     });
 });
+
+Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
+    return view('dashboard');
+})->name('dashboard');
