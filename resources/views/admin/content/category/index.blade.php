@@ -18,7 +18,7 @@
                     <h6>دسته بندی</h6>
                 </section>
                 {{-- button and search inout --}}
-                <section class="d-flex justify-content-between align-items-center mt-4 mb-3 pb-2 border-bottom">
+                <section class="pb-2 mt-4 mb-3 d-flex justify-content-between align-items-center border-bottom">
                     <a href="{{ route('admin.content.category.create') }}" class="btn btn-info btn-sm">ایجاد دسته بندی</a>
                     <div class="max-width-16-rem">
                         <input class="form-control form-control-sm form-text" type="text" name="" id="" placeholder="جستجو">
@@ -30,21 +30,31 @@
                             <tr>
                                 <th>#</th>
                                 <th>نام دسته بندی</th>
-                                <th>دسته والد</th>
-                                <th class="max-width-16-rem text-center"><i class="fa fa-cogs"></i> تنظیمات</th>
+                                <th>توضیحات</th>
+                                <th>اسلاگ</th>
+                                <th>عکس</th>
+                                <th>تگ</th>
+                                <th class="text-center max-width-16-rem"><i class="fa fa-cogs"></i> تنظیمات</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <th>1</th>
-                                <td>نمایشگر</td>
-                                <td>دستگاه الکترونیکی</td>
-                                <td class="width-16-rem text-left">
-                                    <a href="#" class="btn btn-primary btn-sm"><i class="fa fa-edit pl-1"></i> ویرایش</a>
-                                    <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-trash-alt"></i>
-                                        حذف</button>
-                                </td>
-                            </tr>
+                            @foreach ($postCategories as $postCategory)
+                                <tr>
+                                    <th>{{ $postCategory->id }}</th>
+                                    <td>{{ $postCategory->name }}</td>
+                                    <td>{{ $postCategory->description }}</td>
+                                    <td>{{ $postCategory->slug }}</td>
+                                    <td><img src="{{ asset($postCategory->image) }}" alt="" width="50px" height="50px">
+                                    </td>
+                                    <td>{{ $postCategory->tags }}</td>
+                                    <td class="text-left width-16-rem">
+                                        <a href="#" class="btn btn-primary btn-sm"><i class="pl-1 fa fa-edit"></i>
+                                            ویرایش</a>
+                                        <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-trash-alt"></i>
+                                            حذف</button>
+                                    </td>
+                                </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </section>
