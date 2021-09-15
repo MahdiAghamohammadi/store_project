@@ -33,7 +33,8 @@
                                 <th>توضیحات</th>
                                 <th>اسلاگ</th>
                                 <th>عکس</th>
-                                <th>تگ</th>
+                                <th>تگ ها</th>
+                                <th>وضعیت</th>
                                 <th class="text-center max-width-16-rem"><i class="fa fa-cogs"></i> تنظیمات</th>
                             </tr>
                         </thead>
@@ -47,13 +48,26 @@
                                     <td><img src="{{ asset($postCategory->image) }}" alt="" width="50px" height="50px">
                                     </td>
                                     <td>{{ $postCategory->tags }}</td>
-                                    <td class="text-left width-16-rem">
-                                        <a href="#" class="btn btn-primary btn-sm"><i class="pl-1 fa fa-edit"></i>
-                                            ویرایش</a>
-                                        <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-trash-alt"></i>
-                                            حذف</button>
-                                    </td>
-                                </tr>
+                                    <td>
+                                        <label>
+                                            <input type="checkbox" @if ($postCategory->status === 1)
+                                            checked
+                            @endif>
+                            </label>
+                            </td>
+                            <td class="text-left width-16-rem">
+                                <a href="{{ route('admin.content.category.edit', $postCategory->id) }}"
+                                    class="btn btn-primary btn-sm"><i class="pl-1 fa fa-edit"></i>
+                                    ویرایش</a>
+                                <form class="d-inline" action="{{ route('admin.content.category.destroy', $postCategory->id) }}"
+                                    method="post">
+                                    @csrf
+                                    {{ method_field('delete') }}
+                                    <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-trash-alt"></i>
+                                        حذف</button>
+                                </form>
+                            </td>
+                            </tr>
                             @endforeach
                         </tbody>
                     </table>
