@@ -1,6 +1,6 @@
 @extends('admin.layouts.master')
 @section('head-tag')
-    <title>ایجاد دسته بندی</title>
+    <title>ویرایش دسته بندی</title>
 @endsection
 @section('content')
     <nav aria-label="breadcrumb">
@@ -8,7 +8,7 @@
             <li class="breadcrumb-item font-size-12"><a href="#">خانه</a></li>
             <li class="breadcrumb-item font-size-12"><a href="#">بخش محتوی</a></li>
             <li class="breadcrumb-item font-size-12"><a href="#">دسته بندی</a></li>
-            <li class="breadcrumb-item font-size-12 active" aria-current="page"> ایجاد دسته بندی</li>
+            <li class="breadcrumb-item font-size-12 active" aria-current="page"> ویرایش دسته بندی</li>
         </ol>
     </nav>
     <section class="row">
@@ -16,22 +16,23 @@
             <section class="main-body-container">
                 {{-- header --}}
                 <section class="main-body-container-header">
-                    <h6>ایجاد دسته بندی</h6>
+                    <h6>ویرایش دسته بندی</h6>
                 </section>
                 {{-- button and search inout --}}
                 <section class="pb-2 mt-4 mb-3 d-flex justify-content-between align-items-center border-bottom">
                     <a href="{{ route('admin.content.category.index') }}" class="btn btn-info btn-sm">بازگشت</a>
                 </section>
                 <section>
-                    <form action="{{ route('admin.content.category.store') }}" method="POST"
+                    <form action="{{ route('admin.content.category.update', $postCategory->id) }}" method="POST"
                         enctype="multipart/form-data">
                         @csrf
+                        {{ method_field('put') }}
                         <section class="row">
                             <section class="my-2 col-12 col-md-6">
                                 <div class="form-group">
                                     <label for="name">نام دسته</label>
                                     <input type="text" name="name" id="name" class="form-control form-control-sm"
-                                        value="{{ old('name') }}">
+                                        value="{{ old('name', $postCategory->name) }}">
                                 </div>
                                 @error('name')
                                     <span class="p-1 text-white rounded alert_required bg-danger" role="alert">
@@ -45,7 +46,7 @@
                                 <div class="form-group">
                                     <label for="tags">تگ ها</label>
                                     <input type="text" name="tags" id="tags" class="form-control form-control-sm"
-                                        value="{{ old('tags') }}">
+                                        value="{{ old('tags', $postCategory->tags) }}">
                                 </div>
                                 @error('tags')
                                     <span class="p-1 text-white rounded alert_required bg-danger" role="alert">
@@ -59,8 +60,8 @@
                                 <div class="form-group">
                                     <label for="status">وضعیت</label>
                                     <select name="status" id="status" class="form-control form-control-sm">
-                                        <option value="0" @if (old('status') == 0) selected @endif>غیرفعال</option>
-                                        <option value="1" @if (old('status') == 1) selected @endif>فعال</option>
+                                        <option value="0" @if (old('status', $postCategory->status) == 0) selected @endif>غیرفعال</option>
+                                        <option value="1" @if (old('status', $postCategory->status) == 1) selected @endif>فعال</option>
                                     </select>
                                 </div>
                                 @error('status')
@@ -89,8 +90,8 @@
                                     <label for="description">توضیحات</label>
                                     <textarea name="description" id="description" class="form-control form-control-sm"
                                         rows="6">
-                                            {{ old('description') }}
-                                        </textarea>
+                                                    {{ old('description', $postCategory->description) }}
+                                                </textarea>
                                 </div>
                                 @error('description')
                                     <span class="p-1 text-white rounded alert_required bg-danger" role="alert">
