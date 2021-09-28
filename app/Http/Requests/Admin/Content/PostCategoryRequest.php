@@ -25,7 +25,7 @@ class PostCategoryRequest extends FormRequest
     {
         if ($this->isMethod('post')) {
             return [
-                'name' => 'required|max:120|min:5',
+                'name' => 'required|max:120|min:2',
                 'description' => 'required|max:500|min:5',
                 'slug' => 'nullable',
                 'image' => 'required',
@@ -34,7 +34,7 @@ class PostCategoryRequest extends FormRequest
             ];
         } else {
             return [
-                'name' => 'required|max:120|min:5',
+                'name' => 'required|max:120|min:2',
                 'description' => 'required|max:500|min:5',
                 'slug' => 'nullable',
                 'image' => '',
