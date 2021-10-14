@@ -1,5 +1,4 @@
 @if (session('toast-success'))
-
     <section class="toast" data-delay="5000">
         <section class="py-3 text-white toast-body d-flex bg-success">
             <strong class="ml-auto">{{ session('toast-success') }}</strong>
