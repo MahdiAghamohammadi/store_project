@@ -5,7 +5,8 @@
                 icon: 'success',
                 title: 'عملیات با موفقیت انجام شد.',
                 text: "{{ session('swal-success') }}",
-                confirmButtonText: 'ok'
+                confirmButtonText: 'بسیار خب!',
+                confirmButtonColor:'#28a745'
             });
         });
     </script>

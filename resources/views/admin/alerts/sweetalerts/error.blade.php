@@ -4,8 +4,8 @@
             Swal.fire({
                 icon: 'error',
                 title: 'خطا!',
-                text: {{ session('swal-error') }},
-                confirmButtonText: 'ok'
+                text: '{{ session('swal-error') }}',
+                confirmButtonText: 'بسیار خب!'
             })
         });
     </script>
