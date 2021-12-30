@@ -138,12 +138,12 @@
                                     </span>
                                 @enderror
                             </section>
-                            <section class="col-12">
+                            <section class="my-2 col-12">
                                 <div class="form-group">
                                     <label for="summary">خلاصه پست</label>
                                     <textarea name="summary" id="summary" class="form-control form-control-sm" rows="6">
-                                                        {{ old('summary') }}
-                                                    </textarea>
+                                                            {{ old('summary') }}
+                                                        </textarea>
                                 </div>
                                 @error('summary')
                                     <span class="p-1 text-white rounded alert_required bg-danger" role="alert">
@@ -153,12 +153,12 @@
                                     </span>
                                 @enderror
                             </section>
-                            <section class="col-12">
+                            <section class="my-2 col-12">
                                 <div class="form-group">
                                     <label for="body">متن پست</label>
                                     <textarea name="body" id="body" class="form-control form-control-sm" rows="6">
-                                                        {{ old('body') }}
-                                                    </textarea>
+                                                            {{ old('body') }}
+                                                        </textarea>
                                 </div>
                                 @error('body')
                                     <span class="p-1 text-white rounded alert_required bg-danger" role="alert">
