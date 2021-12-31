@@ -42,7 +42,7 @@
                                     <td>{{ $post->title }}</td>
                                     <td>{{ $post->postCategory->name }}</td>
                                     <td>
-                                        {{-- <img src="{{ asset($post->image['indexArray'][$post->image['currentImage']]) }}" alt="apple" class="max-height-2rem"> --}}
+                                        <img src="{{ asset($post->image['indexArray'][$post->image['currentImage']]) }}" class="max-height-2rem">
                                     </td>
                                     <td class="text-left width-16-rem">
                                         <a href="#" class="btn btn-primary btn-sm"><i class="pl-1 fa fa-edit"></i>
