@@ -29,9 +29,14 @@
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>عنوان دست</th>
+                                <th>عنوان پست</th>
+                                <th>خلاصه</th>
+                                <th>اسلاگ</th>
                                 <th>دسته</th>
                                 <th>تصویر</th>
+                                <th>تگ ها</th>
+                                <th>وضعیت</th>
+                                <th>امکان درج کامنت</th>
                                 <th class="text-center max-width-16-rem"><i class="fa fa-cogs"></i> تنظیمات</th>
                             </tr>
                         </thead>
@@ -40,17 +45,46 @@
                                 <tr>
                                     <th>{{ $key += 1 }}</th>
                                     <td>{{ $post->title }}</td>
+                                    <td>{{ $post->summary }}</td>
+                                    <td>{{ $post->slug }}</td>
                                     <td>{{ $post->postCategory->name }}</td>
                                     <td>
-                                        <img src="{{ asset($post->image['indexArray'][$post->image['currentImage']]) }}" class="max-height-2rem">
+                                        <img src="{{ asset($post->image['indexArray'][$post->image['currentImage']]) }}"
+                                            class="max-height-2rem">
                                     </td>
-                                    <td class="text-left width-16-rem">
-                                        <a href="#" class="btn btn-primary btn-sm"><i class="pl-1 fa fa-edit"></i>
-                                            ویرایش</a>
-                                        <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-trash-alt"></i>
-                                            حذف</button>
-                                    </td>
-                                </tr>
+                                    <td>{{ $post->tags }}</td>
+                                    <td>
+                                        <label>
+                                            <input id="{{ $post->id }}" onchange="changeStatus({{ $post->id }})"
+                                                type="checkbox"
+                                                data-url="{{ route('admin.content.post.status', $post->id) }}"
+                                                @if ($post->status === 1)
+                                            checked
+                            @endif>
+                            </label>
+                            </td>
+                            <td>
+                                <label>
+                                    <input id="{{ $post->id }}-commentable"
+                                        onchange="commentable({{ $post->id }})" type="checkbox"
+                                        data-url="{{ route('admin.content.post.commentable', $post->id) }}" @if ($post->commentable === 1)
+                                    checked
+                                    @endif>
+                                </label>
+                            </td>
+                            <td class="text-left width-16-rem">
+                                <a href="{{ route('admin.content.post.edit', $post->id) }}"
+                                    class="btn btn-primary btn-sm"><i class="pl-1 fa fa-edit"></i>
+                                    ویرایش</a>
+                                <form method="POST" action="{{ route('admin.content.post.destroy', $post->id) }}"
+                                    class="d-inline">
+                                    @csrf
+                                    {{ method_field('delete') }}
+                                    <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-trash-alt"></i>
+                                        حذف</button>
+                                </form>
+                            </td>
+                            </tr>
                             @endforeach
                         </tbody>
                     </table>
@@ -58,4 +92,127 @@
             </section>
         </section>
     </section>
+@endsection
+@section('script')
+    {{-- this function for change status check box --}}
+    <script type="text/javascript">
+        function changeStatus(id) {
+            let element = $('#' + id);
+            let url = element.attr('data-url');
+            let elementValue = !element.prop('checked');
+            $.ajax({
+                url: url,
+                type: "GET",
+                success: function(response) {
+                    if (response.status) {
+                        if (response.checked) {
+                            element.prop('checked', true);
+                            successToast('پست مورد نظر با موفقیت فعال شد');
+                        } else {
+                            element.prop('checked', false);
+                            successToast('پست مورد نظر با موفقیت غیر فعال شد');
+                        }
+                    } else {
+                        element.prop('checked', elementValue);
+                        errorToast('هنگام ویرایش مشکلی رخ داده است');
+                    }
+                },
+                error: function() {
+                    element.prop('checked', elementValue);
+                    errorToast('ارتباط برقرار نشد');
+                }
+            });
+
+            function successToast(msg) {
+                var successToastTag = '<section class="toast" data-delay="5000">\n' +
+                    '<section class="py-3 text-white toast-body d-flex bg-success">\n' +
+                    '<strong class="ml-auto text-right ">' + msg + '</strong>\n' +
+                    '<button type="submit" class="mr-2 close" data-dismiss="toast" aria-label="Close">\n' +
+                    '<span aria-hidden="true">&times;</span>\n' +
+                    '</button>\n' +
+                    '</section>\n' +
+                    '</section>';
+                $('.toast-wrapper').append(successToastTag);
+                $('.toast').toast('show').delay(5000).queue(function() {
+                    $(this).remove();
+                });
+            }
+
+            function errorToast(msg) {
+                var errorToastTag = '<section class="toast" data-delay="5000">\n' +
+                    '<section class="py-3 text-white toast-body d-flex bg-danger">\n' +
+                    '<strong class="ml-auto text-right ">' + msg + '</strong>\n' +
+                    '<button type="submit" class="mr-2 close" data-dismiss="toast" aria-label="Close">\n' +
+                    '<span aria-hidden="true">&times;</span>\n' +
+                    '</button>\n' +
+                    '</section>\n' +
+                    '</section>';
+                $('.toast-wrapper').append(errorToastTag);
+                $('.toast').toast('show').delay(5000).queue(function() {
+                    $(this).remove();
+                });
+            }
+        }
+    </script>
+    {{-- this function for change commentable check box --}}
+    <script type="text/javascript">
+        function commentable(id) {
+            let element = $('#' + id + "-commentable");
+            let url = element.attr('data-url');
+            let elementValue = !element.prop('checked');
+            $.ajax({
+                url: url,
+                type: "GET",
+                success: function(response) {
+                    if (response.commentable) {
+                        if (response.checked) {
+                            element.prop('checked', true);
+                            successToast('امکان درج کامنت پست مورد نظر با موفقیت فعال شد');
+                        } else {
+                            element.prop('checked', false);
+                            successToast('امکان درج کامنت پست مورد نظر با موفقیت غیر فعال شد');
+                        }
+                    } else {
+                        element.prop('checked', elementValue);
+                        errorToast('هنگام ویرایش مشکلی رخ داده است');
+                    }
+                },
+                error: function() {
+                    element.prop('checked', elementValue);
+                    errorToast('ارتباط برقرار نشد');
+                }
+            });
+
+            function successToast(msg) {
+                var successToastTag = '<section class="toast" data-delay="5000">\n' +
+                    '<section class="py-3 text-white toast-body d-flex bg-success">\n' +
+                    '<strong class="ml-auto text-right ">' + msg + '</strong>\n' +
+                    '<button type="submit" class="mr-2 close" data-dismiss="toast" aria-label="Close">\n' +
+                    '<span aria-hidden="true">&times;</span>\n' +
+                    '</button>\n' +
+                    '</section>\n' +
+                    '</section>';
+                $('.toast-wrapper').append(successToastTag);
+                $('.toast').toast('show').delay(5000).queue(function() {
+                    $(this).remove();
+                });
+            }
+
+            function errorToast(msg) {
+                var errorToastTag = '<section class="toast" data-delay="5000">\n' +
+                    '<section class="py-3 text-white toast-body d-flex bg-danger">\n' +
+                    '<strong class="ml-auto text-right ">' + msg + '</strong>\n' +
+                    '<button type="submit" class="mr-2 close" data-dismiss="toast" aria-label="Close">\n' +
+                    '<span aria-hidden="true">&times;</span>\n' +
+                    '</button>\n' +
+                    '</section>\n' +
+                    '</section>';
+                $('.toast-wrapper').append(errorToastTag);
+                $('.toast').toast('show').delay(5000).queue(function() {
+                    $(this).remove();
+                });
+            }
+        }
+    </script>
+    @include('admin.alerts.sweetalerts.delete-confirm', ['className' => 'delete'])
 @endsection
