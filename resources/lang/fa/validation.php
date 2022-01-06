@@ -161,5 +161,7 @@ return [
         'summary'                   => 'خلاصه',
         'question'                  => 'پرسش',
         'answer'                    => 'پاسخ',
+        'url'                       => 'لینک',
+        'parent_id'                 => 'والد',
     ],
 ];
