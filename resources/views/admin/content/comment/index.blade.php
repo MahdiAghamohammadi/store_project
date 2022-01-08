@@ -29,47 +29,119 @@
                         <thead>
                             <tr>
                                 <th>#</th>
+                                <th>نظر</th>
+                                <th>پاسخ به</th>
                                 <th>کد کاربر</th>
                                 <th>نویسنده نظر</th>
-                                <th>کد کالا</th>
-                                <th>کالا</th>
-                                <th>وضعیت</th>
+                                <th>کد پست</th>
+                                <th>پست</th>
+                                <th>وضعیت تایید</th>
+                                <th>وضعیت کامنت</th>
                                 <th class="text-center max-width-16-rem"><i class="fa fa-cogs"></i> تنظیمات</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <th>1</th>
-                                <td>123123</td>
-                                <td>مهدی آقامحمدی</td>
-                                <td>46474883</td>
-                                <td>iphone 12 pro max</td>
-                                <td>در انتظار تایید</td>
-                                <td class="text-left width-16-rem">
-                                    <a href="{{ route('admin.content.comment.show') }}" class="btn btn-info btn-sm"><i
-                                            class="pl-1 fa fa-eye"></i> نمایش</a>
-                                    <button type="submit" class="btn btn-success btn-sm"><i class="fa fa-check"></i>
-                                        تایید</button>
-                                </td>
+                            @foreach ($comments as $key => $comment)
+                                <tr>
+                                    <th>{{ $key += 1 }}</th>
+                                    <th>{{ Str::limit($comment->body, 10) }}</th>
+                                    <th>{{ $comment->parent_id ? Str::limit($comment->parent->body, 10) : '' }}</th>
+                                    <td>{{ $comment->author_id }}</td>
+                                    <td>{{ $comment->user->fullName }}</td>
+                                    <td>{{ $comment->commentable_id }}</td>
+                                    <td>{{ $comment->commentable->title }}</td>
+                                    <td>{{ $comment->approved ? 'تایید شده' : 'تایید نشده' }}</td>
+                                    <td>
+                                        <label>
+                                            <input id="{{ $comment->id }}" onchange="changeStatus({{ $comment->id }})"
+                                                type="checkbox"
+                                                data-url="{{ route('admin.content.comment.status', $comment->id) }}"
+                                                @if ($comment->status === 1)
+                                            checked
+                            @endif>
+                            </label>
+                            </td>
+                            <td class="text-left width-16-rem">
+                                <a href="{{ route('admin.content.comment.show', $comment->id) }}"
+                                    class="btn btn-info btn-sm"><i class="pl-1 fa fa-eye"></i> نمایش</a>
+                                @if ($comment->approved == 1)
+                                    <a href="{{ route('admin.content.comment.approved', $comment->id) }}"
+                                        class="btn btn-warning btn-sm"><i class="fa fa-clock"></i>
+                                        عدم تایید</a>
+                                @else
+                                    <a href="{{ route('admin.content.comment.approved', $comment->id) }}"
+                                        class="text-white btn btn-success btn-sm"><i class="fa fa-check"></i>
+                                        تایید</a>
+                                @endif
+                            </td>
                             </tr>
-                            <tr>
-                                <th>2</th>
-                                <td>466474</td>
-                                <td>مهدی آقامحمدی</td>
-                                <td>46474883</td>
-                                <td>iphone 12 pro max</td>
-                                <td>تایید شده</td>
-                                <td class="text-left width-16-rem">
-                                    <a href="{{ route('admin.content.comment.show') }}" class="btn btn-info btn-sm"><i
-                                            class="pl-1 fa fa-eye"></i> نمایش</a>
-                                    <button type="submit" class="btn btn-warning btn-sm"><i class="fa fa-clock"></i>
-                                        عدم تایید</button>
-                                </td>
-                            </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </section>
             </section>
         </section>
     </section>
+@endsection
+@section('script')
+    {{-- this is for change status --}}
+    <script type="text/javascript">
+        function changeStatus(id) {
+            let element = $('#' + id);
+            let url = element.attr('data-url');
+            let elementValue = !element.prop('checked');
+            $.ajax({
+                url: url,
+                type: "GET",
+                success: function(response) {
+                    if (response.status) {
+                        if (response.checked) {
+                            element.prop('checked', true);
+                            successToast('نظر مورد نظر با موفقیت فعال شد');
+                        } else {
+                            element.prop('checked', false);
+                            successToast('نظر مورد نظر با موفقیت غیر فعال شد');
+                        }
+                    } else {
+                        element.prop('checked', elementValue);
+                        errorToast('هنگام ویرایش مشکلی رخ داده است');
+                    }
+                },
+                error: function() {
+                    element.prop('checked', elementValue);
+                    errorToast('ارتباط برقرار نشد');
+                }
+            });
+
+            function successToast(msg) {
+                var successToastTag = '<section class="toast" data-delay="5000">\n' +
+                    '<section class="py-3 text-white toast-body d-flex bg-success">\n' +
+                    '<strong class="ml-auto text-right ">' + msg + '</strong>\n' +
+                    '<button type="submit" class="mr-2 close" data-dismiss="toast" aria-label="Close">\n' +
+                    '<span aria-hidden="true">&times;</span>\n' +
+                    '</button>\n' +
+                    '</section>\n' +
+                    '</section>';
+                $('.toast-wrapper').append(successToastTag);
+                $('.toast').toast('show').delay(5000).queue(function() {
+                    $(this).remove();
+                });
+            }
+
+            function errorToast(msg) {
+                var errorToastTag = '<section class="toast" data-delay="5000">\n' +
+                    '<section class="py-3 text-white toast-body d-flex bg-danger">\n' +
+                    '<strong class="ml-auto text-right ">' + msg + '</strong>\n' +
+                    '<button type="submit" class="mr-2 close" data-dismiss="toast" aria-label="Close">\n' +
+                    '<span aria-hidden="true">&times;</span>\n' +
+                    '</button>\n' +
+                    '</section>\n' +
+                    '</section>';
+                $('.toast-wrapper').append(errorToastTag);
+                $('.toast').toast('show').delay(5000).queue(function() {
+                    $(this).remove();
+                });
+            }
+        }
+    </script>
 @endsection
