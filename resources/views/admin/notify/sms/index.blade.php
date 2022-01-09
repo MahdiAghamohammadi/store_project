@@ -18,7 +18,7 @@
                     <h6>اطلاعیه پیامکی</h6>
                 </section>
                 {{-- button and search inout --}}
-                <section class="d-flex justify-content-between align-items-center mt-4 mb-3 pb-2 border-bottom">
+                <section class="pb-2 mt-4 mb-3 d-flex justify-content-between align-items-center border-bottom">
                     <a href="{{ route('admin.notify.sms.create') }}" class="btn btn-info btn-sm">ایجاد اطلاعیه پیامکی</a>
                     <div class="max-width-16-rem">
                         <input class="form-control form-control-sm form-text" type="text" name="" id="" placeholder="جستجو">
@@ -30,25 +30,110 @@
                             <tr>
                                 <th>#</th>
                                 <th>عنوان اطلاعیه</th>
+                                <th>متن پیامک</th>
                                 <th>تاریخ ارسال</th>
-                                <th class="max-width-16-rem text-center"><i class="fa fa-cogs"></i> تنظیمات</th>
+                                <th>وضعیت</th>
+                                <th class="text-center max-width-16-rem"><i class="fa fa-cogs"></i> تنظیمات</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <th>1</th>
-                                <td>فروش ویژه بهاری</td>
-                                <td>24 اردیبهشت 1400</td>
-                                <td class="width-16-rem text-left">
-                                    <a href="#" class="btn btn-info btn-sm"><i class="fa fa-eye pl-1"></i> ویرایش</a>
-                                    <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-trash-alt"></i>
+                            @foreach ($sms as $key => $single_sms)
+                                <tr>
+                                    <th>{{ $key += 1 }}</th>
+                                    <td>{{ $single_sms->title }}</td>
+                                    <td>{{ $single_sms->body }}</td>
+                                    <td>{{ jalaliDate($single_sms->published_at, 'H:i:s Y/m/d') }}</td>
+                                    <td>
+                                        <label>
+                                            <input id="{{ $single_sms->id }}"
+                                                onchange="changeStatus({{ $single_sms->id }})" type="checkbox"
+                                                data-url="{{ route('admin.notify.sms.status', $single_sms->id) }}"
+                                                @if ($single_sms->status === 1)
+                                            checked
+                            @endif>
+                            </label>
+                            </td>
+                            <td class="text-left width-16-rem">
+                                <a href="{{ route('admin.notify.sms.edit', $single_sms->id) }}"
+                                    class="btn btn-info btn-sm"><i class="pl-1 fa fa-eye"></i> ویرایش</a>
+                                <form class="d-inline"
+                                    action="{{ route('admin.notify.sms.destroy', $single_sms->id) }}" method="POST">
+                                    @csrf
+                                    {{ method_field('delete') }}
+                                    <button type="submit" class="delete btn btn-danger btn-sm"><i
+                                            class="fa fa-trash-alt"></i>
                                         حذف</button>
-                                </td>
+                                </form>
+                            </td>
                             </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </section>
             </section>
         </section>
     </section>
+@endsection
+@section('script')
+    {{-- this is for change status --}}
+    <script type="text/javascript">
+        function changeStatus(id) {
+            let element = $('#' + id);
+            let url = element.attr('data-url');
+            let elementValue = !element.prop('checked');
+            $.ajax({
+                url: url,
+                type: "GET",
+                success: function(response) {
+                    if (response.status) {
+                        if (response.checked) {
+                            element.prop('checked', true);
+                            successToast('اعلامیه پیامکی مورد نظر با موفقیت فعال شد');
+                        } else {
+                            element.prop('checked', false);
+                            successToast('اعلامیه پیامکی مورد نظر با موفقیت غیر فعال شد');
+                        }
+                    } else {
+                        element.prop('checked', elementValue);
+                        errorToast('هنگام ویرایش مشکلی رخ داده است');
+                    }
+                },
+                error: function() {
+                    element.prop('checked', elementValue);
+                    errorToast('ارتباط برقرار نشد');
+                }
+            });
+
+            function successToast(msg) {
+                var successToastTag = '<section class="toast" data-delay="5000">\n' +
+                    '<section class="py-3 text-white toast-body d-flex bg-success">\n' +
+                    '<strong class="ml-auto text-right ">' + msg + '</strong>\n' +
+                    '<button type="submit" class="mr-2 close" data-dismiss="toast" aria-label="Close">\n' +
+                    '<span aria-hidden="true">&times;</span>\n' +
+                    '</button>\n' +
+                    '</section>\n' +
+                    '</section>';
+                $('.toast-wrapper').append(successToastTag);
+                $('.toast').toast('show').delay(5000).queue(function() {
+                    $(this).remove();
+                });
+            }
+
+            function errorToast(msg) {
+                var errorToastTag = '<section class="toast" data-delay="5000">\n' +
+                    '<section class="py-3 text-white toast-body d-flex bg-danger">\n' +
+                    '<strong class="ml-auto text-right ">' + msg + '</strong>\n' +
+                    '<button type="submit" class="mr-2 close" data-dismiss="toast" aria-label="Close">\n' +
+                    '<span aria-hidden="true">&times;</span>\n' +
+                    '</button>\n' +
+                    '</section>\n' +
+                    '</section>';
+                $('.toast-wrapper').append(errorToastTag);
+                $('.toast').toast('show').delay(5000).queue(function() {
+                    $(this).remove();
+                });
+            }
+        }
+    </script>
+    @include('admin.alerts.sweetalerts.delete-confirm', ['className' => 'delete'])
 @endsection
