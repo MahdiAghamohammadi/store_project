@@ -24,8 +24,8 @@
                     <a href="{{ route('admin.content.post.index') }}" class="btn btn-info btn-sm">بازگشت</a>
                 </section>
                 <section>
-                    <form action="{{ route('admin.content.post.update', $post->id) }}" method="POST" enctype="multipart/form-data"
-                        id="form">
+                    <form action="{{ route('admin.content.post.update', $post->id) }}" method="POST"
+                        enctype="multipart/form-data" id="form">
                         @csrf
                         {{ method_field('put') }}
                         <section class="row">
@@ -130,8 +130,9 @@
                                 <div class="form-group">
                                     <label for="">تاریخ انتشار</label>
                                     <input type="text" name="published_at" id="published_at"
-                                        class="form-control form-control-sm d-none">
-                                    <input type="text" id="published_at_view" class="form-control form-control-sm">
+                                        class="form-control form-control-sm d-none" vlaue="{{ $post->published_at }}}}">
+                                    <input type="text" id="published_at_view" class="form-control form-control-sm"
+                                        value="{{ $post->published_at }}">
                                 </div>
                                 @error('published_at')
                                     <span class="p-1 text-white rounded alert_required bg-danger" role="alert">
@@ -158,12 +159,12 @@
                                     </span>
                                 @enderror
                             </section>
-                            <section class="col-12 my-2">
+                            <section class="my-2 col-12">
                                 <div class="form-group">
                                     <label for="summary">خلاصه پست</label>
                                     <textarea name="summary" id="summary" class="form-control form-control-sm" rows="6">
-                                                                        {{ old('summary', $post->summary) }}
-                                                                    </textarea>
+                                                                            {{ old('summary', $post->summary) }}
+                                                                        </textarea>
                                 </div>
                                 @error('summary')
                                     <span class="p-1 text-white rounded alert_required bg-danger" role="alert">
@@ -173,12 +174,12 @@
                                     </span>
                                 @enderror
                             </section>
-                            <section class="col-12 my-2">
+                            <section class="my-2 col-12">
                                 <div class="form-group">
                                     <label for="body">متن پست</label>
                                     <textarea name="body" id="body" class="form-control form-control-sm" rows="6">
-                                                                        {{ old('body', $post->body) }}
-                                                                    </textarea>
+                                                                            {{ old('body', $post->body) }}
+                                                                        </textarea>
                                 </div>
                                 @error('body')
                                     <span class="p-1 text-white rounded alert_required bg-danger" role="alert">
