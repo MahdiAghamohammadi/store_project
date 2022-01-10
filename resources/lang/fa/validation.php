@@ -147,7 +147,7 @@ return [
         "fullname"                  => "نام کامل",
         "postal_code"               => "کد پستی",
         "comment"                   => "نظر",
-        "body"                      => "متن اصلی",
+        "body"                      => "متن",
         "image"                     => "تصویر",
         "photos"                    => "تصاویر",
         "photo"                     => "تصویر",
@@ -163,5 +163,6 @@ return [
         'answer'                    => 'پاسخ',
         'url'                       => 'لینک',
         'parent_id'                 => 'والد',
+        'subject'                   => 'عنوان ایمیل',
     ],
 ];

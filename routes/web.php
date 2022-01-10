@@ -21,7 +21,7 @@ use App\Http\Controllers\Admin\Market\ProductController;
 use App\Http\Controllers\Admin\Market\PropertyController;
 use App\Http\Controllers\Admin\Market\StoreController;
 // Notify
-use App\Http\Controllers\Admin\Notify\EmileController;
+use App\Http\Controllers\Admin\Notify\EmailController;
 use App\Http\Controllers\Admin\Notify\SMSController;
 // Setting
 use App\Http\Controllers\Admin\Setting\SettingController;
@@ -259,14 +259,15 @@ Route::prefix('admin')->namespace('Admin')->group(function () {
     });
     // Notify module
     Route::prefix('notify')->namespace('Notify')->group(function () {
-        // Emile
-        Route::prefix('emile')->group(function () {
-            Route::get('/', [EmileController::class, 'index'])->name('admin.notify.emile.index');
-            Route::get('/create', [EmileController::class, 'create'])->name('admin.notify.emile.create');
-            Route::post('/store', [EmileController::class, 'store'])->name('admin.notify.emile.store');
-            Route::get('/edit/{id}', [EmileController::class, 'edit'])->name('admin.notify.emile.edit');
-            Route::put('/update/{id}', [EmileController::class, 'update'])->name('admin.notify.emile.update');
-            Route::delete('/destroy/{id}', [EmileController::class, 'destroy'])->name('admin.notify.emile.destroy');
+        // Email
+        Route::prefix('email')->group(function () {
+            Route::get('/', [EmailController::class, 'index'])->name('admin.notify.email.index');
+            Route::get('/create', [EmailController::class, 'create'])->name('admin.notify.email.create');
+            Route::post('/store', [EmailController::class, 'store'])->name('admin.notify.email.store');
+            Route::get('/edit/{email}', [EmailController::class, 'edit'])->name('admin.notify.email.edit');
+            Route::put('/update/{email}', [EmailController::class, 'update'])->name('admin.notify.email.update');
+            Route::delete('/destroy/{email}', [EmailController::class, 'destroy'])->name('admin.notify.email.destroy');
+            Route::get('/status/{email}', [EmailController::class, 'status'])->name('admin.notify.email.status');
         });
         // SMS
         Route::prefix('sms')->group(function () {
