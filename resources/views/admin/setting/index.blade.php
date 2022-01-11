@@ -18,7 +18,7 @@
                 </section>
                 {{-- button and search inout --}}
                 <section class="pb-2 mt-4 mb-3 d-flex justify-content-between align-items-center border-bottom">
-                    <a href="#" class="btn btn-info btn-sm disabled">ایجاد تنظیمات جدید</a>
+                    <a class="btn btn-info btn-sm disabled">ایجاد تنظیمات جدید</a>
                     <div class="max-width-16-rem">
                         <input class="form-control form-control-sm form-text" type="text" name="" id="" placeholder="جستجو">
                     </div>
@@ -28,19 +28,24 @@
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>نام ویژگی</th>
-                                <th>مقدار</th>
+                                <th>عنوان سایت</th>
+                                <th>توضیحات سایت</th>
+                                <th>کلمات کلیدی سایت</th>
+                                <th>لوگو سایت</th>
+                                <th>آیکون سایت</th>
                                 <th class="text-center max-width-16-rem"><i class="fa fa-cogs"></i> تنظیمات</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
                                 <th>1</th>
-                                <td>نمایشگر</td>
-                                <td>کالا الکترونیکی</td>
-                                <td class="text-left width-22-rem">
+                                <td>{{ $setting->title }}</td>
+                                <td>{{ $setting->description }}</td>
+                                <td>{{ $setting->keywords }}</td>
+                                <td>{{ $setting->logo }}</td>
+                                <td>{{ $setting->icon }}</td>
+                                <td class="text-left width-8-rem">
                                     <a href="#" class="btn btn-primary btn-sm"><i class="pl-1 fa fa-edit"></i> ویرایش</a>
-                                    <button type="submit" class="btn btn-danger btn-sm disabled"><i class="fa fa-trash-alt"></i> حذف</button>
                                 </td>
                             </tr>
                         </tbody>
