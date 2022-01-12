@@ -76,10 +76,10 @@ class ImageService extends ImageToolsService
     public function deleteIndex($images)
     {
         $directory = public_path($images['directory']);
-        $this->deleteDirectoryAndFlies($directory);
+        $this->deleteDirectoryAndFiles($directory);
     }
 
-    public function deleteDirectoryAndFlies($directory)
+    public function deleteDirectoryAndFiles($directory)
     {
         if (!is_dir($directory)) {
             return false;
@@ -88,7 +88,7 @@ class ImageService extends ImageToolsService
         $files = glob($directory . DIRECTORY_SEPARATOR . '*', GLOB_MARK);
         foreach ($files as $file) {
             if (is_dir($file)) {
-                $this->deleteDirectoryAndFlies($file);
+                $this->deleteDirectoryAndFiles($file);
             } else {
                 unlink($file);
             }

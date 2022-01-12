@@ -91,7 +91,7 @@ class CategoryController extends Controller
         $inputs = $request->all();
         if ($request->hasFile('image')) {
             if (!empty($postCategory->image)) {
-                $imageService->deleteDirectoryAndFlies($postCategory->image['directory']);
+                $imageService->deleteDirectoryAndFiles($postCategory->image['directory']);
             }
             $imageService->setExclusiveDirectory('images' . DIRECTORY_SEPARATOR . 'post-category');
             $result = $imageService->createIndexAndSave($request->file('image'));

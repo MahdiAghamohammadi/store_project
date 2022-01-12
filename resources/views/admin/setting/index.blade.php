@@ -42,10 +42,11 @@
                                 <td>{{ $setting->title }}</td>
                                 <td>{{ $setting->description }}</td>
                                 <td>{{ $setting->keywords }}</td>
-                                <td>{{ $setting->logo }}</td>
-                                <td>{{ $setting->icon }}</td>
+                                <td><img src="{{ asset($setting->logo) }}" width="50" alt="logo"></td>
+                                <td><img src="{{ asset($setting->icon) }}" width="50" alt="icon"></td>
                                 <td class="text-left width-8-rem">
-                                    <a href="#" class="btn btn-primary btn-sm"><i class="pl-1 fa fa-edit"></i> ویرایش</a>
+                                    <a href="{{ route('admin.setting.edit', $setting->id) }}"
+                                        class="btn btn-primary btn-sm"><i class="pl-1 fa fa-edit"></i> ویرایش</a>
                                 </td>
                             </tr>
                         </tbody>

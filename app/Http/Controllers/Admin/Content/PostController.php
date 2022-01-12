@@ -105,7 +105,7 @@ class PostController extends Controller
         $inputs['published_at'] = date("Y-m-d H:i:s", (int) $realTimestampStart);
         if ($request->hasFile('image')) {
             if (!empty($post->image)) {
-                $imageService->deleteDirectoryAndFlies($post->image['directory']);
+                $imageService->deleteDirectoryAndFiles($post->image['directory']);
             }
             $imageService->setExclusiveDirectory('images' . DIRECTORY_SEPARATOR . 'post');
             $result = $imageService->createIndexAndSave($request->file('image'));
