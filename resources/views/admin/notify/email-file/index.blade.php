@@ -57,10 +57,10 @@
                             </label>
                             </td>
                             <td class="text-left width-16-rem">
-                                <a href="{{ route('admin.notify.email.edit', $email->id) }}"
+                                <a href="{{ route('admin.notify.email-file.edit', $file->id) }}"
                                     class="btn btn-info btn-sm"><i class="pl-1 fa fa-edit"></i> ویرایش</a>
                                 <form class="d-inline"
-                                    action="{{ route('admin.notify.email.destroy', $email->id) }}" method="POST">
+                                    action="{{ route('admin.notify.email-file.destroy', $file->id) }}" method="POST">
                                     @csrf
                                     {{ method_field('delete') }}
                                     <button type="submit" class="delete btn btn-danger btn-sm"><i
