@@ -77,7 +77,7 @@
                                         class="d-inline">
                                         @csrf
                                         {{ method_field('delete') }}
-                                        <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-trash-alt"></i>
+                                        <button type="submit" class="btn delete btn-danger btn-sm"><i class="fa fa-trash-alt"></i>
                                             حذف</button>
                                     </form>
                             </td>
