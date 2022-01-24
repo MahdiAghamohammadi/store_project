@@ -31,30 +31,179 @@
                                 <th>#</th>
                                 <th>ایمیل</th>
                                 <th>شماره موبایل</th>
-                                <th>کدملی</th>
                                 <th>نام</th>
                                 <th>نام خوانوادگی</th>
+                                <th>فعال سازی</th>
+                                <th>وضعیت</th>
                                 <th class="text-center max-width-16-rem"><i class="fa fa-cogs"></i> تنظیمات</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <th>1</th>
-                                <td>mahdi@gmail.com</td>
-                                <td>09033028413</td>
-                                <td>4890000000</td>
-                                <td>مهدی</td>
-                                <td>آقامحمدی</td>
-                                <td class="text-left width-16-rem">
-                                    <a href="#" class="btn btn-primary btn-sm"><i class="pl-1 fa fa-edit"></i> ویرایش</a>
-                                    <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-trash-alt"></i>
+                            @foreach ($users as $key => $user)
+                                <tr>
+                                    <th>{{ $key += 1 }}</th>
+                                    <td>{{ $user->email }}</td>
+                                    <td>{{ $user->mobile }}</td>
+                                    <td>{{ $user->first_name }}</td>
+                                    <td>{{ $user->last_name }}</td>
+                                    <td>
+                                        <label>
+                                            <input id="{{ $user->id }}-activation"
+                                                onchange="changeActivation({{ $user->id }})" type="checkbox"
+                                                data-url="{{ route('admin.user.customer.activation', $user->id) }}"
+                                                @if ($user->activation === 1)
+                                            checked
+                            @endif>
+                            </label>
+                            </td>
+                            <td>
+                                <label>
+                                    <input id="{{ $user->id }}" onchange="changeStatus({{ $user->id }})"
+                                        type="checkbox" data-url="{{ route('admin.user.customer.status', $user->id) }}"
+                                        @if ($user->status === 1)
+                                    checked
+                                    @endif>
+                                </label>
+                            </td>
+                            <td class="text-left width-16-rem">
+                                <a href="{{ route('admin.user.customer.edit', $user->id) }}"
+                                    class="btn btn-primary btn-sm"><i class="pl-1 fa fa-edit"></i>
+                                    ویرایش</a>
+                                <form class="d-inline"
+                                    action="{{ route('admin.user.customer.destroy', $user->id) }}" method="POST">
+                                   @csrf
+                                   @method('delete')
+                                    <button type="submit" class="btn delete btn-danger btn-sm"><i class="fa fa-trash-alt"></i>
                                         حذف</button>
-                                </td>
+                                </form>
+                            </td>
                             </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </section>
             </section>
         </section>
     </section>
+@endsection
+@section('script')
+    <script type="text/javascript">
+        // for chnage activation
+        function changeActivation(id) {
+            let element = $('#' + id + '-activation');
+            let url = element.attr('data-url');
+            let elementValue = !element.prop('checked');
+            $.ajax({
+                url: url,
+                type: "GET",
+                success: function(response) {
+                    if (response.activation) {
+                        if (response.checked) {
+                            element.prop('checked', true);
+                            successToast('فعال سازی مشتری با موفقیت انجام شد');
+                        } else {
+                            element.prop('checked', false);
+                            successToast('غیر فعال سازی مشتری با موفقیت انجام شد');
+                        }
+                    } else {
+                        element.prop('checked', elementValue);
+                        errorToast('هنگام ویرایش مشکلی رخ داده است');
+                    }
+                },
+                error: function() {
+                    element.prop('checked', elementValue);
+                    errorToast('ارتباط برقرار نشد');
+                }
+            });
+
+            function successToast(msg) {
+                var successToastTag = '<section class="toast" data-delay="5000">\n' +
+                    '<section class="py-3 text-white toast-body d-flex bg-success">\n' +
+                    '<strong class="ml-auto text-right ">' + msg + '</strong>\n' +
+                    '<button type="submit" class="mr-2 close" data-dismiss="toast" aria-label="Close">\n' +
+                    '<span aria-hidden="true">&times;</span>\n' +
+                    '</button>\n' +
+                    '</section>\n' +
+                    '</section>';
+                $('.toast-wrapper').append(successToastTag);
+                $('.toast').toast('show').delay(5000).queue(function() {
+                    $(this).remove();
+                });
+            }
+
+            function errorToast(msg) {
+                var errorToastTag = '<section class="toast" data-delay="5000">\n' +
+                    '<section class="py-3 text-white toast-body d-flex bg-danger">\n' +
+                    '<strong class="ml-auto text-right ">' + msg + '</strong>\n' +
+                    '<button type="submit" class="mr-2 close" data-dismiss="toast" aria-label="Close">\n' +
+                    '<span aria-hidden="true">&times;</span>\n' +
+                    '</button>\n' +
+                    '</section>\n' +
+                    '</section>';
+                $('.toast-wrapper').append(errorToastTag);
+                $('.toast').toast('show').delay(5000).queue(function() {
+                    $(this).remove();
+                });
+            }
+        }
+        // for change status
+        function changeStatus(id) {
+            let element = $('#' + id);
+            let url = element.attr('data-url');
+            let elementValue = !element.prop('checked');
+            $.ajax({
+                url: url,
+                type: "GET",
+                success: function(response) {
+                    if (response.status) {
+                        if (response.checked) {
+                            element.prop('checked', true);
+                            successToast('مشتری مورد نظر با موفقیت فعال شد');
+                        } else {
+                            element.prop('checked', false);
+                            successToast('مشتری مورد نظر با موفقیت غیر فعال شد');
+                        }
+                    } else {
+                        element.prop('checked', elementValue);
+                        errorToast('هنگام ویرایش مشکلی رخ داده است');
+                    }
+                },
+                error: function() {
+                    element.prop('checked', elementValue);
+                    errorToast('ارتباط برقرار نشد');
+                }
+            });
+
+            function successToast(msg) {
+                var successToastTag = '<section class="toast" data-delay="5000">\n' +
+                    '<section class="py-3 text-white toast-body d-flex bg-success">\n' +
+                    '<strong class="ml-auto text-right ">' + msg + '</strong>\n' +
+                    '<button type="submit" class="mr-2 close" data-dismiss="toast" aria-label="Close">\n' +
+                    '<span aria-hidden="true">&times;</span>\n' +
+                    '</button>\n' +
+                    '</section>\n' +
+                    '</section>';
+                $('.toast-wrapper').append(successToastTag);
+                $('.toast').toast('show').delay(5000).queue(function() {
+                    $(this).remove();
+                });
+            }
+
+            function errorToast(msg) {
+                var errorToastTag = '<section class="toast" data-delay="5000">\n' +
+                    '<section class="py-3 text-white toast-body d-flex bg-danger">\n' +
+                    '<strong class="ml-auto text-right ">' + msg + '</strong>\n' +
+                    '<button type="submit" class="mr-2 close" data-dismiss="toast" aria-label="Close">\n' +
+                    '<span aria-hidden="true">&times;</span>\n' +
+                    '</button>\n' +
+                    '</section>\n' +
+                    '</section>';
+                $('.toast-wrapper').append(errorToastTag);
+                $('.toast').toast('show').delay(5000).queue(function() {
+                    $(this).remove();
+                });
+            }
+        }
+    </script>
+    @include('admin.alerts.sweetalerts.delete-confirm', ['className' => 'delete'])
 @endsection

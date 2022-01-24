@@ -109,8 +109,11 @@ class AdminUserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(User $admin)
+    public function destroy(User $admin, ImageService $imageService)
     {
+        if (!empty($admin->profile_photo_path)) {
+            $imageService->deleteImage($admin->profile_photo_path);
+        }
         $admin->delete();
         return redirect()->route('admin.user.admin-user.index')->with('swal-success', 'کاربر ادمین مورد نظر با موفقیت حذف شد.');
     }

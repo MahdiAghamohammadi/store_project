@@ -165,5 +165,6 @@ return [
         'parent_id'                 => 'والد',
         'subject'                   => 'عنوان ایمیل',
         'keywords'                  => 'کلمات کلیدی',
+        'profile_photo_path'        => 'پروفایل',
     ],
 ];
