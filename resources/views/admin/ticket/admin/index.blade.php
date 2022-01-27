@@ -42,8 +42,9 @@
                                     <td>{{ $admin->email }}</td>
                                     <td class="text-left width-8-rem">
                                         <a href="{{ route('admin.ticket.admin.set', $admin->id) }}"
-                                            class="btn btn-info btn-sm"><i class="pl-1 fa fa-check"></i>
-                                        {{ $admin->ticketAdmin == null ? 'اضافه' : 'حذف'}}
+                                            class="btn btn-{{ $admin->ticketAdmin == null ? 'success' : 'danger' }} btn-sm"><i
+                                                class="pl-1 fa fa-check"></i>
+                                            {{ $admin->ticketAdmin == null ? 'اضافه' : 'حذف' }}
                                         </a>
                                     </td>
                                 </tr>

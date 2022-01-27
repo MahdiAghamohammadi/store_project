@@ -23,23 +23,24 @@
                     <a href="{{ route('admin.ticket.index') }}" class="btn btn-info btn-sm">بازگشت</a>
                 </section>
 
-                <section class="card mb-3">
-                    <section class="card-header text-white bg-primary">
-                        مهدی آقامحمدی-123123
+                <section class="mb-3 card">
+                    <section class="text-white card-header bg-primary">
+                        {{ $ticket->user->fullName }} - {{ $ticket->user->id }}
                     </section>
                     <section class="card-body">
-                        <h5 class="card-title">عدم دسترسی به بخش سبد خرید</h5>
-                        <p class="card-text">کالا به سبد خرید اضافه کردم به ولی برای نمایش به سبد خرید نمیره</p>
+                        <h5 class="card-title">موضوع: {{ $ticket->subject }}</h5>
+                        <p class="card-text">{{ $ticket->description }}</p>
                     </section>
                 </section>
-
                 <section>
-                    <form action="" method="">
+                    <form action="{{ route('admin.ticket.answer', $ticket->id) }}" method="POST">
+                        @csrf
                         <section class="row">
                             <section class="col-12 ">
                                 <div class="form-group">
-                                    <label for="">پاسخ تیکت</label>
-                                    <textarea name="" class="form-control form-control-sm" id="" rows="4"></textarea>
+                                    <label for="description">پاسخ تیکت</label>
+                                    <textarea name="description" class="form-control form-control-sm" id="description"
+                                        rows="4">{{ old('description') }}</textarea>
                                 </div>
                             </section>
                             <section class="col-12">

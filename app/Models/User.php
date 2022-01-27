@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Ticket\Ticket;
 use App\Models\Ticket\TicketAdmin;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -73,5 +74,10 @@ class User extends Authenticatable
     public function ticketAdmin()
     {
         return $this->hasOne(TicketAdmin::class);
+    }
+
+    public function tickets()
+    {
+        return $this->hasMany(Ticket::class);
     }
 }
