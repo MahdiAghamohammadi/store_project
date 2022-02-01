@@ -31,6 +31,15 @@ class RoleRequest extends FormRequest
                 'description' => 'required|max:200|min:2',
                 'permissions.*' => 'exists:permissions,id',
             ];
+        } elseif ($route->getname() === 'admin.user.role.update') {
+            return [
+                'name' => 'required|max:120|min:2',
+                'description' => 'required|max:200|min:2',
+            ];
+        } elseif ($route->getname() === 'admin.user.role.permission-update') {
+            return [
+                'permissions.*' => 'exists:permissions,id',
+            ];
         }
     }
 

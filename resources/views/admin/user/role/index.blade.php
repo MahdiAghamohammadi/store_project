@@ -41,8 +41,9 @@
                                 <th>{{ $key += 1 }}</th>
                                 <td>{{ $role->name }}</td>
                                 <td>
-                                    @if(empty($role->permissions()->get()->toArray()))
-                                        <span class="text-danger">برای این نقش هیچ سطح دسترسی ای تعریف نشده است</span>
+                                    @if (empty($role->permissions()->get()->toArray()))
+                                        <span class="text-danger">برای این نقش هیچ سطح دسترسی ای تعریف نشده
+                                                است</span>
                                     @else
                                         @foreach ($role->permissions as $permission)
                                             {{ $permission->name }} <br>
@@ -50,13 +51,21 @@
                                     @endif
                                 </td>
                                 <td class="text-left width-22-rem">
-                                    <a href="#" class="btn btn-success btn-sm"><i class="pl-1 fa fa-user-graduate"></i>
+                                    <a href="{{ route('admin.user.role.permission-form', $role->id) }}"
+                                       class="btn btn-success btn-sm"><i class="pl-1 fa fa-user-graduate"></i>
                                         دسترسی ها</a>
-                                    <a href="#" class="btn btn-primary btn-sm"><i class="pl-1 fa fa-edit"></i>
+                                    <a href="{{ route('admin.user.role.edit', $role->id) }}"
+                                       class="btn btn-primary btn-sm"><i class="pl-1 fa fa-edit"></i>
                                         ویرایش</a>
-                                    <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-trash-alt"></i>
-                                        حذف
-                                    </button>
+                                    <form class="d-inline" action="{{ route('admin.user.role.destroy', $role->id) }}"
+                                          method="post">
+                                        @csrf
+                                        {{ method_field('delete') }}
+                                        <button type="submit" class="btn delete btn-danger btn-sm"><i
+                                                class="fa fa-trash-alt"></i>
+                                            حذف
+                                        </button>
+                                    </form>
                                 </td>
                             </tr>
                         @endforeach
@@ -66,4 +75,7 @@
             </section>
         </section>
     </section>
+@endsection
+@section('script')
+    @include('admin.alerts.sweetalerts.delete-confirm', ['className' => 'delete'])
 @endsection
