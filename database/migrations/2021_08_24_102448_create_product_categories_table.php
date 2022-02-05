@@ -18,7 +18,7 @@ class CreateProductCategoriesTable extends Migration
             $table->string('name');
             $table->text('description');
             $table->string('slug')->unique()->nullable();
-            $table->text('img')->nullable();
+            $table->text('image')->nullable();
             $table->tinyInteger('status')->default(0);
             $table->tinyInteger('show_in_menu')->default(0);
             $table->string('tags');

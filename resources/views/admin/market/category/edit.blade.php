@@ -1,6 +1,6 @@
 @extends('admin.layouts.master')
 @section('head-tag')
-    <title>ایجاد دسته بندی</title>
+    <title>ویرایش دسته بندی</title>
 @endsection
 @section('content')
     <nav aria-label="breadcrumb">
@@ -8,7 +8,7 @@
             <li class="breadcrumb-item font-size-12"><a href="#">خانه</a></li>
             <li class="breadcrumb-item font-size-12"><a href="#">بخش فروش</a></li>
             <li class="breadcrumb-item font-size-12"><a href="#">دسته بندی</a></li>
-            <li class="breadcrumb-item font-size-12 active" aria-current="page"> ایجاد دسته بندی</li>
+            <li class="breadcrumb-item font-size-12 active" aria-current="page"> ویرایش دسته بندی</li>
         </ol>
     </nav>
     <section class="row">
@@ -16,22 +16,23 @@
             <section class="main-body-container">
                 {{-- header --}}
                 <section class="main-body-container-header">
-                    <h6>ایجاد دسته بندی</h6>
+                    <h6>ویرایش دسته بندی</h6>
                 </section>
                 {{-- button and search inout --}}
                 <section class="pb-2 mt-4 mb-3 d-flex justify-content-between align-items-center border-bottom">
                     <a href="{{ route('admin.market.category.index') }}" class="btn btn-info btn-sm">بازگشت</a>
                 </section>
                 <section>
-                    <form id="form" action="{{ route('admin.market.category.store') }}" method="post"
-                        enctype="multipart/form-data">
+                    <form id="form" action="{{ route('admin.market.category.update', $productCategory->id) }}"
+                        method="post" enctype="multipart/form-data">
                         @csrf
+                        @method('PUT')
                         <section class="row">
                             <section class="my-2 col-12 col-md-6">
                                 <div class="form-group">
                                     <label for="name">نام دسته</label>
                                     <input type="text" name="name" id="name" class="form-control form-control-sm"
-                                        value="{{ old('name') }}">
+                                        value="{{ old('name', $productCategory->name) }}">
                                 </div>
                                 @error('name')
                                     <span class="p-1 text-white rounded alert_required bg-danger" role="alert">
@@ -47,7 +48,7 @@
                                     <select name="parent_id" id="parent_id" class="form-control form-control-sm">
                                         <option value="">دسته اصلی</option>
                                         @foreach ($categories as $category)
-                                            <option value="{{ $category->id }}" @if (old('parent_id') == $category->id) selected @endif>
+                                            <option value="{{ $category->id }}" @if (old('parent_id', $productCategory->parent_id) == $category->id) selected @endif>
                                                 {{ $category->name }}</option>
                                         @endforeach
                                     </select>
@@ -64,7 +65,7 @@
                                 <div class="form-group">
                                     <label for="tags">تگ ها</label>
                                     <input type="hidden" name="tags" id="tags" class="form-control form-control-sm"
-                                        value="{{ old('tags') }}">
+                                        value="{{ old('tags', $productCategory->tags) }}">
                                     <select class="select2 form-control form-control-sm" id="select_tags" multiple>
 
                                     </select>
@@ -81,8 +82,8 @@
                                 <div class="form-group">
                                     <label for="status">وضعیت</label>
                                     <select name="status" id="status" class="form-control form-control-sm">
-                                        <option value="0" @if (old('status') == 0) selected @endif>غیرفعال</option>
-                                        <option value="1" @if (old('status') == 1) selected @endif>فعال</option>
+                                        <option value="0" @if (old('status', $productCategory->status) == 0) selected @endif>غیرفعال</option>
+                                        <option value="1" @if (old('status', $productCategory->status) == 1) selected @endif>فعال</option>
                                     </select>
                                 </div>
                                 @error('status')
@@ -97,8 +98,8 @@
                                 <div class="form-group">
                                     <label for="show_in_menu">نمایش در منو</label>
                                     <select name="show_in_menu" id="show_in_menu" class="form-control form-control-sm">
-                                        <option value="0" @if (old('show_in_menu') == 0) selected @endif>غیرفعال</option>
-                                        <option value="1" @if (old('show_in_menu') == 1) selected @endif>فعال</option>
+                                        <option value="0" @if (old('show_in_menu', $productCategory->show_in_menu) == 0) selected @endif>غیرفعال</option>
+                                        <option value="1" @if (old('show_in_menu', $productCategory->show_in_menu) == 1) selected @endif>فعال</option>
                                     </select>
                                 </div>
                                 @error('show_in_menu')
@@ -121,13 +122,32 @@
                                         </strong>
                                     </span>
                                 @enderror
+                                <section class="row">
+                                    @php
+                                        $number = 1;
+                                    @endphp
+                                    @foreach ($productCategory->image['indexArray'] as $key => $value)
+                                        <section class="col-md-{{ 6 / $number }}">
+                                            <div class="form-check">
+                                                <input type="radio" class="form-check-input" name="currentImage"
+                                                    id="{{ $number }}" value="{{ $key }}"
+                                                    @if ($productCategory->image['currentImage'] == $key) checked @endif>
+                                                <label for="{{ $number }}" class="mx-2 form-check-label"><img
+                                                        src="{{ asset($value) }}" class="w-100"></label>
+                                            </div>
+                                        </section>
+                                        @php
+                                            $number++;
+                                        @endphp
+                                    @endforeach
+                                </section>
                             </section>
                             <section class="my-2 col-12">
                                 <div class="form-group">
                                     <label for="description">توضیحات</label>
                                     <textarea name="description" id="description" class="form-control form-control-sm"
                                         rows="6">
-                                            {{ old('description') }}
+                                            {{ old('description', $productCategory->description) }}
                                             </textarea>
                                 </div>
                                 @error('description')
