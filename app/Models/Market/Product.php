@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class ProductCategory extends Model
+class Product extends Model
 {
     use HasFactory, SoftDeletes, Sluggable;
 
@@ -20,21 +20,17 @@ class ProductCategory extends Model
         ];
     }
 
-    public function parent()
+    public function category()
     {
-        return $this->belongsTo($this, 'parent_id')->with('parent');
+        return $this->belongsTo(ProductCategory::class);
     }
 
-    public function children()
+    public function brand()
     {
-        return $this->hasMany($this, 'parent_id')->with('children');
+        return $this->belongsTo(Brand::class);
     }
 
-    public function products()
-    {
-        return $this->hasMany(Product::class);
-    }
 
     protected $casts = ['image' => 'array'];
-    protected $fillable = ['name', 'description', 'slug', 'image', 'status', 'tags', 'show_in_menu', 'parent_id'];
+    protected $fillable = ['name', 'introduction', 'slug', 'image', 'status', 'tags', 'weight', 'length', 'width', 'height', 'price', 'marketable', 'sold_number', 'frozen_number', 'marketable_number', 'brand_id', 'category_id', 'published_at'];
 }

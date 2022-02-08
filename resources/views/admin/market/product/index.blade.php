@@ -32,74 +32,41 @@
                                 <th>نام کالا</th>
                                 <th>تصویر کالا</th>
                                 <th>قیمت</th>
-                                <th>وزن</th>
                                 <th>دسته</th>
-                                <th>فرم</th>
                                 <th class="text-center max-width-16-rem"><i class="fa fa-cogs"></i> تنظیمات</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <th>1</th>
-                                <td>لپ تاپ اپل</td>
-                                <td><img src="{{ asset('admin-assets/images/avatar-2.jpg') }}" alt="macbook"
-                                        class="max-height-2rem"></td>
-                                <td>25,000,000 تومان</td>
-                                <td>1 کیلوگرم</td>
-                                <td>لوازم الکترونیکی</td>
-                                <td>لپ تاپ</td>
-                                <td class="text-left width-16-rem">
-                                    <div class="dropdown">
-                                        <a href="" class="btn btn-success btn-sm btn-block dropdown-toggle"
-                                            id="dropdownMenuLink" data-toggle="dropdown" aria-expanded="false"
-                                            role="button">
-                                            <i class="fas fa-tools"></i> عملیات
-                                        </a>
-                                        <div class="dropdown-menu" aria-label="dropdownMenuLink">
-                                            <a href="" class="dropdown-item text-right"><i class="fas fa-images">
-                                                    گالری</i></a>
-                                            <a href="" class="dropdown-item text-right"><i class="fas fa-list-ul"> فرم
-                                                    کالا</i></a>
-                                            <a href="" class="dropdown-item text-right"><i class="fas fa-edit">
-                                                    ویرایش</i></a>
-                                            <a href="" class="dropdown-item text-right"><i class="fas fa-trash-alt">
-                                                    حذف</i></a>
+                            @foreach ($products as $key => $product)
+                                <tr>
+                                    <th>{{ $key += 1 }}</th>
+                                    <td>{{ $product->name }}</td>
+                                    <td>
+                                        <img src="{{ asset($product->image) }}" alt="" class="max-height-2rem">
+                                    </td>
+                                    <td>{{ $product->price }} تومان</td>
+                                    <td>{{ $product->category->name }}</td>
+                                    <td class="text-left width-16-rem">
+                                        <div class="dropdown">
+                                            <a href="" class="btn btn-success btn-sm btn-block dropdown-toggle"
+                                                id="dropdownMenuLink" data-toggle="dropdown" aria-expanded="false"
+                                                role="button">
+                                                <i class="fas fa-tools"></i> عملیات
+                                            </a>
+                                            <div class="dropdown-menu" aria-label="dropdownMenuLink">
+                                                <a href="" class="text-right dropdown-item"><i class="fas fa-images">
+                                                        گالری</i></a>
+                                                <a href="" class="text-right dropdown-item"><i class="fas fa-list-ul"> فرم
+                                                        کالا</i></a>
+                                                <a href="" class="text-right dropdown-item"><i class="fas fa-edit">
+                                                        ویرایش</i></a>
+                                                <a href="" class="text-right dropdown-item"><i class="fas fa-trash-alt">
+                                                        حذف</i></a>
+                                            </div>
                                         </div>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>2</th>
-                                <td>نمایشگر asus</td>
-                                <td><img src="{{ asset('admin-assets/images/avatar-2.jpg') }}" alt="ausu monitor"
-                                        class="max-height-2rem"></td>
-                                <td>12,000,000 تومان</td>
-                                <td>4 کیلوگرم</td>
-                                <td>لوازم الکترونیکی</td>
-                                <td>نمایشگر</td>
-                                <td class="text-left width-16-rem">
-                                    <div class="dropdown">
-                                        <a href="" class="btn btn-success btn-sm btn-block dropdown-toggle"
-                                            id="dropdownMenuLink" data-toggle="dropdown" aria-expanded="false"
-                                            role="button">
-                                            <i class="fas fa-tools"></i> عملیات
-                                        </a>
-                                        <div class="dropdown-menu" aria-label="dropdownMenuLink">
-                                            <a href="" class="dropdown-item text-right"><i class="fas fa-images">
-                                                    گالری</i></a>
-                                            <a href="" class="dropdown-item text-right"><i class="fas fa-list-ul"> فرم
-                                                    کالا</i></a>
-                                            <a href="" class="dropdown-item text-right"><i class="fas fa-edit">
-                                                    ویرایش</i></a>
-                                            <form action="" method="POST">
-                                                <button type="submit" class="dropdown-item text-right"><i
-                                                        class="fas fa-trash-alt">
-                                                        حذف</i></button>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
+                                    </td>
+                                </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </section>
