@@ -30,6 +30,11 @@ class Product extends Model
         return $this->belongsTo(Brand::class);
     }
 
+    public function metas()
+    {
+        return $this->hasMany(ProductMeta::class);
+    }
+
 
     protected $casts = ['image' => 'array'];
     protected $fillable = ['name', 'introduction', 'slug', 'image', 'status', 'tags', 'weight', 'length', 'width', 'height', 'price', 'marketable', 'sold_number', 'frozen_number', 'marketable_number', 'brand_id', 'category_id', 'published_at'];

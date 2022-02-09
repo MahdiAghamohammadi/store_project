@@ -130,7 +130,7 @@
                                 <div class="form-group">
                                     <label for="">تاریخ انتشار</label>
                                     <input type="text" name="published_at" id="published_at"
-                                        class="form-control form-control-sm d-none" vlaue="{{ $post->published_at }}}}">
+                                        class="form-control form-control-sm d-none" vlaue="{{ $post->published_at }}">
                                     <input type="text" id="published_at_view" class="form-control form-control-sm"
                                         value="{{ $post->published_at }}">
                                 </div>

@@ -42,7 +42,8 @@
                                     <th>{{ $key += 1 }}</th>
                                     <td>{{ $product->name }}</td>
                                     <td>
-                                        <img src="{{ asset($product->image) }}" alt="" class="max-height-2rem">
+                                        <img src="{{ asset($product->image['indexArray'][$product->image['currentImage']]) }}"
+                                            alt="" width="50px" height="50px">
                                     </td>
                                     <td>{{ $product->price }} تومان</td>
                                     <td>{{ $product->category->name }}</td>
@@ -58,10 +59,18 @@
                                                         گالری</i></a>
                                                 <a href="" class="text-right dropdown-item"><i class="fas fa-list-ul"> فرم
                                                         کالا</i></a>
-                                                <a href="" class="text-right dropdown-item"><i class="fas fa-edit">
+                                                <a href="{{ route('admin.market.product.edit', $product->id) }}"
+                                                    class="text-right dropdown-item"><i class="fas fa-edit">
                                                         ویرایش</i></a>
-                                                <a href="" class="text-right dropdown-item"><i class="fas fa-trash-alt">
-                                                        حذف</i></a>
+                                                <form class="d-inline"
+                                                    action="{{ route('admin.market.product.destroy', $product->id) }}"
+                                                    method="POST">
+                                                    @csrf
+                                                    @method('delete')
+                                                    <button type="submit" class="text-right delete dropdown-item"><i
+                                                            class="fa fa-trash-alt"></i>
+                                                        حذف</button>
+                                                </form>
                                             </div>
                                         </div>
                                     </td>
@@ -73,4 +82,7 @@
             </section>
         </section>
     </section>
+@endsection
+@section('script')
+    @include('admin.alerts.sweetalerts.delete-confirm', ['className' => 'delete'])
 @endsection
