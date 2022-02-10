@@ -243,17 +243,31 @@
                             </section>
                             <section class="py-3 mb-3 col-12 border-bottom border-top">
                                 <section class="row">
-                                    <section class="col-md-3 col-6">
+                                    <section class="my-2 col-md-3 col-6">
                                         <div class="form-group">
                                             <input type="text" name="meta_key[]" id="meta_key"
                                                 class="form-control form-control-sm" placeholder="ویژگی...">
                                         </div>
+                                        @error('meta_key.*')
+                                            <span class="p-1 text-white rounded alert_required bg-danger" role="alert">
+                                                <strong>
+                                                    {{ $message }}
+                                                </strong>
+                                            </span>
+                                        @enderror
                                     </section>
-                                    <section class="col-md-3 col-6">
+                                    <section class="my-2 col-md-3 col-6">
                                         <div class="form-group">
                                             <input type="text" name="meta_value[]" id="meta_value"
                                                 class="form-control form-control-sm" placeholder="مقدار...">
                                         </div>
+                                        @error('meta_value.*')
+                                            <span class="p-1 text-white rounded alert_required bg-danger" role="alert">
+                                                <strong>
+                                                    {{ $message }}
+                                                </strong>
+                                            </span>
+                                        @enderror
                                     </section>
                                 </section>
                                 <section>

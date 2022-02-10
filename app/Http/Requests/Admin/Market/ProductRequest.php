@@ -39,6 +39,8 @@ class ProductRequest extends FormRequest
                 'brand_id' => 'nullable|min:1|regex:/^[0-9]+$/u|exists:brands,id',
                 'category_id' => 'nullable|min:1|regex:/^[0-9]+$/u|exists:product_categories,id',
                 'published_at' => 'required|numeric',
+                'meta_key.*' => 'required',
+                'meta_value.*' => 'required',
             ];
         } else {
             return [
@@ -70,6 +72,8 @@ class ProductRequest extends FormRequest
             'width' => 'عرض کالا',
             'height' => 'ارتفاع کالا',
             'introduction' => 'توضیحات کالا',
+            'meta_key.*' => 'ویژگی',
+            'meta_value.*' => 'مقدار',
         ];
     }
 }
