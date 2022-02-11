@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\AdminDashboardController;
+
 // Content
 use App\Http\Controllers\Admin\Content\CategoryController as ContentCategoryController;
 use App\Http\Controllers\Admin\Content\CommentController as ContentCommentController;
@@ -8,6 +9,7 @@ use App\Http\Controllers\Admin\Content\FAQController;
 use App\Http\Controllers\Admin\Content\MenuController;
 use App\Http\Controllers\Admin\Content\PageController;
 use App\Http\Controllers\Admin\Content\PostController;
+
 // Market
 use App\Http\Controllers\Admin\Market\BrandController;
 use App\Http\Controllers\Admin\Market\CategoryController;
@@ -18,19 +20,24 @@ use App\Http\Controllers\Admin\Market\GalleyController;
 use App\Http\Controllers\Admin\Market\OrderController;
 use App\Http\Controllers\Admin\Market\PaymentController;
 use App\Http\Controllers\Admin\Market\ProductController;
+use App\Http\Controllers\Admin\Market\ProductColorController;
 use App\Http\Controllers\Admin\Market\PropertyController;
 use App\Http\Controllers\Admin\Market\StoreController;
+
 // Notify
 use App\Http\Controllers\Admin\Notify\EmailController;
 use App\Http\Controllers\Admin\Notify\EmailFileController;
 use App\Http\Controllers\Admin\Notify\SMSController;
+
 // Setting
 use App\Http\Controllers\Admin\Setting\SettingController;
+
 // Ticket
 use App\Http\Controllers\Admin\Ticket\TicketAdminController;
 use App\Http\Controllers\Admin\Ticket\TicketCategoryController;
 use App\Http\Controllers\Admin\Ticket\TicketController;
 use App\Http\Controllers\Admin\Ticket\TicketPriorityController;
+
 // User
 use App\Http\Controllers\Admin\User\AdminUserController;
 use App\Http\Controllers\Admin\User\CustomerController;
@@ -135,6 +142,11 @@ Route::prefix('admin')->namespace('Admin')->group(function () {
             Route::get('/edit/{product}', [ProductController::class, 'edit'])->name('admin.market.product.edit');
             Route::put('/update/{product}', [ProductController::class, 'update'])->name('admin.market.product.update');
             Route::delete('/destroy/{product}', [ProductController::class, 'destroy'])->name('admin.market.product.destroy');
+            // Product color
+            Route::get('/color/{product}', [ProductColorController::class, 'index'])->name('admin.market.color.index');
+            Route::get('/color/{product}/create', [ProductColorController::class, 'create'])->name('admin.market.color.create');
+            Route::post('/color/{product}/store', [ProductColorController::class, 'store'])->name('admin.market.color.store');
+            Route::delete('/color/destroy/{product}/{productColor}', [ProductColorController::class, 'destroy'])->name('admin.market.color.destroy');
             // Gallery
             Route::get('/galley', [GalleyController::class, 'index'])->name('admin.market.galley.index');
             Route::post('/galley/store', [GalleyController::class, 'store'])->name('admin.market.galley.store');
