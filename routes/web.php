@@ -16,7 +16,7 @@ use App\Http\Controllers\Admin\Market\CategoryController;
 use App\Http\Controllers\Admin\Market\CommentController;
 use App\Http\Controllers\Admin\Market\DeliveryController;
 use App\Http\Controllers\Admin\Market\DiscountController;
-use App\Http\Controllers\Admin\Market\GalleyController;
+use App\Http\Controllers\Admin\Market\GalleryController;
 use App\Http\Controllers\Admin\Market\OrderController;
 use App\Http\Controllers\Admin\Market\PaymentController;
 use App\Http\Controllers\Admin\Market\ProductController;
@@ -148,9 +148,10 @@ Route::prefix('admin')->namespace('Admin')->group(function () {
             Route::post('/color/{product}/store', [ProductColorController::class, 'store'])->name('admin.market.color.store');
             Route::delete('/color/destroy/{product}/{productColor}', [ProductColorController::class, 'destroy'])->name('admin.market.color.destroy');
             // Gallery
-            Route::get('/galley', [GalleyController::class, 'index'])->name('admin.market.galley.index');
-            Route::post('/galley/store', [GalleyController::class, 'store'])->name('admin.market.galley.store');
-            Route::delete('/galley/destroy/{id}', [GalleyController::class, 'destroy'])->name('admin.market.galley.destroy');
+            Route::get('/gallery/{product}', [GalleryController::class, 'index'])->name('admin.market.gallery.index');
+            Route::get('/gallery/create/{product}', [GalleryController::class, 'create'])->name('admin.market.gallery.create');
+            Route::post('/gallery/store/{product}', [GalleryController::class, 'store'])->name('admin.market.gallery.store');
+            Route::delete('/gallery/destroy/{product}/{gallery}', [GalleryController::class, 'destroy'])->name('admin.market.gallery.destroy');
         });
         // Property
         Route::prefix('property')->group(function () {
