@@ -30,25 +30,43 @@
                             <tr>
                                 <th>#</th>
                                 <th>عنوان فرم</th>
-                                <th>فرم والد</th>
+                                <th>واحد اندازه گیری</th>
+                                <th>دسته والد</th>
                                 <th class="text-center max-width-16-rem"><i class="fa fa-cogs"></i> تنظیمات</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <th>1</th>
-                                <td>نمایشگر</td>
-                                <td>کالا الکترونیکی</td>
-                                <td class="text-left width-22-rem">
-                                    <a href="#" class="btn btn-warning btn-sm"><i class="pl-1 fa fa-edit"></i> ویژگی ها</a>
-                                    <a href="#" class="btn btn-primary btn-sm"><i class="pl-1 fa fa-edit"></i> ویرایش</a>
-                                    <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-trash-alt"></i> حذف</button>
-                                </td>
-                            </tr>
+                            @foreach ($category_attributes as $key => $category_attribute)
+                                <tr>
+                                    <th>{{ $key += 1 }}</th>
+                                    <td>{{ $category_attribute->name }}</td>
+                                    <td>{{ $category_attribute->unit }}</td>
+                                    <td>{{ $category_attribute->category->name }}</td>
+                                    <td class="text-left width-22-rem">
+                                        <a href="#" class="btn btn-warning btn-sm"><i class="pl-1 fa fa-edit"></i> ویژگی
+                                            ها</a>
+                                        <a href="{{ route('admin.market.property.edit', $category_attribute->id) }}"
+                                            class="btn btn-primary btn-sm"><i class="pl-1 fa fa-edit"></i>
+                                            ویرایش</a>
+                                        <form class="d-inline"
+                                            action="{{ route('admin.market.property.destroy', $category_attribute->id) }}"
+                                            method="POST">
+                                            @csrf
+                                            @method('delete')
+                                            <button type="submit" class="btn delete btn-danger btn-sm"><i
+                                                    class="fa fa-trash-alt"></i>
+                                                حذف</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </section>
             </section>
         </section>
     </section>
+@endsection
+@section('script')
+    @include('admin.alerts.sweetalerts.delete-confirm', ['className' => 'delete'])
 @endsection
