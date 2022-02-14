@@ -1,13 +1,13 @@
 @extends('admin.layouts.master')
 @section('head-tag')
-    <title>فرم کالا</title>
+    <title>مقدار فرم کالا</title>
 @endsection
 @section('content')
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item font-size-12"> <a href="#">خانه</a></li>
             <li class="breadcrumb-item font-size-12"> <a href="#">بخش فروش</a></li>
-            <li class="breadcrumb-item font-size-12 active" aria-current="page"> فرم کالا</li>
+            <li class="breadcrumb-item font-size-12 active" aria-current="page"> مقدار فرم کالا</li>
         </ol>
     </nav>
     <section class="row">
@@ -15,11 +15,12 @@
             <section class="main-body-container">
                 {{-- header --}}
                 <section class="main-body-container-header">
-                    <h6>فرم کالا</h6>
+                    <h6>مقدار فرم کالا</h6>
                 </section>
                 {{-- button and search inout --}}
                 <section class="pb-2 mt-4 mb-3 d-flex justify-content-between align-items-center border-bottom">
-                    <a href="{{ route('admin.market.property.create') }}" class="btn btn-info btn-sm">ایجاد فرم جدید</a>
+                    <a href="{{ route('admin.market.value.create', $attribute->id) }}" class="btn btn-info btn-sm">ایجاد
+                        مقدار فرم جدید</a>
                     <div class="max-width-16-rem">
                         <input class="form-control form-control-sm form-text" type="text" name="" id="" placeholder="جستجو">
                     </div>
@@ -29,29 +30,26 @@
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>عنوان فرم</th>
-                                <th>واحد اندازه گیری</th>
-                                <th>دسته والد</th>
+                                <th>نام فرم</th>
+                                <th>نام محصول</th>
+                                <th>مقدار</th>
+                                <th>میزان افزایش قیمت</th>
                                 <th class="text-center max-width-16-rem"><i class="fa fa-cogs"></i> تنظیمات</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($category_attributes as $key => $category_attribute)
+                            @foreach ($attribute->values as $key => $value)
                                 <tr>
                                     <th>{{ $key += 1 }}</th>
-                                    <td>{{ $category_attribute->name }}</td>
-                                    <td>{{ $category_attribute->unit }}</td>
-                                    <td>{{ $category_attribute->category->name }}</td>
+                                    <td>{{ $attribute->name }}</td>
+                                    <td>{{ $value->product->name }}</td>
+                                    <td>{{ $value->value }}</td>
+                                    <td>{{ $value->value }}</td>
+                                    <td>{{ $value->type }}</td>
                                     <td class="text-left width-22-rem">
-                                        <a href="{{ route('admin.market.value.index', $category_attribute->id) }}"
-                                            class="btn btn-warning btn-sm"><i class="pl-1 fa fa-edit"></i> ویژگی
-                                            ها</a>
-                                        <a href="{{ route('admin.market.property.edit', $category_attribute->id) }}"
-                                            class="btn btn-primary btn-sm"><i class="pl-1 fa fa-edit"></i>
+                                        <a href="" class="btn btn-primary btn-sm"><i class="pl-1 fa fa-edit"></i>
                                             ویرایش</a>
-                                        <form class="d-inline"
-                                            action="{{ route('admin.market.property.destroy', $category_attribute->id) }}"
-                                            method="POST">
+                                        <form class="d-inline" action="" method="POST">
                                             @csrf
                                             @method('delete')
                                             <button type="submit" class="btn delete btn-danger btn-sm"><i

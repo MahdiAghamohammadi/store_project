@@ -45,6 +45,11 @@ class Product extends Model
         return $this->hasMany(Gallery::class);
     }
 
+    public function values()
+    {
+        return $this->hasMany(CategoryValue::class);
+    }
+
     protected $casts = ['image' => 'array'];
     protected $fillable = ['name', 'introduction', 'slug', 'image', 'status', 'tags', 'weight', 'length', 'width', 'height', 'price', 'marketable', 'sold_number', 'frozen_number', 'marketable_number', 'brand_id', 'category_id', 'published_at'];
 }
