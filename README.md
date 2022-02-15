@@ -17,4 +17,4 @@
 2. run `composer install` in root directory
 3. create `laravel_project` database or edit `.env` file
 4. run `php artisan migrate` to create tables in your database
-5. run `php artisan serve` and open [https://127.0.0.1:8000/admin] in your browser to see admin panel
+5. run `php artisan serve` and open [http://127.0.0.1:8000/admin](http://127.0.0.1:8000/admin) in your browser to see admin panel
