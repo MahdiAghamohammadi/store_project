@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Admin\Market;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\Market\CategoryValueRequest;
 use App\Models\Market\CategoryAttribute;
+use App\Models\Market\CategoryValue;
 use Illuminate\Http\Request;
 
 class PropertyValueController extends Controller
@@ -23,9 +25,9 @@ class PropertyValueController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(CategoryAttribute $attribute)
     {
-        //
+        return view('admin.market.property.value.create', compact('attribute'));
     }
 
     /**
@@ -34,9 +36,13 @@ class PropertyValueController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CategoryValueRequest $request, CategoryAttribute $attribute)
     {
-        //
+        $inputs = $request->all();
+        $inputs['value'] = json_encode(['value' => $request->value, 'price_increase' => $request->price_increase]);
+        $inputs['category_attribute_id'] = $attribute->id;
+        $value = CategoryValue::create($inputs);
+        return redirect(route('admin.market.value.index', $attribute->id))->with('swal-success', 'مقدار فرم مورد نظر با موفقیت ثبت شد.');
     }
 
     /**
@@ -56,9 +62,9 @@ class PropertyValueController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(CategoryAttribute $attribute, CategoryValue $value)
     {
-        //
+        return view('admin.market.property.value.edit', compact('attribute', 'value'));
     }
 
     /**
@@ -68,9 +74,13 @@ class PropertyValueController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(CategoryValueRequest $request, CategoryAttribute $attribute, CategoryValue $value)
     {
-        //
+        $inputs = $request->all();
+        $inputs['value'] = json_encode(['value' => $request->value, 'price_increase' => $request->price_increase]);
+        $inputs['category_attribute_id'] = $attribute->id;
+        $value->update($inputs);
+        return redirect(route('admin.market.value.index', $attribute->id))->with('swal-success', 'مقدار فرم مورد نظر با موفقیت ویرایش شد.');
     }
 
     /**
@@ -79,8 +89,9 @@ class PropertyValueController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(CategoryAttribute $attribute, CategoryValue $value)
     {
-        //
+        $result = $value->delete();
+        return redirect()->route('admin.market.value.index', $attribute->id)->with('swal-success', 'مقدار مورد نظر با موفقیت حذف شد.');
     }
 }

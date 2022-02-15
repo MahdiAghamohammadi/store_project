@@ -34,6 +34,7 @@
                                 <th>نام محصول</th>
                                 <th>مقدار</th>
                                 <th>میزان افزایش قیمت</th>
+                                <th>نوع</th>
                                 <th class="text-center max-width-16-rem"><i class="fa fa-cogs"></i> تنظیمات</th>
                             </tr>
                         </thead>
@@ -43,13 +44,13 @@
                                     <th>{{ $key += 1 }}</th>
                                     <td>{{ $attribute->name }}</td>
                                     <td>{{ $value->product->name }}</td>
-                                    <td>{{ $value->value }}</td>
-                                    <td>{{ $value->value }}</td>
-                                    <td>{{ $value->type }}</td>
+                                    <td>{{ json_decode($value->value)->value }}</td>
+                                    <td>{{ json_decode($value->value)->price_increase }}</td>
+                                    <td>{{ $value->type == 0 ? 'ساده' : 'انتخابی' }}</td>
                                     <td class="text-left width-22-rem">
-                                        <a href="" class="btn btn-primary btn-sm"><i class="pl-1 fa fa-edit"></i>
+                                        <a href="{{ route('admin.market.value.edit', ['attribute' => $attribute->id, 'value' => $value->id]) }}" class="btn btn-primary btn-sm"><i class="pl-1 fa fa-edit"></i>
                                             ویرایش</a>
-                                        <form class="d-inline" action="" method="POST">
+                                        <form class="d-inline" action="{{ route('admin.market.value.destroy', ['attribute' => $attribute->id, 'value' => $value->id]) }}" method="POST">
                                             @csrf
                                             @method('delete')
                                             <button type="submit" class="btn delete btn-danger btn-sm"><i

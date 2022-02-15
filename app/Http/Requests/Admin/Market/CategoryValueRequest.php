@@ -13,7 +13,7 @@ class CategoryValueRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,17 @@ class CategoryValueRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'value' => 'required|max:120|min:2|regex:/^[ا-یa-zA-Z0-9\-۰-۹ء-ي., ]+$/u',
+            'price_increase' => 'required|numeric',
+            'type' => 'required|numeric|int:0,1',
+            'product_id' => 'nullable|min:1|regex:/^[0-9]+$/u|exists:products,id',
+        ];
+    }
+
+    public function attributes()
+    {
+        return [
+            'value' => 'مقدار',
         ];
     }
 }

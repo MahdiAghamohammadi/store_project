@@ -167,8 +167,8 @@ Route::prefix('admin')->namespace('Admin')->group(function () {
             Route::get('/value/{attribute}', [PropertyValueController::class, 'index'])->name('admin.market.value.index');
             Route::get('/value/create/{attribute}', [PropertyValueController::class, 'create'])->name('admin.market.value.create');
             Route::post('/value/store/{attribute}', [PropertyValueController::class, 'store'])->name('admin.market.value.store');
-            Route::get('/value/edit/{attribute}/{value}', [PropertyValueController::class, 'edit'])->name('admin.market.value.store');
-            Route::put('/value/update/{attribute}/{value}', [PropertyValueController::class, 'update'])->name('admin.market.value.store');
+            Route::get('/value/edit/{attribute}/{value}', [PropertyValueController::class, 'edit'])->name('admin.market.value.edit');
+            Route::put('/value/update/{attribute}/{value}', [PropertyValueController::class, 'update'])->name('admin.market.value.update');
             Route::delete('/value/destroy/{attribute}/{value}', [PropertyValueController::class, 'destroy'])->name('admin.market.value.destroy');
         });
         // Store
