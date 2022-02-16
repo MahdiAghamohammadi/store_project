@@ -16,12 +16,12 @@ class CommentController extends Controller
      */
     public function index()
     {
-        $unSeenComments = Comment::where('seen', 0)->get();
+        $unSeenComments = Comment::where('commentable_type', 'App\Models\Content\Post')->where('seen', 0)->get();
         foreach ($unSeenComments as $unSeenComment) {
             $unSeenComment->seen = 1;
             $result = $unSeenComment->save();
         }
-        $comments = Comment::orderBy('created_at', 'DESC')->simplePaginate(15);
+        $comments = Comment::orderBy('created_at', 'DESC')->where('commentable_type', 'App\Models\Content\Post')->simplePaginate(15);
         return view('admin.content.comment.index', compact('comments'));
     }
 
@@ -90,6 +90,7 @@ class CommentController extends Controller
     {
         //
     }
+
     public function approved(Comment $comment)
     {
         $comment->approved = $comment->approved == 0 ? 1 : 0;
@@ -100,6 +101,7 @@ class CommentController extends Controller
             return redirect()->route('admin.content.comment.index')->with('swal-error', 'وضعیت نظر با خطا مواجه شد.');
         }
     }
+    
     public function status(Comment $comment)
     {
         $comment->status = $comment->status == 0 ? 1 : 0;

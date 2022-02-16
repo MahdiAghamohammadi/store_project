@@ -19,8 +19,8 @@ use App\Http\Controllers\Admin\Market\DiscountController;
 use App\Http\Controllers\Admin\Market\GalleryController;
 use App\Http\Controllers\Admin\Market\OrderController;
 use App\Http\Controllers\Admin\Market\PaymentController;
-use App\Http\Controllers\Admin\Market\ProductController;
 use App\Http\Controllers\Admin\Market\ProductColorController;
+use App\Http\Controllers\Admin\Market\ProductController;
 use App\Http\Controllers\Admin\Market\PropertyController;
 use App\Http\Controllers\Admin\Market\PropertyValueController;
 use App\Http\Controllers\Admin\Market\StoreController;
@@ -89,11 +89,10 @@ Route::prefix('admin')->namespace('Admin')->group(function () {
         // Comment
         Route::prefix('comment')->group(function () {
             Route::get('/', [CommentController::class, 'index'])->name('admin.market.comment.index');
-            Route::get('/show', [CommentController::class, 'show'])->name('admin.market.comment.show');
-            Route::post('/store', [CommentController::class, 'store'])->name('admin.market.comment.store');
-            Route::get('/edit/{id}', [CommentController::class, 'edit'])->name('admin.market.comment.edit');
-            Route::put('/update/{id}', [CommentController::class, 'update'])->name('admin.market.comment.update');
-            Route::delete('/destroy/{id}', [CommentController::class, 'destroy'])->name('admin.market.comment.destroy');
+            Route::get('/show/{comment}', [CommentController::class, 'show'])->name('admin.market.comment.show');
+            Route::get('/approved/{comment}', [CommentController::class, 'approved'])->name('admin.market.comment.approved');
+            Route::get('/status/{comment}', [CommentController::class, 'status'])->name('admin.market.comment.status');
+            Route::post('/answer/{comment}', [CommentController::class, 'answer'])->name('admin.market.comment.answer');
         });
         // Delivery
         Route::prefix('delivery')->group(function () {
