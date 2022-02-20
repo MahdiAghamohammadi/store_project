@@ -3,31 +3,57 @@
 namespace App\Http\Controllers\Admin\Market;
 
 use App\Http\Controllers\Controller;
+use App\Models\Market\Payment;
 
 class PaymentController extends Controller
 {
     public function index()
     {
-        return view('admin.market.payment.index');
+        $payments = Payment::all();
+        return view('admin.market.payment.index', compact('payments'));
     }
 
     public function online()
     {
-        return view('admin.market.payment.index');
+        $payments = Payment::orderBy('created_at', 'DESC')->where('paymentable_type', 'App\Models\Market\OnlinePayment')->simplePaginate(15);
+        return view('admin.market.payment.index', compact('payments'));
     }
 
     public function offline()
     {
-        return view('admin.market.payment.index');
+        $payments = Payment::orderBy('created_at', 'DESC')->where('paymentable_type', 'App\Models\Market\OfflinePayment')->simplePaginate(15);
+        return view('admin.market.payment.index', compact('payments'));
     }
 
-    public function attendance()
+    public function cash()
     {
-        return view('admin.market.payment.index');
+        $payments = Payment::orderBy('created_at', 'DESC')->where('paymentable_type', 'App\Models\Market\CashPayment')->simplePaginate(15);
+        return view('admin.market.payment.index', compact('payments'));
     }
 
-    public function confirm()
+    public function notPaid(Payment $payment)
     {
-        return view('admin.market.payment.index');
+        $payment->status = 0;
+        $payment->save();
+        return redirect()->route('admin.market.payment.index')->with('swal-success', 'تغییر با موفقیت انجام شد.');
+    }
+    public function paid(Payment $payment)
+    {
+        $payment->status = 1;
+        $payment->save();
+        return redirect()->route('admin.market.payment.index')->with('swal-success', 'تغییر با موفقیت انجام شد.');
+    }
+    public function canceled(Payment $payment)
+    {
+        $payment->status = 2;
+        $payment->save();
+        return redirect()->route('admin.market.payment.index')->with('swal-success', 'تغییر با موفقیت انجام شد.');
+    }
+
+    public function returned(Payment $payment)
+    {
+        $payment->status = 3;
+        $payment->save();
+        return redirect()->route('admin.market.payment.index')->with('swal-success', 'تغییر با موفقیت انجام شد.');
     }
 }

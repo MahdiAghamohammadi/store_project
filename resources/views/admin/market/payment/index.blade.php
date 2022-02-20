@@ -38,32 +38,46 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <th>1</th>
-                                <td>577488393</td>
-                                <td>ملی</td>
-                                <td>مهدی آقامحمدی</td>
-                                <td>تایید شده</td>
-                                <td>آفلاین</td>
-                                <td class="text-left width-22-rem">
-                                    <a href="#" class="btn btn-info btn-sm"><i class="pl-1 fa fa-edit"></i> مشاهده</a>
-                                    <a href="#" class="btn btn-warning btn-sm">باطل کردن</a>
-                                    <a href="#" class="btn btn-danger btn-sm"><i class="fa fa-reply"></i> برگرداندن</a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>2</th>
-                                <td>455987987984</td>
-                                <td>ملت</td>
-                                <td>مهدی آقامحمدی</td>
-                                <td>تایید شده</td>
-                                <td>آنلاین</td>
-                                <td class="text-left width-22-rem">
-                                    <a href="#" class="btn btn-info btn-sm"><i class="pl-1 fa fa-edit"></i> مشاهده</a>
-                                    <a href="#" class="btn btn-warning btn-sm">باطل کردن</a>
-                                    <a href="#" class="btn btn-danger btn-sm"><i class="fa fa-reply"></i> برگرداندن</a>
-                                </td>
-                            </tr>
+                            @foreach ($payments as $payment)
+                                <tr>
+                                    <th>{{ $loop->iteration }}</th>
+                                    <td>{{ $payment->paymentable->transaction_id ?? '-' }}</td>
+                                    <td>{{ $payment->paymentable->gateway ?? '-' }}</td>
+                                    <td>{{ $payment->user->fullName }}</td>
+                                    <td>
+                                        @if ($payment->status == 0)
+                                            پرداخت نشده
+                                        @elseif($payment->status == 1)
+                                            پرداخت شده
+                                        @elseif($payment->status == 2)
+                                            باطل شده
+                                        @else
+                                            برگشت داده شده
+                                        @endif
+                                    </td>
+                                    <td>
+                                        @if ($payment->type == 0)
+                                            آنلاین
+                                        @elseif($payment->type == 1)
+                                            آفلاین
+                                        @else
+                                            در محل
+                                        @endif
+                                    </td>
+                                    <td class="text-left width-30-rem">
+                                        <a href="#" class="btn btn-info btn-sm"><i class="pl-1 fa fa-edit"></i> مشاهده</a>
+                                        <a href="{{ route('admin.market.payment.not-paid', $payment->id) }}"
+                                            class="btn btn-danger btn-sm">پرداخت نشده</a>
+                                        <a href="{{ route('admin.market.payment.paid', $payment->id) }}"
+                                            class="btn btn-success btn-sm">پرداخت شده</a>
+                                        <a href="{{ route('admin.market.payment.canceled', $payment->id) }}"
+                                            class="btn btn-warning btn-sm">باطل کردن</a>
+                                        <a href="{{ route('admin.market.payment.returned', $payment->id) }}"
+                                            class="btn btn-danger btn-sm"><i class="fa fa-reply"></i>
+                                            برگرداندن</a>
+                                    </td>
+                                </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </section>
