@@ -37,12 +37,14 @@ class PaymentController extends Controller
         $payment->save();
         return redirect()->route('admin.market.payment.index')->with('swal-success', 'تغییر با موفقیت انجام شد.');
     }
+
     public function paid(Payment $payment)
     {
         $payment->status = 1;
         $payment->save();
         return redirect()->route('admin.market.payment.index')->with('swal-success', 'تغییر با موفقیت انجام شد.');
     }
+
     public function canceled(Payment $payment)
     {
         $payment->status = 2;
@@ -55,5 +57,10 @@ class PaymentController extends Controller
         $payment->status = 3;
         $payment->save();
         return redirect()->route('admin.market.payment.index')->with('swal-success', 'تغییر با موفقیت انجام شد.');
+    }
+
+    public function show(Payment $payment)
+    {
+        return view('admin.market.payment.show', compact('payment'));
     }
 }

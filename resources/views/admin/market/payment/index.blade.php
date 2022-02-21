@@ -65,7 +65,8 @@
                                         @endif
                                     </td>
                                     <td class="text-left width-30-rem">
-                                        <a href="#" class="btn btn-info btn-sm"><i class="pl-1 fa fa-edit"></i> مشاهده</a>
+                                        <a href="{{ route('admin.market.payment.show', $payment->id) }}"
+                                            class="btn btn-info btn-sm"><i class="pl-1 fa fa-edit"></i> مشاهده</a>
                                         <a href="{{ route('admin.market.payment.not-paid', $payment->id) }}"
                                             class="btn btn-danger btn-sm">پرداخت نشده</a>
                                         <a href="{{ route('admin.market.payment.paid', $payment->id) }}"
