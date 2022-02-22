@@ -39,36 +39,37 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <th>1</th>
-                                <td>15%</td>
-                                <td>ندارد</td>
-                                <td>عید غدیر خم</td>
-                                <td>24 اردیبهشت 99</td>
-                                <td>31 اردبیهشت 99</td>
-                                <td class="text-left width-16-rem">
-                                    <a href="#" class="btn btn-primary btn-sm"><i class="pl-1 fa fa-edit"></i> ویرایش</a>
-                                    <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-trash-alt"></i>
-                                        حذف</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>2</th>
-                                <td>10%</td>
-                                <td>ندارد</td>
-                                <td>عید قربان</td>
-                                <td>24 اردیبهشت 99</td>
-                                <td>31 اردبیهشت 99</td>
-                                <td class="text-left width-16-rem">
-                                    <a href="#" class="btn btn-primary btn-sm"><i class="pl-1 fa fa-edit"></i> ویرایش</a>
-                                    <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-trash-alt"></i>
-                                        حذف</button>
-                                </td>
-                            </tr>
+                            @foreach ($commonDiscounts as $commonDiscount)
+                                <tr>
+                                    <th>{{ $loop->iteration }}</th>
+                                    <td>{{ $commonDiscount->percentage }}%</td>
+                                    <td>{{ $commonDiscount->discount_ceiling }}</td>
+                                    <td>{{ $commonDiscount->title }}</td>
+                                    <td>{{ jalaliDate($commonDiscount->start_date) }}</td>
+                                    <td>{{ jalaliDate($commonDiscount->end_date) }}</td>
+                                    <td class="text-left width-16-rem">
+                                        <a href="{{ route('admin.market.discount.commonDiscount.edit', $commonDiscount->id) }}"
+                                            class="btn btn-primary btn-sm"><i class="pl-1 fa fa-edit"></i>
+                                            ویرایش</a>
+                                        <form class="d-inline"
+                                            action="{{ route('admin.market.discount.commonDiscount.destroy', $commonDiscount->id) }}"
+                                            method="POST">
+                                            @csrf
+                                            @method('delete')
+                                            <button type="submit" class="btn delete btn-danger btn-sm"><i
+                                                    class="fa fa-trash-alt"></i>
+                                                حذف</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </section>
             </section>
         </section>
     </section>
+@endsection
+@section('script')
+    @include('admin.alerts.sweetalerts.delete-confirm', ['className' => 'delete'])
 @endsection
