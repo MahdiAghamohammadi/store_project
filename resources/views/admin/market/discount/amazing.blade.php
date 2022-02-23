@@ -38,22 +38,36 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <th>1</th>
-                                <th>موبایل سامسونگ</th>
-                                <td>15%</td>
-                                <td>24 اردیبهشت 99</td>
-                                <td>31 اردبیهشت 99</td>
-                                <td class="text-left width-16-rem">
-                                    <a href="#" class="btn btn-primary btn-sm"><i class="pl-1 fa fa-edit"></i> ویرایش</a>
-                                    <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-trash-alt"></i>
-                                        حذف</button>
-                                </td>
-                            </tr>
+                            @foreach ($amazingSales as $amazingSale)
+                                <tr>
+                                    <td>{{ $loop->iteration }}</td>
+                                    <td>{{ $amazingSale->product->name }}</td>
+                                    <td>{{ $amazingSale->percentage }}%</td>
+                                    <td>{{ jalaliDate($amazingSale->start_date) }}</td>
+                                    <td>{{ jalaliDate($amazingSale->end_date) }}</td>
+                                    <td class="text-left width-16-rem">
+                                        <a href="{{ route('admin.market.discount.amazingSale.edit', $amazingSale->id) }}"
+                                            class="btn btn-primary btn-sm"><i class="pl-1 fa fa-edit"></i>
+                                            ویرایش</a>
+                                        <form class="d-inline"
+                                            action="{{ route('admin.market.discount.amazingSale.destroy', $amazingSale->id) }}"
+                                            method="POST">
+                                            @csrf
+                                            @method('delete')
+                                            <button type="submit" class="btn delete btn-danger btn-sm"><i
+                                                    class="fa fa-trash-alt"></i>
+                                                حذف</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </section>
             </section>
         </section>
     </section>
+@endsection
+@section('script')
+    @include('admin.alerts.sweetalerts.delete-confirm', ['className' => 'delete'])
 @endsection
