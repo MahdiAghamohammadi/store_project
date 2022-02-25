@@ -109,8 +109,12 @@ Route::prefix('admin')->namespace('Admin')->group(function () {
             //  Coupon
             Route::get('/coupon', [DiscountController::class, 'coupon'])->name('admin.market.discount.coupon');
             Route::get('/coupon/create', [DiscountController::class, 'couponCreate'])->name('admin.market.discount.coupon.create');
-            Route::get('/common-discount', [DiscountController::class, 'commonDiscount'])->name('admin.market.discount.commonDiscount');
+            Route::post('/coupon/store', [DiscountController::class, 'couponStore'])->name('admin.market.discount.coupon.store');
+            Route::get('/coupon/edit/{coupon}', [DiscountController::class, 'couponEdit'])->name('admin.market.discount.coupon.edit');
+            Route::put('/coupon/update/{coupon}', [DiscountController::class, 'couponUpdate'])->name('admin.market.discount.coupon.update');
+            Route::delete('/coupon/destroy/{coupon}', [DiscountController::class, 'couponDestroy'])->name('admin.market.discount.coupon.destroy');
             // Common discount
+            Route::get('/common-discount', [DiscountController::class, 'commonDiscount'])->name('admin.market.discount.commonDiscount');
             Route::get('/common-discount/create', [DiscountController::class, 'commonDiscountCreate'])->name('admin.market.discount.commonDiscount.create');
             Route::post('/common-discount/store', [DiscountController::class, 'commonDiscountStore'])->name('admin.market.discount.commonDiscount.store');
             Route::get('/common-discount/edit/{commonDiscount}', [DiscountController::class, 'commonDiscountEdit'])->name('admin.market.discount.commonDiscount.edit');

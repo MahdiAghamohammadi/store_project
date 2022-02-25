@@ -5,22 +5,59 @@ namespace App\Http\Controllers\Admin\Market;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Market\AmazingSaleRequest;
 use App\Http\Requests\Admin\Market\CommonDiscountRequest;
+use App\Http\Requests\Admin\Market\CouponRequest;
 use App\Models\Market\AmazingSale;
 use App\Models\Market\CommonDiscount;
+use App\Models\Market\Coupon;
 use App\Models\Market\Product;
+use App\Models\User;
 
 class DiscountController extends Controller
 {
+    // Coupon section
     public function coupon()
     {
-        return view('admin.market.discount.coupon');
+        $coupons = Coupon::all();
+        return view('admin.market.discount.coupon', compact('coupons'));
     }
 
     public function couponCreate()
     {
-        return view('admin.market.discount.coupon-create');
+        $users = User::all();
+        return view('admin.market.discount.coupon-create', compact('users'));
     }
 
+    public function couponStore(CouponRequest $request)
+    {
+        $inputs = $request->all();
+        // date fixed => remove 000 of last timestamp
+        $realTimestampStart = substr($request->start_date, 0, 10);
+        $inputs['start_date'] = date("Y-m-d H:i:s", (int) $realTimestampStart);
+        $realTimestampStart = substr($request->end_date, 0, 10);
+        $inputs['end_date'] = date("Y-m-d H:i:s", (int) $realTimestampStart);
+        if ($inputs['type'] == 0) {
+            $inputs['user_id'] = null;
+        }
+        $coupon = Coupon::create($inputs);
+        return redirect(route('admin.market.discount.coupon'))->with('swal-success', 'کد تخفیف مورد نظر با موفقیت اضافه شد.');
+    }
+
+    public function couponEdit()
+    {
+        # code
+    }
+
+    public function couponUpdate()
+    {
+        # code
+    }
+
+    public function couponDestroy()
+    {
+        # code
+    }
+
+    // Common discount section
     public function commonDiscount()
     {
         $commonDiscounts = CommonDiscount::all();
@@ -41,7 +78,7 @@ class DiscountController extends Controller
         $realTimestampStart = substr($request->end_date, 0, 10);
         $inputs['end_date'] = date("Y-m-d H:i:s", (int) $realTimestampStart);
         $commonDiscount = CommonDiscount::create($inputs);
-        return redirect(route('admin.market.discount.commonDiscount'))->with('swal-success', 'کد تخفیف مورد نظر با موفقیت اضافه شد.');
+        return redirect(route('admin.market.discount.commonDiscount'))->with('swal-success', 'تخفیف مورد نظر با موفقیت اضافه شد.');
     }
 
     public function commonDiscountEdit(CommonDiscount $commonDiscount)
@@ -58,15 +95,16 @@ class DiscountController extends Controller
         $realTimestampStart = substr($request->end_date, 0, 10);
         $inputs['end_date'] = date("Y-m-d H:i:s", (int) $realTimestampStart);
         $commonDiscount->update($inputs);
-        return redirect(route('admin.market.discount.commonDiscount'))->with('swal-success', 'کد تخفیف مورد نظر با موفقیت ویرایش شد.');
+        return redirect(route('admin.market.discount.commonDiscount'))->with('swal-success', 'تخفیف مورد نظر با موفقیت ویرایش شد.');
     }
 
     public function commonDiscountDestroy(CommonDiscount $commonDiscount)
     {
         $result = $commonDiscount->delete();
-        return redirect(route('admin.market.discount.commonDiscount'))->with('swal-success', 'کد تخفیف مورد نظر با موفقیت حذف شد.');
+        return redirect(route('admin.market.discount.commonDiscount'))->with('swal-success', 'تخفیف مورد نظر با موفقیت حذف شد.');
     }
 
+    // Amazing sale section
     public function amazingSale()
     {
         $amazingSales = AmazingSale::all();
