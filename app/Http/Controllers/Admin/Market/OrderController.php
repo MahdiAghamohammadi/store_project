@@ -15,27 +15,36 @@ class OrderController extends Controller
 
     public function newOrders()
     {
-        return view('admin.market.order.index');
+        $orders = Order::where('order_status', 0)->get();
+        foreach ($orders as $order) {
+            $order->order_status = 1;
+            $result = $order->save();
+        }
+        return view('admin.market.order.index', compact('orders'));
     }
 
     public function sending()
     {
-        return view('admin.market.order.index');
+        $orders = Order::where('delivery_status', 1)->get();
+        return view('admin.market.order.index', compact('orders'));
     }
 
     public function unpaid()
     {
-        return view('admin.market.order.index');
+        $orders = Order::where('payment_status', 0)->get();
+        return view('admin.market.order.index', compact('orders'));
     }
 
     public function cancel()
     {
-        return view('admin.market.order.index');
+        $orders = Order::where('order_status', 4)->get();
+        return view('admin.market.order.index', compact('orders'));
     }
 
     public function returned()
     {
-        return view('admin.market.order.index');
+        $orders = Order::where('order_status', 5)->get();
+        return view('admin.market.order.index', compact('orders'));
     }
 
     public function show()

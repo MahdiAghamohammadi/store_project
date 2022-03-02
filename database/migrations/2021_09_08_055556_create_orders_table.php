@@ -36,7 +36,7 @@ class CreateOrdersTable extends Migration
             $table->longText('common_discount_object')->nullable();
             $table->decimal('order_common_discount_amount', 20, 3)->nullable();
             $table->decimal('order_total_product_discount_amount', 20, 3)->nullable();
-            $table->tinyInteger('order_status')->default(0)->comment('0 => Awaiting approval, 1 => Not approved, 2 => approved');
+            $table->tinyInteger('order_status')->default(0)->comment('0 => Not checked, 1 => Awaiting approval, 2 => Not approved, 3 => approved, 4 => cancel, 5 => returned');
             $table->timestamps();
             $table->softDeletes();
         });
