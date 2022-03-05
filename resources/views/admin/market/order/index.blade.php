@@ -25,7 +25,7 @@
                     </div>
                 </section>
                 <section class="table-responsive">
-                    <table class="table table-striped table-hover">
+                    <table class="table table-striped table-hover height-117-px">
                         <thead>
                             <tr>
                                 <th>#</th>
@@ -112,14 +112,17 @@
                                                 <a href="#" class="text-right dropdown-item"><i class="fas fa-images">
                                                         مشاهده
                                                         فاکتور</i></a>
-                                                <a href="#" class="text-right dropdown-item"><i class="fas fa-list-ul">
+                                                <a href="{{ route('admin.market.order.changeSendStatus', $order->id) }}"
+                                                    class="text-right dropdown-item"><i class="fas fa-list-ul">
                                                         تغییر
                                                         وضعیت ارسال</i></a>
-                                                <a href="#" class="text-right dropdown-item"><i class="fas fa-edit">
+                                                <a href="{{ route('admin.market.order.changeOrderStatus', $order->id) }}"
+                                                    class="text-right dropdown-item"><i class="fas fa-edit">
                                                         تغییر
                                                         وضعیت
                                                         سفارش</i></a>
-                                                <a href="#" class="text-right dropdown-item"><i class="fas fa-window-close">
+                                                <a href="{{ route('admin.market.order.cancelOrder', $order->id) }}"
+                                                    class="text-right dropdown-item"><i class="fas fa-window-close">
                                                         باطل کردن سفارش</i></a>
                                             </div>
                                         </div>
