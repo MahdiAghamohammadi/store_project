@@ -31,7 +31,7 @@
                                 <th>#</th>
                                 <th>کد سفارش</th>
                                 <th>مجموع مبلغ سفارش (بدون تخفیف)</th>
-                                <th>مجموع تمامی مبلغ تخفیفات </th>
+                                <th>مجموع تمامی مبلغ تخفیفات</th>
                                 <th>مبلغ تخفیف همه محصولات</th>
                                 <th>مبلغ نهایی</th>
                                 <th>وضعیت پرداخت</th>
@@ -109,7 +109,8 @@
                                                 <i class="fas fa-tools"></i> عملیات
                                             </a>
                                             <div class="dropdown-menu" aria-label="dropdownMenuLink">
-                                                <a href="#" class="text-right dropdown-item"><i class="fas fa-images">
+                                                <a href="{{ route('admin.market.order.show', $order->id) }}"
+                                                    class="text-right dropdown-item"><i class="fas fa-images">
                                                         مشاهده
                                                         فاکتور</i></a>
                                                 <a href="{{ route('admin.market.order.changeSendStatus', $order->id) }}"
