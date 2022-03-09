@@ -38,7 +38,8 @@
                                         <i class="fa fa-print"></i>
                                         چاپ
                                     </a>
-                                    <a href="#" class="btn btn-warning btn-sm">
+                                    <a href="{{ route('admin.market.order.show.detail', $order->id) }}"
+                                        class="btn btn-warning btn-sm">
                                         <i class="fa fa-book"></i>
                                         جزئیات
                                     </a>
@@ -75,7 +76,8 @@
                             </tr>
                             <tr class="border-bottom">
                                 <th>نام خانوادگی گیرنده</th>
-                                <td class="text-left font-weight-bolder">{{ $order->address->recipient_last_name ?? '-' }}
+                                <td class="text-left font-weight-bolder">
+                                    {{ $order->address->recipient_last_name ?? '-' }}
                                 </td>
                             </tr>
                             <tr class="border-bottom">
