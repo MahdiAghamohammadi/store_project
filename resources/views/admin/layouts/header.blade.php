@@ -54,7 +54,7 @@
                             <li class="list-group-item list-group-item-action">
                                 <section class="media">
                                     <img class="notification-img" src="{{ asset('admin-assets/images/avatar-2.jpg') }}"
-                                        alt="avatar">
+                                         alt="avatar">
                                     <section class="media-body pr-2">
                                         <h5 class="notification-user">مهدی آقامحمدی</h5>
                                         <p class="notification-text">این یک متن تستی است.</p>
@@ -65,7 +65,7 @@
                             <li class="list-group-item list-group-item-action">
                                 <section class="media">
                                     <img class="notification-img" src="{{ asset('admin-assets/images/avatar-2.jpg') }}"
-                                        alt="avatar">
+                                         alt="avatar">
                                     <section class="media-body pr-2">
                                         <h5 class="notification-user">مهدی آقامحمدی</h5>
                                         <p class="notification-text">این یک متن تستی است.</p>
@@ -76,7 +76,7 @@
                             <li class="list-group-item list-group-item-action">
                                 <section class="media">
                                     <img class="notification-img" src="{{ asset('admin-assets/images/avatar-2.jpg') }}"
-                                        alt="avatar">
+                                         alt="avatar">
                                     <section class="media-body pr-2">
                                         <h5 class="notification-user">مهدی آقامحمدی</h5>
                                         <p class="notification-text">این یک متن تستی است.</p>
@@ -90,7 +90,10 @@
                 <!-- comments -->
                 <span class="ml-2 ml-md-4 position-relative">
                     <span id="header-comment-toggle" class="pointer">
-                        <i class="far fa-comment-alt ml-1"></i><sup class="badge badge-danger">3</sup>
+                        <i class="far fa-comment-alt ml-1"></i>
+                        @if($unseenComments->count() !== 0)
+                            <sup class="badge badge-danger">{{ $unseenComments->count() }}</sup>
+                        @endif
                     </span>
 
 
@@ -103,18 +106,21 @@
                         <!-- comment list -->
                         <section class="header-comment-wrapper">
                             <ul class="list-group rounded px-0">
-                                <li class="list-group-item list-group-item-action">
+                                @foreach($unseenComments as $unseenComment)
+                                    <li class="list-group-item list-group-item-action">
                                     <section class="media">
                                         <img src="{{ asset('admin-assets/images/avatar-2.jpg') }}" alt="avatar"
-                                            class="notification-img">
+                                             class="notification-img">
                                         <section class="media-body pr-1">
                                             <section class="d-flex justify-content-between">
-                                                <h5 class="comment-user">مهدی آقامحمدی</h5>
-                                                <span class="fas fa-circle text-success comment-user-status"></span>
+                                                <h5 class="comment-user">{{ $unseenComment->user->fullName }}</h5>
+                                                <span>{{ $unseenComment->body }} <i
+                                                        class="fas fa-circle text-success comment-user-status"></i></span>
                                             </section>
                                         </section>
                                     </section>
                                 </li>
+                                @endforeach
                             </ul>
                         </section>
                     </section>
