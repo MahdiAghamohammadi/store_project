@@ -24,7 +24,7 @@ use App\Http\Controllers\Admin\Market\ProductController;
 use App\Http\Controllers\Admin\Market\PropertyController;
 use App\Http\Controllers\Admin\Market\PropertyValueController;
 use App\Http\Controllers\Admin\Market\StoreController;
-
+use App\Http\Controllers\Admin\NotificationController;
 // Notify
 use App\Http\Controllers\Admin\Notify\EmailController;
 use App\Http\Controllers\Admin\Notify\EmailFileController;
@@ -387,6 +387,7 @@ Route::prefix('admin')->namespace('Admin')->group(function () {
         Route::put('/update/{setting}', [SettingController::class, 'update'])->name('admin.setting.update');
         Route::delete('/destroy/{setting}', [SettingController::class, 'destroy'])->name('admin.setting.destroy');
     });
+    Route::post('/notification/read-all', [NotificationController::class, 'readAll'])->name('admin.notification.read-all');
 });
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {

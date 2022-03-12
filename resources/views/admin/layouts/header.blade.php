@@ -1,11 +1,9 @@
 <header class="header-main">
 
     <section class="sidebar-header bg-gray">
-        <section class="d-flex justify-content-between flex-md-row-reverse px-2">
-            <span id="sidebar-toggle-show" class="d-inline d-md-none pointer"><i
-                    class="fas fa-toggle-off"></i></span>
-            <span id="sidebar-toggle-hide" class="d-none d-md-inline pointer"><i
-                    class="fas fa-toggle-on"></i></span>
+        <section class="px-2 d-flex justify-content-between flex-md-row-reverse">
+            <span id="sidebar-toggle-show" class="d-inline d-md-none pointer"><i class="fas fa-toggle-off"></i></span>
+            <span id="sidebar-toggle-hide" class="d-none d-md-inline pointer"><i class="fas fa-toggle-on"></i></span>
             <span><img class="logo" src="{{ asset('admin-assets/images/logo.png') }}" alt=""></span>
             <span class="d-md-none pointer" id="menu-toggle"><i class="fas fa-ellipsis-h"></i></span>
         </section>
@@ -23,10 +21,10 @@
                         <input id="search-input" type="text" class="search-input" name="" id="">
                         <i class="fas fa-search pointer"></i>
                     </span>
-                    <i id="search-toggle" class="fas fa-search p-1 d-none d-md-inline pointer"></i>
+                    <i id="search-toggle" class="p-1 fas fa-search d-none d-md-inline pointer"></i>
                 </span>
                 <!-- full screen -->
-                <span id="full-screen" class="pointer d-none d-md-inline mr-5">
+                <span id="full-screen" class="mr-5 pointer d-none d-md-inline">
                     <i id="screen-compress" class="fas fa-compress d-none"></i>
                     <i id="screen-expand" class="fas fa-expand"></i>
                 </span>
@@ -38,10 +36,13 @@
                 <span class="ml-2 ml-md-4 position-relative">
                     <!-- icon -->
                     <span id="header-notification-toggle" class="pointer">
-                        <i class="far fa-bell ml-1"></i><sup class="badge badge-danger">4</sup>
+                        <i class="ml-1 far fa-bell"></i>
+                        @if ($notifications->count() !== 0)
+                            <sup class="badge badge-danger">{{ $notifications->count() }}</sup>
+                        @endif
                     </span>
                     <!-- notification box -->
-                    <section id="header-notification" class="header-notification rounded">
+                    <section id="header-notification" class="rounded header-notification">
                         <!-- header -->
                         <section class="d-flex justify-content-between">
                             <span class="px-2">نوتیفیکیشن ها</span>
@@ -50,48 +51,24 @@
                             </span>
                         </section>
                         <!-- notification list -->
-                        <ul class="list-group rounded px-0">
-                            <li class="list-group-item list-group-item-action">
-                                <section class="media">
-                                    <img class="notification-img" src="{{ asset('admin-assets/images/avatar-2.jpg') }}"
-                                         alt="avatar">
-                                    <section class="media-body pr-2">
-                                        <h5 class="notification-user">مهدی آقامحمدی</h5>
-                                        <p class="notification-text">این یک متن تستی است.</p>
-                                        <p class="notification-time">30 دقیقه پیش</p>
+                        <ul class="px-0 rounded list-group">
+                            @foreach ($notifications as $notification)
+                                <li class="list-group-item list-group-item-action">
+                                    <section class="media">
+                                        <section class="pr-2 media-body">
+                                            <p class="notification-time">{{ $notification['data']['message'] }}</p>
+                                        </section>
                                     </section>
-                                </section>
-                            </li>
-                            <li class="list-group-item list-group-item-action">
-                                <section class="media">
-                                    <img class="notification-img" src="{{ asset('admin-assets/images/avatar-2.jpg') }}"
-                                         alt="avatar">
-                                    <section class="media-body pr-2">
-                                        <h5 class="notification-user">مهدی آقامحمدی</h5>
-                                        <p class="notification-text">این یک متن تستی است.</p>
-                                        <p class="notification-time">30 دقیقه پیش</p>
-                                    </section>
-                                </section>
-                            </li>
-                            <li class="list-group-item list-group-item-action">
-                                <section class="media">
-                                    <img class="notification-img" src="{{ asset('admin-assets/images/avatar-2.jpg') }}"
-                                         alt="avatar">
-                                    <section class="media-body pr-2">
-                                        <h5 class="notification-user">مهدی آقامحمدی</h5>
-                                        <p class="notification-text">این یک متن تستی است.</p>
-                                        <p class="notification-time">30 دقیقه پیش</p>
-                                    </section>
-                                </section>
-                            </li>
+                                </li>
+                            @endforeach
                         </ul>
                     </section>
                 </span>
                 <!-- comments -->
                 <span class="ml-2 ml-md-4 position-relative">
                     <span id="header-comment-toggle" class="pointer">
-                        <i class="far fa-comment-alt ml-1"></i>
-                        @if($unseenComments->count() !== 0)
+                        <i class="ml-1 far fa-comment-alt"></i>
+                        @if ($unseenComments->count() !== 0)
                             <sup class="badge badge-danger">{{ $unseenComments->count() }}</sup>
                         @endif
                     </span>
@@ -100,26 +77,27 @@
                     <!-- box comment -->
                     <section id="header-comment" class="header-comment">
                         <!-- search -->
-                        <section class="border-bottom px-4">
-                            <input type="text" class="form-control form-control-sm my-4" placeholder="جستجو">
+                        <section class="px-4 border-bottom">
+                            <input type="text" class="my-4 form-control form-control-sm" placeholder="جستجو">
                         </section>
                         <!-- comment list -->
                         <section class="header-comment-wrapper">
-                            <ul class="list-group rounded px-0">
-                                @foreach($unseenComments as $unseenComment)
+                            <ul class="px-0 rounded list-group">
+                                @foreach ($unseenComments as $unseenComment)
                                     <li class="list-group-item list-group-item-action">
-                                    <section class="media">
-                                        <img src="{{ asset('admin-assets/images/avatar-2.jpg') }}" alt="avatar"
-                                             class="notification-img">
-                                        <section class="media-body pr-1">
-                                            <section class="d-flex justify-content-between">
-                                                <h5 class="comment-user">{{ $unseenComment->user->fullName }}</h5>
-                                                <span>{{ $unseenComment->body }} <i
-                                                        class="fas fa-circle text-success comment-user-status"></i></span>
+                                        <section class="media">
+                                            <img src="{{ asset('admin-assets/images/avatar-2.jpg') }}" alt="avatar"
+                                                class="notification-img">
+                                            <section class="pr-1 media-body">
+                                                <section class="d-flex justify-content-between">
+                                                    <h5 class="comment-user">{{ $unseenComment->user->fullName }}
+                                                    </h5>
+                                                    <span>{{ $unseenComment->body }} <i
+                                                            class="fas fa-circle text-success comment-user-status"></i></span>
+                                                </section>
                                             </section>
                                         </section>
-                                    </section>
-                                </li>
+                                    </li>
                                 @endforeach
                             </ul>
                         </section>
@@ -128,12 +106,13 @@
                 <!-- avatar -->
                 <span class="ml-3 ml-md-5 position-relative">
                     <span id="header-profile-toggle" class="pointer">
-                        <img src="{{ asset('admin-assets/images/avatar-2.jpg') }}" alt="avatar" class="header-avatar">
+                        <img src="{{ asset('admin-assets/images/avatar-2.jpg') }}" alt="avatar"
+                            class="header-avatar">
                         <span class="header-username">مهدی آقامحمدی</span>
                         <i class="fas fa-angle-down"></i>
                     </span>
-                    <section id="header-profile" class="header-profile rounded">
-                        <section class="list-group rounded">
+                    <section id="header-profile" class="rounded header-profile">
+                        <section class="rounded list-group">
                             <a href="#" class="list-group-item list-group-item-action header-profile-link">
                                 <i class="fas fa-cog"></i>تنظیمات
                             </a>
