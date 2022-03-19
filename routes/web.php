@@ -44,6 +44,8 @@ use App\Http\Controllers\Admin\User\AdminUserController;
 use App\Http\Controllers\Admin\User\CustomerController;
 use App\Http\Controllers\Admin\User\PermissionController;
 use App\Http\Controllers\Admin\User\RoleController;
+// Auth
+use App\Http\Controllers\Auth\Customer\LoginRegisterController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -391,8 +393,12 @@ Route::prefix('admin')->namespace('Admin')->group(function () {
 });
 
 Route::get('/', function () {
-   return view('customer.home');
+    return view('customer.home');
 })->name('customer.home');
+
+Route::namespace ('Auth')->group(function () {
+    Route::get('login-register', [LoginRegisterController::class, 'loginRegisterForm'])->name('auth.customer-login-register-form');
+});
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');
