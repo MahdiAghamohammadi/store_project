@@ -4,7 +4,10 @@ namespace App\Http\Controllers\Auth\Customer;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\Customer\LoginRegisterRequest;
+use App\Models\Otp;
 use App\Models\User;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 
 class LoginRegisterController extends Controller
 {
@@ -36,10 +39,28 @@ class LoginRegisterController extends Controller
             if (empty($user)) {
                 $newUser['mobile'] = $inputs['identify'];
             }
-        }
-        else {
+        } else {
             $message = 'شناسه ورودی شما نه موبایل است نه ایمیل';
             return redirect()->route('auth.customer-login-register-form')->withErrors(['identify' => $message]);
         }
+
+        if (empty($user)) {
+            $newUser['password'] = Hash::make('12345678910');
+            $newUser['activation'] = 1;
+            $user = User::create($newUser);
+        }
+
+        // Create OTP Code
+        $otpCode = rand(111111, 999999);
+        $token = Str::random(60);
+        $otpInputs = [
+            'token' => $token,
+            'user_id' => $user->id,
+            'otp_code' => $otpCode,
+            'login_identify' => $inputs['identify'],
+            'type' => $type,
+        ];
+
+        Otp::create($otpInputs);
     }
 }
