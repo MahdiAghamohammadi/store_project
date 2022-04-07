@@ -9,11 +9,12 @@ class Otp extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
-        'token',
-        'user_id',
-        'otp_code',
-        'login_identify',
-        'type',
-    ];
+    protected $guarded = ['id'];
+//    protected $fillable = [
+//        'token',
+//        'user_id',
+//        'otp_code',
+//        'login_identify',
+//        'type',
+//    ];
 }
