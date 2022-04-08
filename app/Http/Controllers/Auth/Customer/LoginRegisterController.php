@@ -77,7 +77,9 @@ class LoginRegisterController extends Controller
             $smsService->setIsFlash(true);
             $messageService = new MessageService($smsService);
         }
+        elseif ($type == 1) {
+            // email send
+        }
         $messageService->send();
-        dd('ok');
     }
 }
