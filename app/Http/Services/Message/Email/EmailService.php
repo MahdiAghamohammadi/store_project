@@ -3,19 +3,20 @@
 namespace App\Http\Services\Message\Email;
 
 use App\Http\Interfaces\MessageInterface;
+use Illuminate\Support\Facades\Mail;
 
 class EmailService implements MessageInterface
 {
     private $details;
     private $subject;
     private $from = [
-        ['address' => null, 'name' => null]
+        ['address' => null, 'name' => null],
     ];
     private $to;
 
     public function fire()
     {
-
+        Mail::to($this->to)->send(new MailViewProvider($this->details, $this->subject, $this->from));
     }
 
     public function getDetails()
@@ -46,7 +47,7 @@ class EmailService implements MessageInterface
     public function setFrom($address, $name)
     {
         $this->from = [
-            ['address' => $address, 'name' => $name]
+            ['address' => $address, 'name' => $name],
         ];
     }
 

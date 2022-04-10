@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth\Customer;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\Customer\LoginRegisterRequest;
+use App\Http\Services\Message\Email\EmailService;
 use App\Http\Services\Message\MessageService;
 use App\Http\Services\Message\SMS\SmsService;
 use App\Models\Otp;
@@ -76,10 +77,21 @@ class LoginRegisterController extends Controller
             $smsService->setText("مجموعه آمازون \n کد تایید: $otpCode");
             $smsService->setIsFlash(true);
             $messageService = new MessageService($smsService);
-        }
-        elseif ($type == 1) {
+        } elseif ($type == 1) {
             // email send
+
+            $emailService = new EmailService();
+            $details = [
+                'title' => "ایمیل فعال سازی",
+                'body' => "کد فعال سازی : {$otpCode}",
+            ];
+            $emailService->setDetails($details);
+            $emailService->setFrom("no-reply@example.com", "example");
+            $emailService->setSubject("کد احراز هویت");
+            $emailService->setTo($inputs['identify']);
+            $messageService = new MessageService($emailService);
         }
         $messageService->send();
+        dd('ok');
     }
 }
