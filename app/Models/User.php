@@ -36,6 +36,8 @@ class User extends Authenticatable
         'activation',
         'profile_photo_path',
         'password',
+        'email_verified_at',
+        'mobile_verified_at',
     ];
 
     /**
@@ -57,6 +59,7 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'mobile_verified_at' => 'datetime',
     ];
 
     /**

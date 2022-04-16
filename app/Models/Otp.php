@@ -17,4 +17,9 @@ class Otp extends Model
 //        'login_identify',
 //        'type',
 //    ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

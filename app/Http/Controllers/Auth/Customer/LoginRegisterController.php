@@ -9,6 +9,8 @@ use App\Http\Services\Message\MessageService;
 use App\Http\Services\Message\SMS\SmsService;
 use App\Models\Otp;
 use App\Models\User;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
@@ -102,5 +104,28 @@ class LoginRegisterController extends Controller
             return redirect()->route('auth.customer-login-register-form')->withErrors(['identify' => 'آدرس وارد شده نامعتبر میباشد']);
         }
         return view('customer.auth.login-confirm', compact('token', 'otp'));
+    }
+
+    public function LoginConfirm($token, LoginRegisterRequest $request)
+    {
+        $inputs = $request->all();
+        $otp = Otp::where('token', $token)->where('used', 0)->where('created_at', '>=', Carbon::now()->subMinute(5)->toDateTimeString())->first();
+        if (empty($otp)) {
+            return redirect()->route('auth.customer-login-register-form', $token)->withErrors(['identify' => 'آدرس وارد شده نامعتبر میباشد']);
+        }
+        // if otp not match
+        if ($otp->otp_code !== $inputs['otp']) {
+            return redirect()->route('auth.customer-login-confirm-form', $token)->withErrors(['otp' => 'کد تایید وارد شده نامعتبر است.']);
+        }
+        // if everything is ok
+        $otp->update(['used' => 1]);
+        $user = $otp->user()->first();
+        if ($otp->type == 0 && empty($user->mobile_verified_at)) {
+            $user->update(['mobile_verified_at' => Carbon::now()]);
+        } elseif ($otp->type == 1 && empty($user->email_verified_at)) {
+            $user->update(['email_verified_at' => Carbon::now()]);
+        }
+        Auth::login($user);
+        return redirect()->route('customer.home');
     }
 }
