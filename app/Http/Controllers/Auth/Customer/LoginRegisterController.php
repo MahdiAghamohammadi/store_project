@@ -128,4 +128,52 @@ class LoginRegisterController extends Controller
         Auth::login($user);
         return redirect()->route('customer.home');
     }
+
+    public function loginResendOtp($token)
+    {
+        $otp = Otp::query()->where('token', $token)->where('created_at', '<=', Carbon::now()->subMinute(5)->toDateTimeString())->first();
+        if (empty($otp)) {
+            return redirect()->route('auth.customer-login-register-form', $token)->withErrors(['identify' => 'آدرس وارد شده نامعتبر است.']);
+        }
+        $user = $otp->user()->first();
+        // Create OTP Code
+        $otpCode = rand(111111, 999999);
+        $token = Str::random(60);
+        $otpInputs = [
+            'token' => $token,
+            'user_id' => $user->id,
+            'otp_code' => $otpCode,
+            'login_identify' => $otp->login_identify,
+            'type' => $otp->type,
+        ];
+
+        Otp::create($otpInputs);
+
+        // send sms or email
+
+        if ($otp->type == 0) {
+            // send sms
+            $smsService = new SmsService();
+            $smsService->setFrom(Config::get('sms.otp_from'));
+            $smsService->setTo(array('0' . $user->mobile));
+            $smsService->setText("مجموعه آمازون \n کد تایید: $otpCode");
+            $smsService->setIsFlash(true);
+            $messageService = new MessageService($smsService);
+        } elseif ($otp->type == 1) {
+            // email send
+
+            $emailService = new EmailService();
+            $details = [
+                'title' => "ایمیل فعال سازی",
+                'body' => "کد فعال سازی : {$otpCode}",
+            ];
+            $emailService->setDetails($details);
+            $emailService->setFrom("no-reply@example.com", "example");
+            $emailService->setSubject("کد احراز هویت");
+            $emailService->setTo($otp->login_identify);
+            $messageService = new MessageService($emailService);
+        }
+        $messageService->send();
+        return redirect()->route('auth.customer-login-confirm-form', $token);
+    }
 }
