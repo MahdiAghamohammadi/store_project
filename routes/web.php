@@ -25,6 +25,7 @@ use App\Http\Controllers\Admin\Market\PropertyController;
 use App\Http\Controllers\Admin\Market\PropertyValueController;
 use App\Http\Controllers\Admin\Market\StoreController;
 use App\Http\Controllers\Admin\NotificationController;
+
 // Notify
 use App\Http\Controllers\Admin\Notify\EmailController;
 use App\Http\Controllers\Admin\Notify\EmailFileController;
@@ -44,6 +45,7 @@ use App\Http\Controllers\Admin\User\AdminUserController;
 use App\Http\Controllers\Admin\User\CustomerController;
 use App\Http\Controllers\Admin\User\PermissionController;
 use App\Http\Controllers\Admin\User\RoleController;
+
 // Auth
 use App\Http\Controllers\Auth\Customer\LoginRegisterController;
 use Illuminate\Support\Facades\Route;
@@ -396,12 +398,13 @@ Route::get('/', function () {
     return view('customer.home');
 })->name('customer.home');
 
-Route::namespace ('Auth')->group(function () {
+Route::namespace('Auth')->group(function () {
     Route::get('/login-register', [LoginRegisterController::class, 'loginRegisterForm'])->name('auth.customer-login-register-form');
-    Route::post('/login-register', [LoginRegisterController::class, 'loginRegister'])->name('auth.customer-login-register');
+    Route::middleware('throttle:customer-login-register-limiter')->post('/login-register', [LoginRegisterController::class, 'loginRegister'])->name('auth.customer-login-register');
     Route::get('/login-confirm/{token}', [LoginRegisterController::class, 'loginConfirmForm'])->name('auth.customer-login-confirm-form');
-    Route::post('/login-confirm/{token}', [LoginRegisterController::class, 'loginConfirm'])->name('auth.customer-login-confirm');
-    Route::get('/login-resend-otp/{token}', [LoginRegisterController::class, 'loginResendOtp'])->name('auth.customer-login-resend-otp');
+    Route::middleware('throttle:customer-login-confirm-limiter')->post('/login-confirm/{token}', [LoginRegisterController::class, 'loginConfirm'])->name('auth.customer-login-confirm');
+    Route::middleware('throttle:customer-login-resend-otp-limiter')->get('/login-resend-otp/{token}', [LoginRegisterController::class, 'loginResendOtp'])->name('auth.customer-login-resend-otp');
+    Route::get('/logout', [LoginRegisterController::class, 'logout'])->name('auth.customer-logout');
 });
 
 //Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
