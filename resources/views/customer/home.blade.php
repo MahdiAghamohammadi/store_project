@@ -6,7 +6,7 @@
     <!-- start slideshow -->
     <section class="container-xxl my-4">
         <section class="row">
-            <section class="col-md-8 pe-1">
+            <section class="col-md-8 pe-md-1">
                 <section id="slideshow" class="owl-carousel owl-theme">
                     <section class="item"><a class="w-100 d-block h-auto text-decoration-none" href="#"><img
                                 class="w-100 rounded-2 d-block h-auto"
@@ -34,7 +34,7 @@
                     </section>
                 </section>
             </section>
-            <section class="col-md-4 ps-1">
+            <section class="col-md-4 ps-md-1 mt-2 mt-md-0">
                 <section class="mb-2"><a href="#" class="d-block"><img class="w-100 rounded-2"
                                                                        src="{{ asset('customer-assets/images/slideshow/12.gif') }}"
                                                                        alt=""></a>
@@ -420,13 +420,13 @@
         <section class="container-xxl">
             <!-- two column-->
             <section class="row py-4">
-                <section class="col"><img class="d-block rounded-2 w-100"
-                                          src="{{ asset('customer-assets/images/ads/two-col-1.jpg') }}"
-                                          alt="">
+                <section class="col-12 col-md-6 mt-2 mt-md-0"><img class="d-block rounded-2 w-100"
+                                                                   src="{{ asset('customer-assets/images/ads/two-col-1.jpg') }}"
+                                                                   alt="">
                 </section>
-                <section class="col"><img class="d-block rounded-2 w-100"
-                                          src="{{ asset('customer-assets/images/ads/two-col-2.jpg') }}"
-                                          alt="">
+                <section class="col-12 col-md-6 mt-2 mt-md-0"><img class="d-block rounded-2 w-100"
+                                                                   src="{{ asset('customer-assets/images/ads/two-col-2.jpg') }}"
+                                                                   alt="">
                 </section>
             </section>
 
