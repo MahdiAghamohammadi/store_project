@@ -3,11 +3,11 @@
 namespace App\Http\Controllers\Admin\Market;
 
 use App\Http\Controllers\Controller;
+use App\Models\Market\Guarantee;
 use App\Models\Market\Product;
-use App\Models\Market\ProductColor;
 use Illuminate\Http\Request;
 
-class ProductColorController extends Controller
+class GuaranteeController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,7 +16,7 @@ class ProductColorController extends Controller
      */
     public function index(Product $product)
     {
-        return view('admin.market.product.color.index', compact('product'));
+        return view('admin.market.product.guarantee.index', compact('product'));
     }
 
     /**
@@ -26,7 +26,7 @@ class ProductColorController extends Controller
      */
     public function create(Product $product)
     {
-        return view('admin.market.product.color.create', compact('product'));
+        return view('admin.market.product.guarantee.create', compact('product'));
     }
 
     /**
@@ -38,15 +38,13 @@ class ProductColorController extends Controller
     public function store(Request $request, Product $product)
     {
         $validated = $request->validate([
-            'color_name' => 'required|max:120|min:2|regex:/^[ا-یa-zA-Z0-9\-۰-۹ء-ي., ]+$/u',
-            'color' => 'required|max:120',
+            'name' => 'required|max:120|min:2|regex:/^[ا-یa-zA-Z0-9\-۰-۹ء-ي., ]+$/u',
             'price_increase' => 'required|numeric',
         ]);
-
         $inputs = $request->all();
         $inputs['product_id'] = $product->id;
-        $color = ProductColor::create($inputs);
-        return redirect(route('admin.market.color.index', $product->id))->with('swal-success', 'رنگ مورد نظر با موفقیت اضافه شد.');
+        $color = Guarantee::create($inputs);
+        return redirect(route('admin.market.guarantee.index', $product->id))->with('swal-success', 'گارانتی مورد نظر با موفقیت اضافه شد.');
     }
 
     /**
@@ -89,9 +87,9 @@ class ProductColorController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Product $product, ProductColor $productColor)
+    public function destroy(Product $product, Guarantee $guarantee)
     {
-        $result = $productColor->delete();
-        return redirect()->route('admin.market.color.index', $product->id)->with('swal-success', 'رنگ مورد نظر با موفقیت حذف شد.');
+        $result = $guarantee->delete();
+        return redirect()->route('admin.market.guarantee.index', $product->id)->with('swal-success', 'گارانتی مورد نظر با موفقیت حذف شد.');
     }
 }

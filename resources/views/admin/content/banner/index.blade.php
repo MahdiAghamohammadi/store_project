@@ -46,7 +46,7 @@
                                 <td>{{ $banner->title }}</td>
                                 <td>{{ $banner->url }}</td>
                                 <td><img
-                                        src="{{ asset($banner->image['indexArray'][$banner->image['currentImage']]) }}"
+                                        src="{{ asset($banner->image) }}"
                                         alt="" width="50px" height="50px">
                                 </td>
                                 <td>
@@ -59,7 +59,7 @@
                                             @endif>
                                     </label>
                                 </td>
-                                <td>{{ $banner->position }}</td>
+                                <td>{{ $positions[$banner->position] }}</td>
                                 <td class="text-left width-16-rem">
                                     <a href="{{ route('admin.content.banner.edit', $banner->id) }}"
                                        class="btn btn-primary btn-sm"><i class="pl-1 fa fa-edit"></i>

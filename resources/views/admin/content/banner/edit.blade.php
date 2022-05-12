@@ -75,25 +75,6 @@
                                         </strong>
                                     </span>
                                 @enderror
-                                <section class="row">
-                                    @php
-                                        $number = 1;
-                                    @endphp
-                                    @foreach ($banner->image['indexArray'] as $key => $value)
-                                        <section class="col-md-{{ 6 / $number }}">
-                                            <div class="form-check">
-                                                <input type="radio" class="form-check-input" name="currentImage"
-                                                       id="{{ $number }}" value="{{ $key }}"
-                                                       @if ($banner->image['currentImage'] == $key) checked @endif>
-                                                <label for="{{ $number }}" class="mx-2 form-check-label"><img
-                                                        src="{{ asset($value) }}" class="w-100"></label>
-                                            </div>
-                                        </section>
-                                        @php
-                                            $number++;
-                                        @endphp
-                                    @endforeach
-                                </section>
                             </section>
                             <section class="my-2 col-12 col-md-6">
                                 <div class="form-group">
@@ -112,9 +93,12 @@
                             <section class="my-2 col-12">
                                 <div class="form-group">
                                     <label for="position">موقعیت</label>
-                                    <input type="text" name="position" id="position"
-                                           class="form-control form-control-sm"
-                                           value="{{ old('position', $banner->position) }}">
+                                    <select name="position" id="position" class="form-control form-control-sm">
+                                        @foreach($positions as $key => $value)
+                                            <option value="{{ $key }}"
+                                                    @if (old('position', $banner->position) == $key) selected @endif>{{ $value }}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
                                 @error('position')
                                 <span class="p-1 text-white rounded alert_required bg-danger" role="alert">

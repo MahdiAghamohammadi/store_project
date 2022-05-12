@@ -1,6 +1,6 @@
 @extends('admin.layouts.master')
 @section('head-tag')
-    <title>ایجاد رنگ جدید</title>
+    <title>ایجاد گارانتی جدید</title>
     <link rel="stylesheet" href="{{ asset('admin-assets/jalalidatepicker/persian-datepicker.min.css') }}">
 @endsection
 @section('content')
@@ -9,8 +9,8 @@
             <li class="breadcrumb-item font-size-12"><a href="#">خانه</a></li>
             <li class="breadcrumb-item font-size-12"><a href="#">بخش فروش</a></li>
             <li class="breadcrumb-item font-size-12"><a href="#">کالا ها</a></li>
-            <li class="breadcrumb-item font-size-12"><a href="#">رنگ کالا</a></li>
-            <li class="breadcrumb-item font-size-12 active" aria-current="page"> ایجاد رنگ جدید</li>
+            <li class="breadcrumb-item font-size-12"><a href="#">گارانتی کالا</a></li>
+            <li class="breadcrumb-item font-size-12 active" aria-current="page"> ایجاد گارانتی جدید</li>
         </ol>
     </nav>
     <section class="row">
@@ -18,44 +18,30 @@
             <section class="main-body-container">
                 {{-- header --}}
                 <section class="main-body-container-header">
-                    <h6>ایجاد رنگ جدید</h6>
+                    <h6>ایجاد گارانتی جدید</h6>
                 </section>
                 {{-- button and search inout --}}
                 <section class="pb-2 mt-4 mb-3 d-flex justify-content-between align-items-center border-bottom">
-                    <a href="{{ route('admin.market.color.index', $product->id) }}"
+                    <a href="{{ route('admin.market.guarantee.index', $product->id) }}"
                        class="btn btn-info btn-sm">بازگشت</a>
                 </section>
                 <section>
-                    <form action="{{ route('admin.market.color.store', $product->id) }}" method="POST">
+                    <form action="{{ route('admin.market.guarantee.store', $product->id) }}" method="POST">
                         @csrf
                         <section class="row">
                             <section class="my-2 col-12 col-md-6">
                                 <div class="form-group">
-                                    <label for="color_name">نام رنگ</label>
-                                    <input type="text" name="color_name" id="color_name"
+                                    <label for="name">نام گارانتی</label>
+                                    <input type="text" name="name" id="name"
                                            class="form-control form-control-sm"
-                                           value="{{ old('color_name') }}">
+                                           value="{{ old('name') }}">
                                 </div>
-                                @error('color_name')
+                                @error('name')
                                 <span class="p-1 text-white rounded alert_required bg-danger" role="alert">
                                         <strong>
                                             {{ $message }}
                                         </strong>
                                     </span>
-                                @enderror
-                            </section>
-                            <section class="col-12 col-md-6">
-                                <div class="form-group">
-                                    <label for="color">رنگ</label>
-                                    <input type="color" name="color" id="color" value="{{ old('color') }}"
-                                           class="form-control form-control-sm form-control-color">
-                                </div>
-                                @error('color')
-                                <span class="alert_required bg-danger text-white p-1 rounded" role="alert">
-                                <strong>
-                                    {{ $message }}
-                                </strong>
-                            </span>
                                 @enderror
                             </section>
                             <section class="my-2 col-12 col-md-6">
