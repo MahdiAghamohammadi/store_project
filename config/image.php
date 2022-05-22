@@ -19,12 +19,12 @@ return [
     // index size
     'index-image-sizes' => [
         'large' => [
-            'width' => 800,
-            'height' => 600,
+            'width' => 768,
+            'height' => 1024,
         ],
         'medium' => [
-            'width' => 400,
-            'height' => 300,
+            'width' => 350,
+            'height' => 350,
         ],
         'small' => [
             'width' => 80,

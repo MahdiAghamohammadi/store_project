@@ -54,6 +54,7 @@ use Illuminate\Support\Facades\Route;
 
 // Customer
 use App\Http\Controllers\Customer\HomeController;
+use App\Http\Controllers\Customer\Market\ProductController as CustomerProductController;
 
 /*
 |--------------------------------------------------------------------------
@@ -415,6 +416,11 @@ Route::prefix('admin')->namespace('Admin')->group(function () {
 });
 
 Route::get('/', [HomeController::class, 'home'])->name('customer.home');
+
+Route::namespace('Market')->group(function () {
+    Route::get('/product/{product:slug}', [CustomerProductController::class, 'product'])->name('customer.market.product');
+    Route::post('/add-comment/{product:slug}', [CustomerProductController::class, 'addComment'])->name('customer.market.add-comment');
+});
 
 Route::namespace('Auth')->group(function () {
     Route::get('/login-register', [LoginRegisterController::class, 'loginRegisterForm'])->name('auth.customer-login-register-form');
