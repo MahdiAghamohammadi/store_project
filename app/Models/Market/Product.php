@@ -2,6 +2,7 @@
 
 namespace App\Models\Market;
 
+use Carbon\Carbon;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -10,6 +11,9 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Product extends Model
 {
     use HasFactory, SoftDeletes, Sluggable;
+
+    protected $casts = ['image' => 'array'];
+    protected $fillable = ['name', 'introduction', 'slug', 'image', 'status', 'tags', 'weight', 'length', 'width', 'height', 'price', 'marketable', 'sold_number', 'frozen_number', 'marketable_number', 'brand_id', 'category_id', 'published_at'];
 
     public function sluggable(): array
     {
@@ -60,6 +64,13 @@ class Product extends Model
         return $this->hasMany(Guarantee::class);
     }
 
-    protected $casts = ['image' => 'array'];
-    protected $fillable = ['name', 'introduction', 'slug', 'image', 'status', 'tags', 'weight', 'length', 'width', 'height', 'price', 'marketable', 'sold_number', 'frozen_number', 'marketable_number', 'brand_id', 'category_id', 'published_at'];
+    public function amazingSales()
+    {
+        return $this->hasMany(AmazingSale::class);
+    }
+
+    public function activeAmazingSales()
+    {
+        return $this->amazingSales()->where('start_date', '<', Carbon::now())->where('end_date', '>', Carbon::now())->first();
+    }
 }
