@@ -11,6 +11,8 @@ class Ticket extends Model
 {
     use HasFactory, SoftDeletes;
 
+    protected $fillable = ['subject', 'description', 'seen', 'reference_id', 'category_id', 'priority_id', 'ticket_id', 'user_id', 'status'];
+
     public function user()
     {
         return $this->belongsTo(User::class);
@@ -41,5 +43,4 @@ class Ticket extends Model
         return $this->hasMany($this, 'ticket_id')->with('children');
     }
 
-    protected $fillable = ['subject', 'description', 'seen', 'reference_id', 'category_id', 'priority_id', 'ticket_id', 'user_id', 'status'];
 }

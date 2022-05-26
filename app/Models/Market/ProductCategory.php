@@ -11,6 +11,9 @@ class ProductCategory extends Model
 {
     use HasFactory, SoftDeletes, Sluggable;
 
+    protected $casts = ['image' => 'array'];
+    protected $fillable = ['name', 'description', 'slug', 'image', 'status', 'tags', 'show_in_menu', 'parent_id'];
+
     public function sluggable(): array
     {
         return [
@@ -39,7 +42,4 @@ class ProductCategory extends Model
     {
         return $this->hasMany(CategoryAttribute::class);
     }
-
-    protected $casts = ['image' => 'array'];
-    protected $fillable = ['name', 'description', 'slug', 'image', 'status', 'tags', 'show_in_menu', 'parent_id'];
 }

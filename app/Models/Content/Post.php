@@ -11,7 +11,10 @@ class Post extends Model
 {
     use HasFactory, SoftDeletes, Sluggable;
 
-    public function sluggable()
+    protected $casts = ['image' => 'array'];
+    protected $fillable = ['title', 'summary', 'slug', 'image', 'status', 'tags', 'body', 'published_at', 'author_id', 'category_id', 'commentable'];
+
+    public function sluggable(): array
     {
         return [
             'slug' => [
@@ -29,6 +32,4 @@ class Post extends Model
     {
         return $this->morphMany('App\Models\Content\Comment', 'commentable');
     }
-    protected $casts = ['image' => 'array'];
-    protected $fillable = ['title', 'summary', 'slug', 'image', 'status', 'tags', 'body', 'published_at', 'author_id', 'category_id', 'commentable'];
 }

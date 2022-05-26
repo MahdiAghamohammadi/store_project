@@ -10,7 +10,10 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Page extends Model
 {
     use HasFactory, SoftDeletes, Sluggable;
-    public function sluggable()
+
+    protected $fillable = ['title', 'body', 'slug', 'status', 'tags'];
+
+    public function sluggable(): array
     {
         return [
             'slug' => [
@@ -18,5 +21,4 @@ class Page extends Model
             ],
         ];
     }
-    protected $fillable = ['title', 'body', 'slug', 'status', 'tags'];
 }

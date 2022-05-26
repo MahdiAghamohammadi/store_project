@@ -10,7 +10,10 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Faq extends Model
 {
     use HasFactory, SoftDeletes, Sluggable;
-    public function sluggable()
+
+    protected $fillable = ['question', 'answer', 'slug', 'status', 'tags'];
+
+    public function sluggable(): array
     {
         return [
             'slug' => [
@@ -18,6 +21,4 @@ class Faq extends Model
             ],
         ];
     }
-    protected $fillable = ['question', 'answer', 'slug', 'status', 'tags'];
 }
-
