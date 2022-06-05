@@ -523,9 +523,19 @@
             // final price
             var product_price = product_original_price + selected_color_price + selected_guarantee_price;
             var final_price = number * (product_price - product_discount_price);
-            $('#product_price').html(product_price);
+            $('#product_price').html(toFarsiNumber(product_price));
 
-            $('#final_price').html(final_price);
+            $('#final_price').html(toFarsiNumber(final_price));
+        }
+
+        function toFarsiNumber(number) {
+            const persianNumbers = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
+
+            // add comma
+            number = new Intl.NumberFormat().format(number);
+
+            // convert to persian
+            return number.toString().replace(/\d/g, x => persianNumbers[x]);
         }
     </script>
 @endsection
