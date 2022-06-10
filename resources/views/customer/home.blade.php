@@ -8,21 +8,19 @@
         <section class="row">
             <section class="col-md-8 pe-md-1">
                 <section id="slideshow" class="owl-carousel owl-theme">
-                    @foreach($slideShowImages as $slideShowImage)
+                    @foreach ($slideShowImages as $slideShowImage)
                         <section class="item"><a class="w-100 d-block h-auto text-decoration-none"
-                                                 href="{{ urldecode($slideShowImage->url) }}"><img
-                                    class="w-100 rounded-2 d-block h-auto"
-                                    src="{{ asset($slideShowImage->image) }}" alt="{{ asset($slideShowImage->title) }}"></a>
+                                href="{{ urldecode($slideShowImage->url) }}"><img class="w-100 rounded-2 d-block h-auto"
+                                    src="{{ asset($slideShowImage->image) }}"
+                                    alt="{{ asset($slideShowImage->title) }}"></a>
                         </section>
                     @endforeach
                 </section>
             </section>
             <section class="col-md-4 ps-md-1 mt-2 mt-md-0">
-                @foreach($topBanners as $topBanner)
+                @foreach ($topBanners as $topBanner)
                     <section class="mb-2"><a href="{{ urldecode($topBanner->url) }}" class="d-block"><img
-                                class="w-100 rounded-2"
-                                src="{{ asset($topBanner->image) }}"
-                                alt=""></a>
+                                class="w-100 rounded-2" src="{{ asset($topBanner->image) }}" alt=""></a>
                     </section>
                 @endforeach
             </section>
@@ -49,26 +47,52 @@
                         <!-- start vontent header -->
                         <section class="lazyload-wrapper">
                             <section class="lazyload light-owl-nav owl-carousel owl-theme">
-                                @foreach($mostVisitedProducts as $mostVisitedProduct)
+                                @foreach ($mostVisitedProducts as $mostVisitedProduct)
                                     <section class="item">
                                         <section class="lazyload-item-wrapper">
                                             <section class="product">
-                                                {{-- <section class="product-add-to-cart"><a href="#"--}}
-                                                {{-- data-bs-toggle="tooltip"--}}
-                                                {{-- data-bs-placement="left"--}}
-                                                {{-- title="افزودن به سبد خرید"><i--}}
+                                                {{-- <section class="product-add-to-cart"><a href="#" --}}
+                                                {{-- data-bs-toggle="tooltip" --}}
+                                                {{-- data-bs-placement="left" --}}
+                                                {{-- title="افزودن به سبد خرید"><i --}}
                                                 {{-- class="fa fa-cart-plus"></i></a></section> --}}
-                                                {{-- <section class="product-add-to-favorite"><a href="#"--}}
-                                                {{-- data-bs-toggle="tooltip"--}}
-                                                {{-- data-bs-placement="left"--}}
-                                                {{-- title="افزودن به علاقه مندی"><i--}}
-                                                {{-- class="fa fa-heart"></i></a></section> --}}
+                                                @guest
+                                                    <section class="product-add-to-favorite">
+                                                        <button class="btn btn-light btn-sm"
+                                                            data-url="{{ route('customer.market.add-to-favorite', $mostVisitedProduct) }}"
+                                                            data-bs-toggle="tooltip" data-bs-placement="left"
+                                                            title="افزودن به علاقه مندی">
+                                                            <i class="fa fa-heart"></i>
+                                                        </button>
+                                                    </section>
+                                                @endguest
+                                                @auth
+                                                    @if ($mostVisitedProduct->user->contains(auth()->user()->id))
+                                                        <section class="product-add-to-favorite">
+                                                            <button class="btn btn-light btn-sm"
+                                                                data-url="{{ route('customer.market.add-to-favorite', $mostVisitedProduct) }}"
+                                                                data-bs-toggle="tooltip" data-bs-placement="left"
+                                                                title="حذف از علاقه مندی">
+                                                                <i class="fa fa-heart text-danger"></i>
+                                                            </button>
+                                                        </section>
+                                                    @else
+                                                        <section class="product-add-to-favorite">
+                                                            <button class="btn btn-light btn-sm"
+                                                                data-url="{{ route('customer.market.add-to-favorite', $mostVisitedProduct) }}"
+                                                                data-bs-toggle="tooltip" data-bs-placement="left"
+                                                                title="افزودن به علاقه مندی">
+                                                                <i class="fa fa-heart"></i>
+                                                            </button>
+                                                        </section>
+                                                    @endif
+                                                @endauth
                                                 <a class="product-link"
-                                                   href="{{ route('customer.market.product', $mostVisitedProduct) }}">
+                                                    href="{{ route('customer.market.product', $mostVisitedProduct) }}">
                                                     <section class="product-image">
                                                         <img class=""
-                                                             src="{{ asset($mostVisitedProduct->image['indexArray']['medium']) }}"
-                                                             alt="{{ $mostVisitedProduct->name }}">
+                                                            src="{{ asset($mostVisitedProduct->image['indexArray']['medium']) }}"
+                                                            alt="{{ $mostVisitedProduct->name }}">
                                                     </section>
                                                     <section class="product-colors"></section>
                                                     <section class="product-name">
@@ -79,19 +103,18 @@
                                                             {{-- <span class="product-old-price">6,895,000 </span> --}}
                                                             {{-- <span class="product-discount-amount">10%</span> --}}
                                                         </section>
-                                                        <section
-                                                            class="product-price">{{ priceFormat($mostVisitedProduct->price) }}
+                                                        <section class="product-price">
+                                                            {{ priceFormat($mostVisitedProduct->price) }}
                                                             تومان
                                                         </section>
                                                     </section>
-                                                    {{-- <section class="product-colors">--}}
-                                                    {{-- <section class="product-colors-item"--}}
-                                                    {{-- style="background-color: white;"></section>--}}
-                                                    {{-- <section class="product-colors-item"--}}
-                                                    {{-- style="background-color: blue;"></section>--}}
-                                                    {{--  <section class="product-colors-item"--}}
-                                                    {{--  style="background-color: red;"></section>--}}
-                                                    {{--  </section> --}}
+                                                    <section class="product-colors">
+                                                        @foreach ($mostVisitedProduct->colors()->get() as $color)
+                                                            <section class="product-colors-item"
+                                                                style="background-color: {{ $color->color }};">
+                                                            </section>
+                                                        @endforeach
+                                                    </section>
                                                 </a>
                                             </section>
                                         </section>
@@ -110,12 +133,10 @@
         <section class="container-xxl">
             <!-- two column-->
             <section class="row py-4">
-                @foreach($middleBanners as $middleBanner)
+                @foreach ($middleBanners as $middleBanner)
                     <section class="col-12 col-md-6 mt-2 mt-md-0">
                         <a href="{{ urldecode($middleBanner->url) }}" class="d-block">
-                            <img
-                                class="w-100 rounded-2"
-                                src="{{ asset($middleBanner->image) }}"
+                            <img class="w-100 rounded-2" src="{{ asset($middleBanner->image) }}"
                                 alt="{{ asset($middleBanner->title) }}">
                         </a>
                     </section>
@@ -145,7 +166,7 @@
                         <!-- start vontent header -->
                         <section class="lazyload-wrapper">
                             <section class="lazyload light-owl-nav owl-carousel owl-theme">
-                                @foreach($offerProducts as $offerProduct)
+                                @foreach ($offerProducts as $offerProduct)
                                     <section class="item">
                                         <section class="lazyload-item-wrapper">
                                             <section class="product">
@@ -153,40 +174,41 @@
                                                                                         data-bs-toggle="tooltip"
                                                                                         data-bs-placement="left"
                                                                                         title="افزودن به سبد خرید"><i
-                                                            class="fa fa-cart-plus"></i></a></section>
-                                                <section class="product-add-to-favorite"><a href="#"
-                                                                                            data-bs-toggle="tooltip"
-                                                                                            data-bs-placement="left"
-                                                                                            title="افزودن به علاقه مندی"><i
-                                                            class="fa fa-heart"></i></a></section> --}}
+                                                            class="fa fa-cart-plus"></i></a></section> --}}
+                                                <section class="product-add-to-favorite">
+                                                    <a href="#" data-bs-toggle="tooltip" data-bs-placement="left"
+                                                        title="افزودن به علاقه مندی">
+                                                        <i class="fa fa-heart"></i>
+                                                    </a>
+                                                </section>
                                                 <a class="product-link"
-                                                   href="{{ route('customer.market.product', $offerProduct) }}">
+                                                    href="{{ route('customer.market.product', $offerProduct) }}">
                                                     <section class="product-image">
                                                         <img class=""
-                                                             src="{{ asset($offerProduct->image['indexArray']['medium']) }}"
-                                                             alt="">
+                                                            src="{{ asset($offerProduct->image['indexArray']['medium']) }}"
+                                                            alt="">
                                                     </section>
                                                     <section class="product-colors"></section>
-                                                    <section class="product-name"><h3>{{ $offerProduct->name }}</h3>
+                                                    <section class="product-name">
+                                                        <h3>{{ $offerProduct->name }}</h3>
                                                     </section>
                                                     <section class="product-price-wrapper">
                                                         <section class="product-discount">
                                                             {{-- <span class="product-old-price">342,000 </span>
                                                             <span class="product-discount-amount">22%</span> --}}
                                                         </section>
-                                                        <section
-                                                            class="product-price">{{ priceFormat($offerProduct->price) }}
+                                                        <section class="product-price">
+                                                            {{ priceFormat($offerProduct->price) }}
                                                             تومان
                                                         </section>
                                                     </section>
-                                                    {{-- <section class="product-colors">
-                                                        <section class="product-colors-item"
-                                                                 style="background-color: white;"></section>
-                                                        <section class="product-colors-item"
-                                                                 style="background-color: blue;"></section>
-                                                        <section class="product-colors-item"
-                                                                 style="background-color: red;"></section>
-                                                    </section> --}}
+                                                    <section class="product-colors">
+                                                        @foreach ($offerProduct->colors()->get() as $color)
+                                                            <section class="product-colors-item"
+                                                                style="background-color: {{ $color->color }};">
+                                                            </section>
+                                                        @endforeach
+                                                    </section>
                                                 </a>
                                             </section>
                                         </section>
@@ -203,15 +225,15 @@
 
 
     <!-- start ads section -->
-    @if(!empty($bottomBanner))
+    @if (!empty($bottomBanner))
         <section class="mb-3">
             <section class="container-xxl">
                 <!-- one column -->
                 <section class="row py-4">
                     <section class="col">
                         <a href="{{ urldecode($bottomBanner->url) }}" class="d-block">
-                            <img class="d-block rounded-2 w-100"
-                                 src="{{ asset($bottomBanner->image) }}" alt="{{ asset($bottomBanner->title) }}">
+                            <img class="d-block rounded-2 w-100" src="{{ asset($bottomBanner->image) }}"
+                                alt="{{ asset($bottomBanner->title) }}">
                         </a>
                     </section>
                 </section>
@@ -239,13 +261,13 @@
                     <!-- start vontent header -->
                     <section class="brands-wrapper py-4">
                         <section class="brands dark-owl-nav owl-carousel owl-theme">
-                            @foreach($brands as $brand)
+                            @foreach ($brands as $brand)
                                 <section class="item">
                                     <section class="brand-item">
                                         <a href="{{ urldecode($brand->url) }}">
                                             <img class="rounded-2"
-                                                 src="{{ asset($brand->logo['indexArray']['medium']) }}"
-                                                 alt="{{ $brand->title }}">
+                                                src="{{ asset($brand->logo['indexArray']['medium']) }}"
+                                                alt="{{ $brand->title }}">
                                         </a>
                                     </section>
                                 </section>
@@ -257,4 +279,49 @@
         </section>
     </section>
     <!-- end brand part-->
+
+
+
+    <section class="position-fixed p-4 flex-row-reverse"
+        style="z-index: 99999999; left: 0; top: 3rem; width: 26rem; max-width: 80%;">
+        <section class="toast" data-delay="7000">
+            <section class="toast-body py-3 d-flex text-dark bg-info">
+                <strong class="ml-auto">
+                    برای افزودن کالا به لیست علاقه مندی ها باید ابتدا وارد حساب کاربری خود شوید
+                    <br>
+                    <a href="{{ route('auth.customer-login-register-form') }}" class="text-dark">
+                        ثبت نام / ورود
+                    </a>
+                </strong>
+                <button type="button" class="ml-2 mb-1 close btn btn-danger" data-dismiss="toast" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </section>
+        </section>
+    </section>
+@endsection
+
+@section('script')
+    <script>
+        $('.product-add-to-favorite button').click(function() {
+            var url = $(this).attr('data-url');
+            var element = $(this);
+            $.ajax({
+                url: url,
+                success: function(result) {
+                    if (result.status == 1) {
+                        $(element).children().first().addClass('text-danger');
+                        $(element).attr('data-original-title', 'حذف از علاقه مندی ها');
+                        $(element).attr('data-bs-original-title', 'حذف از علاقه مندی ها');
+                    } else if (result.status == 2) {
+                        $(element).children().first().removeClass('text-danger')
+                        $(element).attr('data-original-title', 'افزودن به علاقه مندی ها');
+                        $(element).attr('data-bs-original-title', 'افزودن به علاقه مندی ها');
+                    } else if (result.status == 3) {
+                        $('.toast').toast('show');
+                    }
+                }
+            })
+        })
+    </script>
 @endsection

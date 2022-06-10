@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Models\Content\Banner;
 use App\Models\Market\Brand;
 use App\Models\Market\Product;
-use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {

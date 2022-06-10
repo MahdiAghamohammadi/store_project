@@ -242,20 +242,11 @@
                                                         </section>
                                                     </section>
                                                     <section class="product-colors">
-                                                        <section class="product-colors-item"
-                                                            style="background-color: yellow;">
-                                                        </section>
-                                                        <section class="product-colors-item"
-                                                            style="background-color: green;">
-                                                        </section>
-                                                        <section class="product-colors-item"
-                                                            style="background-color: white;">
-                                                        </section>
-                                                        <section class="product-colors-item"
-                                                            style="background-color: blue;">
-                                                        </section>
-                                                        <section class="product-colors-item" style="background-color: red;">
-                                                        </section>
+                                                        @foreach ($relatedProduct->colors()->get() as $color)
+                                                            <section class="product-colors-item"
+                                                                style="background-color: {{ $color->color }};">
+                                                            </section>
+                                                        @endforeach
                                                     </section>
                                                 </a>
                                             </section>

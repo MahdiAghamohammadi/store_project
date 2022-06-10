@@ -417,12 +417,13 @@ Route::prefix('admin')->namespace('Admin')->group(function () {
 
 Route::get('/', [HomeController::class, 'home'])->name('customer.home');
 
-Route::namespace('Market')->group(function () {
+Route::namespace ('Market')->group(function () {
     Route::get('/product/{product:slug}', [CustomerProductController::class, 'product'])->name('customer.market.product');
     Route::post('/add-comment/{product:slug}', [CustomerProductController::class, 'addComment'])->name('customer.market.add-comment');
+    Route::get('/add-to-favorite/{product:slug}', [CustomerProductController::class, 'addToFavorite'])->name('customer.market.add-to-favorite');
 });
 
-Route::namespace('Auth')->group(function () {
+Route::namespace ('Auth')->group(function () {
     Route::get('/login-register', [LoginRegisterController::class, 'loginRegisterForm'])->name('auth.customer-login-register-form');
     Route::middleware('throttle:customer-login-register-limiter')->post('/login-register', [LoginRegisterController::class, 'loginRegister'])->name('auth.customer-login-register');
     Route::get('/login-confirm/{token}', [LoginRegisterController::class, 'loginConfirmForm'])->name('auth.customer-login-confirm-form');
