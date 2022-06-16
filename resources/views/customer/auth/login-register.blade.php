@@ -4,7 +4,7 @@
 @endsection
 @section('content')
     <section class="pb-5 vh-100 d-flex justify-content-center align-items-center">
-        <form action="{{ route('auth.customer-login-register') }}" method="post">
+        <form action="{{ route('auth.customer.login-register') }}" method="post">
             @csrf
             <section class="mb-5 login-wrapper">
                 <section class="login-logo">
@@ -16,11 +16,11 @@
                     <input type="text" name="identify" value="{{ old('identify') }}">
                     <section class="my-2">
                         @error('identify')
-                        <span class="p-1 text-white rounded alert_required bg-danger" role="alert">
-                            <span>
-                                {{ $message }}
+                            <span class="p-1 text-white rounded alert_required bg-danger" role="alert">
+                                <span>
+                                    {{ $message }}
+                                </span>
                             </span>
-                        </span>
                         @enderror
                     </section>
                 </section>

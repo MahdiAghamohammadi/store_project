@@ -9,14 +9,14 @@
 @endsection
 @section('content')
     <section class="pb-5 vh-100 d-flex justify-content-center align-items-center">
-        <form action="{{ route('auth.customer-login-confirm', $token) }}" method="post">
+        <form action="{{ route('auth.customer.login-confirm', $token) }}" method="post">
             @csrf
             <section class="mb-5 login-wrapper">
                 <section class="login-logo">
                     <img src="{{ asset('customer-assets/images/logo/4.png') }}" alt="">
                 </section>
                 <section class="mb-2 login-title">
-                    <a href="{{ route('auth.customer-login-register-form') }}">
+                    <a href="{{ route('auth.customer.login-register-form') }}">
                         <i class="fa fa-arrow-right"></i>
                     </a>
                 </section>
@@ -34,7 +34,7 @@
                     <input type="text" name="otp" value="{{ old('otp') }}">
                     <section class="my-2">
                         @error('otp')
-                        <span class="p-1 text-white rounded alert_required bg-danger" role="alert">
+                            <span class="p-1 text-white rounded alert_required bg-danger" role="alert">
                                 <span>
                                     {{ $message }}
                                 </span>
@@ -46,7 +46,8 @@
                     <button class="btn btn-danger">تایید</button>
                 </section>
                 <section id="resend-otp" class="d-none">
-                    <a href="{{ route('auth.customer-login-resend-otp', $token) }}" class="text-decoration-none text-primary">ارسال مجدد کد تایید</a>
+                    <a href="{{ route('auth.customer.login-resend-otp', $token) }}"
+                        class="text-decoration-none text-primary">ارسال مجدد کد تایید</a>
                 </section>
                 <section id="timer"></section>
             </section>
@@ -55,14 +56,14 @@
 @endsection
 @section('script')
     @php
-        $timer = ((new \Carbon\Carbon($otp->created_at))->addMinute(5)->timestamp - \Carbon\Carbon::now()->timestamp) * 1000;
+    $timer = ((new \Carbon\Carbon($otp->created_at))->addMinute(5)->timestamp - \Carbon\Carbon::now()->timestamp) * 1000;
     @endphp
     <script>
         let countDownDate = new Date().getTime() + {{ $timer }};
         let timer = $('#timer');
         let resendOtp = $('#resend-otp');
 
-        let x = setInterval(function () {
+        let x = setInterval(function() {
             let now = new Date().getTime();
             let distance = countDownDate - now;
             let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));

@@ -47,7 +47,7 @@ class LoginRegisterController extends Controller
             }
         } else {
             $message = 'شناسه ورودی شما نه موبایل است نه ایمیل';
-            return redirect()->route('auth.customer-login-register-form')->withErrors(['identify' => $message]);
+            return redirect()->route('auth.customer.login-register-form')->withErrors(['identify' => $message]);
         }
 
         if (empty($user)) {
@@ -94,14 +94,14 @@ class LoginRegisterController extends Controller
             $messageService = new MessageService($emailService);
         }
         $messageService->send();
-        return redirect()->route('auth.customer-login-confirm-form', $token);
+        return redirect()->route('auth.customer.login-confirm-form', $token);
     }
 
     public function loginConfirmForm($token)
     {
         $otp = Otp::where('token', $token)->first();
         if (empty($otp)) {
-            return redirect()->route('auth.customer-login-register-form')->withErrors(['identify' => 'آدرس وارد شده نامعتبر میباشد']);
+            return redirect()->route('auth.customer.login-register-form')->withErrors(['identify' => 'آدرس وارد شده نامعتبر میباشد']);
         }
         return view('customer.auth.login-confirm', compact('token', 'otp'));
     }
@@ -111,11 +111,11 @@ class LoginRegisterController extends Controller
         $inputs = $request->all();
         $otp = Otp::where('token', $token)->where('used', 0)->where('created_at', '>=', Carbon::now()->subMinute(5)->toDateTimeString())->first();
         if (empty($otp)) {
-            return redirect()->route('auth.customer-login-register-form', $token)->withErrors(['identify' => 'آدرس وارد شده نامعتبر میباشد']);
+            return redirect()->route('auth.customer.login-register-form', $token)->withErrors(['identify' => 'آدرس وارد شده نامعتبر میباشد']);
         }
         // if otp not match
         if ($otp->otp_code !== $inputs['otp']) {
-            return redirect()->route('auth.customer-login-confirm-form', $token)->withErrors(['otp' => 'کد تایید وارد شده نامعتبر است.']);
+            return redirect()->route('auth.customer.login-confirm-form', $token)->withErrors(['otp' => 'کد تایید وارد شده نامعتبر است.']);
         }
         // if everything is ok
         $otp->update(['used' => 1]);
@@ -133,7 +133,7 @@ class LoginRegisterController extends Controller
     {
         $otp = Otp::query()->where('token', $token)->where('created_at', '<=', Carbon::now()->subMinute(5)->toDateTimeString())->first();
         if (empty($otp)) {
-            return redirect()->route('auth.customer-login-register-form', $token)->withErrors(['identify' => 'آدرس وارد شده نامعتبر است.']);
+            return redirect()->route('auth.customer.login-register-form', $token)->withErrors(['identify' => 'آدرس وارد شده نامعتبر است.']);
         }
         $user = $otp->user()->first();
         // Create OTP Code
@@ -174,7 +174,7 @@ class LoginRegisterController extends Controller
             $messageService = new MessageService($emailService);
         }
         $messageService->send();
-        return redirect()->route('auth.customer-login-confirm-form', $token);
+        return redirect()->route('auth.customer.login-confirm-form', $token);
     }
 
     public function logout()

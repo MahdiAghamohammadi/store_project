@@ -25,13 +25,13 @@ class LoginRegisterRequest extends FormRequest
     public function rules()
     {
         $route = Route::current();
-        if ($route->getName() == "auth.customer-login-register") {
+        if ($route->getName() == "auth.customer.login-register") {
             return [
                 'identify' => 'required|min:11|max:120|regex:/^[a-zA-Z0-9_.@\+]*$/',
             ];
-        } elseif ($route->getName() == "auth.customer-login-confirm") {
+        } elseif ($route->getName() == "auth.customer.login-confirm") {
             return [
-                'otp' => 'required|min:6|max:6'
+                'otp' => 'required|min:6|max:6',
             ];
         }
 
@@ -41,7 +41,7 @@ class LoginRegisterRequest extends FormRequest
     {
         return [
             'identify' => 'ایمیل یا شماره موبایل',
-            'otp' => 'کد تایید'
+            'otp' => 'کد تایید',
         ];
     }
 }
