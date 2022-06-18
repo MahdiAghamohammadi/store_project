@@ -29,6 +29,9 @@
                 </section>
                 <section class="login-terms-and-conditions"><a href="#">شرایط و قوانین</a> را خوانده ام و پذیرفته ام
                 </section>
+                <section class="login-terms-and-conditions"><a href="{{ route('customer.home') }}"
+                        class="text-decoration-none">صفحه
+                        اصلی</a></section>
             </section>
         </form>
     </section>

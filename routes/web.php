@@ -56,6 +56,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Customer\HomeController;
 use App\Http\Controllers\Customer\Market\ProductController as CustomerProductController;
 
+// Sales Process
+use App\Http\Controllers\Customer\SalesProcess\CartController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -421,6 +424,13 @@ Route::namespace ('Market')->group(function () {
     Route::get('/product/{product:slug}', [CustomerProductController::class, 'product'])->name('customer.market.product');
     Route::post('/add-comment/{product:slug}', [CustomerProductController::class, 'addComment'])->name('customer.market.add-comment');
     Route::get('/add-to-favorite/{product:slug}', [CustomerProductController::class, 'addToFavorite'])->name('customer.market.add-to-favorite');
+});
+
+Route::namespace ('SalesProcess')->group(function () {
+    Route::get('/cart', [CartController::class, 'cart'])->name('customer.sales-process.cart');
+    Route::post('/cart', [CartController::class, 'updateCart'])->name('customer.sales-process.update-cart');
+    Route::post('/add-to-cart/{product:slug}', [CartController::class, 'addToCart'])->name('customer.sales-process.add-to-cart');
+    Route::post('/remove-from-cart/{cartItem}', [CartController::class, 'removeFromCart'])->name('customer.sales-process.remove-from-cart');
 });
 
 Route::namespace ('Auth')->group(function () {
