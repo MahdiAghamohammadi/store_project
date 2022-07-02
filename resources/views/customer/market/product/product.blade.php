@@ -129,7 +129,7 @@
 
                                             @guest
                                             <section class="product-add-to-favorite position-relative" style="top: 0">
-                                                <button class="btn btn-light btn-sm text-decoration-none"
+                                                <button type="button" class="btn btn-light btn-sm text-decoration-none"
                                                     data-url="{{ route('customer.market.add-to-favorite', $product) }}"
                                                     data-bs-toggle="tooltip" data-bs-placement="left"
                                                     title="اضافه از علاقه مندی">
@@ -140,7 +140,7 @@
                                         @auth
                                             @if ($product->user->contains(auth()->user()->id))
                                                 <section class="product-add-to-favorite position-relative" style="top: 0">
-                                                    <button class="btn btn-light btn-sm text-decoration-none"
+                                                    <button type="button" class="btn btn-light btn-sm text-decoration-none"
                                                         data-url="{{ route('customer.market.add-to-favorite', $product) }}"
                                                         data-bs-toggle="tooltip" data-bs-placement="left"
                                                         title="حذف از علاقه مندی">
@@ -149,7 +149,7 @@
                                                 </section>
                                             @else
                                                 <section class="product-add-to-favorite position-relative" style="top: 0">
-                                                    <button class="btn btn-light btn-sm text-decoration-none"
+                                                    <button type="button" class="btn btn-light btn-sm text-decoration-none"
                                                         data-url="{{ route('customer.market.add-to-favorite', $product) }}"
                                                         data-bs-toggle="tooltip" data-bs-placement="left"
                                                         title="اضافه به علاقه مندی">
@@ -263,7 +263,7 @@
                                                     </section>
                                                     @guest
                                                         <section class="product-add-to-favorite">
-                                                            <button class="btn btn-light btn-sm"
+                                                            <button type="button" class="btn btn-light btn-sm"
                                                                 data-url="{{ route('customer.market.add-to-favorite', $relatedProduct) }}"
                                                                 data-bs-toggle="tooltip" data-bs-placement="left"
                                                                 title="افزودن به علاقه مندی">
@@ -274,7 +274,7 @@
                                                     @auth
                                                         @if ($relatedProduct->user->contains(auth()->user()->id))
                                                             <section class="product-add-to-favorite">
-                                                                <button class="btn btn-light btn-sm"
+                                                                <button type="button" class="btn btn-light btn-sm"
                                                                     data-url="{{ route('customer.market.add-to-favorite', $relatedProduct) }}"
                                                                     data-bs-toggle="tooltip" data-bs-placement="left"
                                                                     title="حذف از علاقه مندی">
@@ -283,7 +283,7 @@
                                                             </section>
                                                         @else
                                                             <section class="product-add-to-favorite">
-                                                                <button class="btn btn-light btn-sm"
+                                                                <button type="button" class="btn btn-light btn-sm"
                                                                     data-url="{{ route('customer.market.add-to-favorite', $relatedProduct) }}"
                                                                     data-bs-toggle="tooltip" data-bs-placement="left"
                                                                     title="افزودن به علاقه مندی">
@@ -638,5 +638,23 @@
                     }
                 })
             })
+        </script>
+
+        <script>
+            //start product introduction, features and comment
+            $(document).ready(function() {
+                var s = $("#introduction-features-comments");
+                var pos = s.position();
+                $(window).scroll(function() {
+                    var windowpos = $(window).scrollTop();
+
+                    if (windowpos >= pos.top) {
+                        s.addClass("stick");
+                    } else {
+                        s.removeClass("stick");
+                    }
+                });
+            });
+            //end product introduction, features and comment
         </script>
     @endsection
