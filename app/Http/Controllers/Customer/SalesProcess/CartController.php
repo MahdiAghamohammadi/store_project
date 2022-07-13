@@ -21,9 +21,17 @@ class CartController extends Controller
         }
     }
 
-    public function updateCart()
+    public function updateCart(Request $request)
     {
-
+        $inputs = $request->all();
+        $user_id = Auth::user()->id;
+        $cartItems = CartItem::where('user_id', $user_id)->get();
+        foreach ($cartItems as $cartItem) {
+            if (isset($inputs['number'][$cartItem->id])) {
+                $cartItem->update(['number' => $inputs['number'][$cartItem->id]]);
+            }
+        }
+        return redirect()->route('customer.sales-process.address-and-delivery');
     }
 
     public function addToCart(Request $request, Product $product)

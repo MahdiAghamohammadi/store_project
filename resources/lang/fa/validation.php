@@ -11,7 +11,7 @@ return [
     | the validator class. Some of these rules have multiple versions such
     | as the size rules. Feel free to tweak each of these messages here.
     |
-    */
+     */
 
     "accepted" => ":attribute باید پذیرفته شده باشد.",
     "active_url" => "آدرس :attribute معتبر نیست",
@@ -86,7 +86,7 @@ return [
     | convention "attribute.rule" to name the lines. This makes it quick to
     | specify a specific custom language line for a given attribute rule.
     |
-    */
+     */
 
     'custom' => array(
         'adult_id' => array(
@@ -106,7 +106,7 @@ return [
     | with something more reader friendly such as E-Mail Address instead
     | of "email". This simply helps us make messages a little cleaner.
     |
-    */
+     */
     'attributes' => [
         "name" => "نام",
         'firstName' => 'نام',
@@ -168,5 +168,6 @@ return [
         'profile_photo_path' => 'پروفایل',
         'color_name' => 'نام رنگ',
         'price_increase' => 'افزایش قیمت',
+        'national_code' => 'کد ملی',
     ],
 ];

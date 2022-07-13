@@ -31,6 +31,7 @@ class User extends Authenticatable
         'last_name',
         'email',
         'mobile',
+        'national_code',
         'user_type',
         'status',
         'activation',

@@ -58,6 +58,8 @@ use App\Http\Controllers\Customer\Market\ProductController as CustomerProductCon
 
 // Sales Process
 use App\Http\Controllers\Customer\SalesProcess\CartController;
+use App\Http\Controllers\Customer\SalesProcess\AddressController;
+use App\Http\Controllers\Customer\SalesProcess\ProfileCompletionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -427,10 +429,21 @@ Route::namespace ('Market')->group(function () {
 });
 
 Route::namespace ('SalesProcess')->group(function () {
+    // cart
     Route::get('/cart', [CartController::class, 'cart'])->name('customer.sales-process.cart');
     Route::post('/cart', [CartController::class, 'updateCart'])->name('customer.sales-process.update-cart');
     Route::post('/add-to-cart/{product:slug}', [CartController::class, 'addToCart'])->name('customer.sales-process.add-to-cart');
     Route::get('/remove-from-cart/{cartItem}', [CartController::class, 'removeFromCart'])->name('customer.sales-process.remove-from-cart');
+
+    // profile
+    Route::get('/profile_completion', [ProfileCompletionController::class, 'profileCompletion'])->name('customer.sales-process.profile_completion');
+    Route::post('/profile_completion', [ProfileCompletionController::class, 'update'])->name('customer.sales-process.profile-completion-update');
+
+    Route::middleware('profile.completion')->group(function () {
+        // address
+        Route::get('/address-and-delivery', [AddressController::class, 'addressAndDelivery'])->name('customer.sales-process.address-and-delivery');
+        Route::post('/add-address', [AddressController::class, 'addAddress'])->name('customer.sales-process.add-address');
+    });
 });
 
 Route::namespace ('Auth')->group(function () {
