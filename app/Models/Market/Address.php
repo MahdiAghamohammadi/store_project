@@ -10,6 +10,8 @@ class Address extends Model
 {
     use HasFactory;
 
+    protected $guarded = ['id'];
+
     public function getFullNameAttribute()
     {
         return "{$this->recipient_first_name} {$this->recipient_last_name}";

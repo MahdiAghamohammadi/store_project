@@ -169,5 +169,9 @@ return [
         'color_name' => 'نام رنگ',
         'price_increase' => 'افزایش قیمت',
         'national_code' => 'کد ملی',
+        'province_id' => 'نام استان',
+        'city_id' => 'نام شهر',
+        'no' => 'پلاک',
+        'receiver' => 'گیرنده',
     ],
 ];
