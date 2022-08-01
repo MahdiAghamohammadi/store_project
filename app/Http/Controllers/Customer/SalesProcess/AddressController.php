@@ -47,6 +47,7 @@ class AddressController extends Controller
     {
         $inputs = $request->all();
         $inputs['user_id'] = auth()->user()->id;
+        $inputs['postal_code'] = convertPersianToEnglish($request->postal_code);
 
         $address = Address::create($inputs);
 

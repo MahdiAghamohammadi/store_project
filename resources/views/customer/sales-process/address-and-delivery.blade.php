@@ -72,9 +72,138 @@
                                                     <i class="fa fa-mobile-alt mx-1"></i>
                                                     موبایل گیرنده : {{ $address->mobile ?? '-' }}
                                                 </section>
-                                                <a class="" href="#"><i class="fa fa-edit"></i> ویرایش آدرس</a>
+                                                <a class="" data-bs-toggle="modal"
+                                                    data-bs-target="#edit-address-{{ $address->id }}"><i
+                                                        class="fa fa-edit"></i> ویرایش آدرس</a>
                                                 <span class="address-selected">کالاها به این آدرس ارسال می شوند</span>
                                             </label>
+                                            <!-- start edit address Modal -->
+                                            <section class="modal fade" id="edit-address-{{ $address->id }}" tabindex="-1"
+                                                aria-labelledby="add-address-label" aria-hidden="true">
+                                                <section class="modal-dialog">
+                                                    <section class="modal-content">
+                                                        <section class="modal-header">
+                                                            <h5 class="modal-title" id="add-address-label"><i
+                                                                    class="fa fa-plus"></i>ویرایش آدرس</h5>
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                                aria-label="Close"></button>
+                                                        </section>
+                                                        <section class="modal-body">
+                                                            <form class="row" method="POST"
+                                                                action="{{ route('customer.sales-process.update-address', $address) }}">
+                                                                @csrf
+                                                                @method('PUT')
+                                                                <section class="col-6 mb-2">
+                                                                    <label for="province"
+                                                                        class="form-label mb-1">استان</label>
+                                                                    <select name="province_id"
+                                                                        class="form-select form-select-sm"
+                                                                        id="province-{{ $address->id }}">
+                                                                        @foreach ($provinces as $province)
+                                                                            <option
+                                                                                {{ $address->province_id == $province->id ? 'selected' : '' }}
+                                                                                value="{{ $province->id }}"
+                                                                                data-url="{{ route('customer.sales-process.get-cities', $province->id) }}">
+                                                                                {{ $province->name }}</option>
+                                                                        @endforeach
+                                                                    </select>
+                                                                </section>
+
+                                                                <section class="col-6 mb-2">
+                                                                    <label for="city"
+                                                                        class="form-label mb-1">شهر</label>
+                                                                    <select name="city_id"
+                                                                        class="form-select form-select-sm"
+                                                                        id="city-{{ $address->id }}">
+                                                                        <option selected>شهر را انتخاب کنید</option>
+
+                                                                    </select>
+                                                                </section>
+                                                                <section class="col-12 mb-2">
+                                                                    <label for="address"
+                                                                        class="form-label mb-1">نشانی</label>
+                                                                    <textarea name="address" class="form-control form-control-sm" id="address">{{ $address->address }}</textarea>
+                                                                </section>
+
+                                                                <section class="col-6 mb-2">
+                                                                    <label for="postal_code" class="form-label mb-1">کد
+                                                                        پستی</label>
+                                                                    <input name="postal_code" type="text"
+                                                                        class="form-control form-control-sm"
+                                                                        id="postal_code" placeholder="کد پستی"
+                                                                        value="{{ $address->postal_code }}">
+                                                                </section>
+
+                                                                <section class="col-3 mb-2">
+                                                                    <label for="no"
+                                                                        class="form-label mb-1">پلاک</label>
+                                                                    <input name="no" type="text"
+                                                                        class="form-control form-control-sm" id="no"
+                                                                        placeholder="پلاک" value="{{ $address->no }}">
+                                                                </section>
+
+                                                                <section class="col-3 mb-2">
+                                                                    <label for="unit"
+                                                                        class="form-label mb-1">واحد</label>
+                                                                    <input name="unit" type="text"
+                                                                        class="form-control form-control-sm"
+                                                                        id="unit" placeholder="واحد"
+                                                                        value="{{ $address->unit }}">
+                                                                </section>
+
+                                                                <section class="border-bottom mt-2 mb-3"></section>
+
+                                                                <section class="col-12 mb-2">
+                                                                    <section class="form-check">
+                                                                        <input
+                                                                            {{ $address->recipient_first_name ? 'checked' : '' }}
+                                                                            name="receiver" class="form-check-input"
+                                                                            type="checkbox" id="receiver">
+                                                                        <label class="form-check-label" for="receiver">
+                                                                            گیرنده سفارش خودم نیستم (اطلاعات زیر تکمیل شود)
+                                                                        </label>
+                                                                    </section>
+                                                                </section>
+
+                                                                <section class="col-6 mb-2">
+                                                                    <label for="first_name" class="form-label mb-1">نام
+                                                                        گیرنده</label>
+                                                                    <input name="recipient_first_name" type="text"
+                                                                        class="form-control form-control-sm"
+                                                                        id="first_name" placeholder="نام گیرنده"
+                                                                        value="{{ $address->recipient_first_name ?? $address->recipient_first_name }}">
+                                                                </section>
+
+                                                                <section class="col-6 mb-2">
+                                                                    <label for="last_name" class="form-label mb-1">نام
+                                                                        خانوادگی گیرنده</label>
+                                                                    <input name="recipient_last_name" type="text"
+                                                                        class="form-control form-control-sm"
+                                                                        id="last_name" placeholder="نام خانوادگی گیرنده"
+                                                                        value="{{ $address->recipient_last_name ?? $address->recipient_last_name }}">
+                                                                </section>
+
+                                                                <section class="col-6 mb-2">
+                                                                    <label for="mobile" class="form-label mb-1">شماره
+                                                                        موبایل</label>
+                                                                    <input name="mobile" type="text"
+                                                                        class="form-control form-control-sm"
+                                                                        id="mobile" placeholder="شماره موبایل"
+                                                                        value="{{ $address->mobile ?? $address->mobile }}">
+                                                                </section>
+                                                        </section>
+                                                        <section class="modal-footer py-1">
+                                                            <button type="submit" class="btn btn-sm btn-primary">ثبت
+                                                                آدرس</button>
+                                                            <button type="button" class="btn btn-sm btn-danger"
+                                                                data-bs-dismiss="modal">بستن</button>
+                                                        </section>
+                                                        </form>
+
+                                                    </section>
+                                                </section>
+                                            </section>
+                                            <!-- end edit address Modal -->
                                     @endforeach
 
                                     <section class="address-add-wrapper">
@@ -97,7 +226,8 @@
                                                             action="{{ route('customer.sales-process.add-address') }}">
                                                             @csrf
                                                             <section class="col-6 mb-2">
-                                                                <label for="province" class="form-label mb-1">استان</label>
+                                                                <label for="province"
+                                                                    class="form-label mb-1">استان</label>
                                                                 <select name="province_id"
                                                                     class="form-select form-select-sm" id="province">
                                                                     <option selected>استان را انتخاب کنید</option>
@@ -118,7 +248,8 @@
                                                                 </select>
                                                             </section>
                                                             <section class="col-12 mb-2">
-                                                                <label for="address" class="form-label mb-1">نشانی</label>
+                                                                <label for="address"
+                                                                    class="form-label mb-1">نشانی</label>
                                                                 <textarea name="address" class="form-control form-control-sm" id="address"></textarea>
                                                             </section>
 
@@ -341,6 +472,42 @@
                     }
                 });
             })
+        });
+    </script>
+    {{-- edit --}}
+    <script>
+        $(document).ready(function() {
+            var addresses = {!! auth()->user()->addresses !!}
+            addresses.map((address) => {
+                var addressId = address.id;
+                var target = `#province-${addressId}`;
+                var selected = `${target} option:selected`
+                $(target).change(function() {
+                    var element = $(selected);
+                    var url = element.attr('data-url');
+                    $.ajax({
+                        type: "Get",
+                        url: url,
+                        success: function(response) {
+                            if (response.status) {
+                                let cities = response.cities;
+                                $(`#city-${addressId}`).empty();
+                                cities.map((city) => {
+                                    $(`#city-${addressId}`).append($(
+                                        '<option/>').val(city
+                                        .id).text(city
+                                        .name));
+                                })
+                            } else {
+                                errorToast('خطا پیش آمده است.');
+                            }
+                        },
+                        error: function() {
+                            errorToast('خطا پیش آمده است.');
+                        }
+                    });
+                });
+            });
         });
     </script>
 @endsection
