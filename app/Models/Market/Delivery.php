@@ -16,6 +16,6 @@ class Delivery extends Model
 
     public function getTimeAttribute()
     {
-        return "{$this->delivery_time} - {$this->delivery_time_unit}";
+        return "{$this->delivery_time}  {$this->delivery_time_unit}";
     }
 }

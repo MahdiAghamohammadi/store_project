@@ -4,8 +4,10 @@ namespace App\Http\Controllers\Customer\SalesProcess;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Customer\SalesProcess\StoreAddressRequest;
+use App\Http\Requests\Customer\SalesProcess\UpdateAddressRequest;
 use App\Models\Market\Address;
 use App\Models\Market\CartItem;
+use App\Models\Market\Delivery;
 use App\Models\Market\Province;
 use Illuminate\Support\Facades\Auth;
 
@@ -19,11 +21,13 @@ class AddressController extends Controller
 
         $cartItems = CartItem::where('user_id', $user->id)->get();
 
+        $deliveryMethods = Delivery::where('status', 1)->get();
+
         if (empty(CartItem::where('user_id', $user->id)->count())) {
             return redirect()->route('customer.sales-process.cart');
         }
 
-        return view('customer.sales-process.address-and-delivery', compact('cartItems', 'provinces'));
+        return view('customer.sales-process.address-and-delivery', compact('cartItems', 'provinces', 'deliveryMethods'));
     }
 
     public function getCities(Province $province)
@@ -51,6 +55,16 @@ class AddressController extends Controller
 
         $address = Address::create($inputs);
 
+        return redirect()->back();
+    }
+
+    public function updateAddress(UpdateAddressRequest $request, Address $address)
+    {
+        $inputs = $request->all();
+        $inputs['user_id'] = auth()->user()->id;
+        $inputs['postal_code'] = convertPersianToEnglish($request->postal_code);
+
+        $address->update($inputs);
         return redirect()->back();
     }
 }
