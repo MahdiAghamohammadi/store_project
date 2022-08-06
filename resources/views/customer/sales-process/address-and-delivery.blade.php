@@ -57,7 +57,7 @@
                                 <section class="address-select">
 
                                     @foreach (auth()->user()->addresses as $address)
-                                        <input type="radio" name="address_id" value="{{ $address->id }}"
+                                        <input type="radio" form="myFrom" name="address_id" value="{{ $address->id }}"
                                             id="a-{{ $address->id }}" />
                                         <!--checked="checked"-->
                                             <label for="a-{{ $address->id }}" class="address-wrapper mb-2 p-2">
@@ -357,8 +357,8 @@
                                     </section>
 
                                     @foreach ($deliveryMethods as $deliveryMethod)
-                                        <input type="radio" name="delivery_id" value="{{ $deliveryMethod->id }}"
-                                            id="d-{{ $deliveryMethod->id }}" />
+                                        <input type="radio" form="myFrom" name="delivery_id"
+                                            value="{{ $deliveryMethod->id }}" id="d-{{ $deliveryMethod->id }}" />
                                         <label for="d-{{ $deliveryMethod->id }}"
                                             class="col-12 col-md-4 delivery-wrapper mb-2 pt-2">
                                             <section class="mb-2">
@@ -373,7 +373,6 @@
                                     @endforeach
                                 </section>
                             </section>
-
                         </section>
                         <section class="col-md-3">
                             <section class="content-wrapper bg-white p-3 rounded-2 cart-total-price">
@@ -419,10 +418,13 @@
                                     سفارش صورت میگیرد.
                                 </p>
 
+                                <form action="{{ route('customer.sales-process.choose-address-and-delivery') }}"
+                                    id="myFrom" method="POST">
+                                    @csrf
+                                </form>
 
                                 <section class="">
-                                    <button type="button"
-                                        onclick="document.getElementById('profile_completion').submit();"
+                                    <button type="button" onclick="document.getElementById('myFrom').submit();"
                                         class="btn btn-danger d-block w-100">تکمیل فرآیند خرید</button>
                                 </section>
 
