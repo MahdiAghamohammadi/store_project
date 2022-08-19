@@ -28,4 +28,12 @@ class ChooseAddressAndDeliveryRequest extends FormRequest
             'delivery_id' => 'required|exists:delivery,id',
         ];
     }
+
+    public function attributes()
+    {
+        return [
+            'address_id' => 'آدرس',
+            'delivery_id' => 'نحوه ارسال',
+        ];
+    }
 }
