@@ -11,7 +11,7 @@ class Order extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $guarded = ['id', 'user_id'];
+    protected $guarded = ['id'];
 
     public function payment()
     {

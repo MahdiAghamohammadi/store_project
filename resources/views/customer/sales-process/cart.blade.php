@@ -96,7 +96,7 @@
                         <section class="col-md-3">
                             <section class="content-wrapper bg-white p-3 rounded-2 cart-total-price">
                                 <section class="d-flex justify-content-between align-items-center">
-                                    <p class="text-muted">قیمت کالاها ({{ $cartItem->count() }})</p>
+                                    <p class="text-muted">قیمت کالاها ({{ $cartItems->count() }})</p>
                                     <p class="text-muted" id="total_product_price">{{ priceFormat($totalProductPrice) }}
                                         تومان</p>
                                 </section>
