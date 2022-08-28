@@ -143,21 +143,73 @@
                         </section>
                         <section class="col-md-3">
                             <section class="content-wrapper bg-white p-3 rounded-2 cart-total-price">
+                                @php
+                                    $totalProductPrice = 0;
+                                    $totalDiscount = 0;
+                                @endphp
+
+                                @foreach ($cartItems as $cartItem)
+                                    @php
+                                        $totalProductPrice += $cartItem->cartItemProductPrice() * $cartItem->number;
+                                        $totalDiscount += $cartItem->cartItemProductDiscount() * $cartItem->number;
+                                    @endphp
+                                @endforeach
                                 <section class="d-flex justify-content-between align-items-center">
-                                    <p class="text-muted">قیمت کالاها (2)</p>
-                                    <p class="text-muted">398,000 تومان</p>
+                                    <p class="text-muted">قیمت کالاها ({{ $cartItems->count() }})</p>
+                                    <p class="text-muted"><span
+                                            id="total_product_price">{{ priceFormat($totalProductPrice) }}</span> تومان</p>
                                 </section>
 
-                                <section class="d-flex justify-content-between align-items-center">
-                                    <p class="text-muted">تخفیف کالاها</p>
-                                    <p class="text-danger fw-bolder">78,000 تومان</p>
-                                </section>
+                                <section class="border-bottom mb-3"></section>
+
+                                @if ($totalDiscount != 0)
+                                    <section class="d-flex justify-content-between align-items-center">
+                                        <p class="text-muted">تخفیف کالاها</p>
+                                        <p class="text-danger fw-bolder"><span
+                                                id="total_discount">{{ priceFormat($totalDiscount) }}</span> تومان</p>
+                                    </section>
+                                @endif
+
+                                @if ($order->commonDiscount != null)
+                                    <section class="d-flex justify-content-between align-items-center">
+                                        <p class="text-muted">تخفیف عمومی</p>
+                                        <p class="text-danger fw-bolder"><span
+                                                id="total_discount">{{ priceFormat($order->commonDiscount->percentage) }}</span>
+                                            درصد
+                                        </p>
+                                    </section>
+                                    <section class="d-flex justify-content-between align-items-center">
+                                        <p class="text-muted">حداکثر تخفیف عمومی</p>
+                                        <p class="text-danger fw-bolder"><span
+                                                id="total_discount">{{ priceFormat($order->commonDiscount->discount_ceiling) }}</span>
+                                            تومان
+                                        </p>
+                                    </section>
+                                    <section class="d-flex justify-content-between align-items-center">
+                                        <p class="text-muted">حداقل میزان سبد خرید</p>
+                                        <p class="text-danger fw-bolder"><span
+                                                id="total_discount">{{ priceFormat($order->commonDiscount->minimal_order_amount) }}</span>
+                                            تومان
+                                        </p>
+                                    </section>
+                                @endif
+
+                                @if ($order->coupon != null)
+                                    <section class="d-flex justify-content-between align-items-center">
+                                        <p class="text-muted">میزان کد تخفیف</p>
+                                        <p class="text-danger fw-bolder"><span
+                                                id="total_discount">{{ priceFormat($order->order_coupon_discount_amount) }}</span>
+                                            تومان</p>
+                                    </section>
+                                @endif
 
                                 <section class="border-bottom mb-3"></section>
 
                                 <section class="d-flex justify-content-between align-items-center">
                                     <p class="text-muted">جمع سبد خرید</p>
-                                    <p class="fw-bolder">320,000 تومان</p>
+                                    <p class="fw-bolder"><span
+                                            id="total_price">{{ priceFormat($order->order_final_amount) }}</span>
+                                        تومان</p>
                                 </section>
 
                                 <section class="d-flex justify-content-between align-items-center">

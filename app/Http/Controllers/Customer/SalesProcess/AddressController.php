@@ -95,6 +95,7 @@ class AddressController extends Controller
         $commonDiscount = CommonDiscount::where([['status', 1], ['end_date', '>', now()], ['start_date', '<', now()]])->first();
 
         if ($commonDiscount) {
+            $inputs['common_discount_id'] = $commonDiscount->id;
             $commonPercentageDiscountAmount = $totalFinalPrice * ($commonDiscount->percentage / 100);
             if ($commonPercentageDiscountAmount > $commonDiscount->discount_ceiling) {
                 $commonPercentageDiscountAmount = $commonDiscount->discount_ceiling;
