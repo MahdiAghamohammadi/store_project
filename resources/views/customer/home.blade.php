@@ -3,6 +3,11 @@
     <title>فروشگاه آمازون</title>
 @endsection
 @section('content')
+    @if (session('order_success'))
+        <div class="alert alert-success">
+            {{ session('order_success') }}
+        </div>
+    @endif
     <!-- start slideshow -->
     <section class="container-xxl my-4">
         <section class="row">
@@ -11,8 +16,7 @@
                     @foreach ($slideShowImages as $slideShowImage)
                         <section class="item"><a class="w-100 d-block h-auto text-decoration-none"
                                 href="{{ urldecode($slideShowImage->url) }}"><img class="w-100 rounded-2 d-block h-auto"
-                                    src="{{ asset($slideShowImage->image) }}"
-                                    alt="{{ asset($slideShowImage->title) }}"></a>
+                                    src="{{ asset($slideShowImage->image) }}" alt="{{ asset($slideShowImage->title) }}"></a>
                         </section>
                     @endforeach
                 </section>

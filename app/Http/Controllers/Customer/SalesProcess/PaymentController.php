@@ -4,8 +4,12 @@ namespace App\Http\Controllers\Customer\SalesProcess;
 
 use App\Http\Controllers\Controller;
 use App\Models\Market\CartItem;
+use App\Models\Market\CashPayment;
 use App\Models\Market\Coupon;
+use App\Models\Market\OfflinePayment;
+use App\Models\Market\OnlinePayment;
 use App\Models\Market\Order;
+use App\Models\Market\Payment;
 use Illuminate\Http\Request;
 
 class PaymentController extends Controller
@@ -75,12 +79,69 @@ class PaymentController extends Controller
                         'order_final_amount' => $orderFinalAmount,
                     ]
                 );
-                return redirect()->back();
+                return redirect()->back()->with(['coupon' => 'کد تخفیف با موفقیت اعمال شد.']);
             } else {
-                return redirect()->back();
+                return redirect()->back()->withErrors(['coupon-applied' => 'یک کد تخفیف از قبل اعمال شده است.']);
             }
         } else {
-            return redirect()->back();
+            return redirect()->back()->withErrors(['code' => 'کد تخفیف اشتباه است.']);
         }
+    }
+
+    public function paymentSubmit(Request $request)
+    {
+        $request->validate([
+            'payment_type' => 'required',
+        ]);
+
+        $user = auth()->user();
+        $order = Order::where([
+            ['user_id', $user->id],
+            ['order_status', 0],
+        ])->first();
+        $cartItems = CartItem::where('user_id', $user->id)->get();
+
+        switch ($request->payment_type) {
+            case '1':
+                $targetModel = OnlinePayment::class;
+                $type = 0;
+                break;
+            case '2':
+                $targetModel = OfflinePayment::class;
+                $type = 1;
+                break;
+            case '3':
+                $targetModel = CashPayment::class;
+                $type = 2;
+                break;
+            default:
+                return redirect()->back()->withErrors(['error' => 'خطایی رخ داده است.']);
+        }
+
+        $paymented = $targetModel::create([
+            'amount' => $order->order_final_amount,
+            'user_id' => $user->id,
+            'pay_date' => now(),
+            'status' => 1,
+        ]);
+
+        $payment = Payment::create([
+            'amount' => $order->order_final_amount,
+            'user_id' => $user->id,
+            'status' => 1,
+            'type' => $type,
+            'paymentable_id' => $paymented->id,
+            'paymentable_type' => $targetModel,
+        ]);
+
+        $order->update([
+            'order_status' => 3,
+        ]);
+
+        foreach ($cartItems as $cartItem) {
+            $cartItem->delete();
+        }
+
+        return redirect()->route('customer.home')->with('order_success', 'سفارش شما با موفیقت ثبت شد.');
     }
 }

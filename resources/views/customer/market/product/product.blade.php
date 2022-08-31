@@ -67,8 +67,8 @@
                                 </section>
                                 <section class="product-info">
                                     <form id="add_to_cart"
-                                        action="{{ route('customer.sales-process.add-to-cart', $product) }}"
-                                        method="post" class="product-info">
+                                        action="{{ route('customer.sales-process.add-to-cart', $product) }}" method="post"
+                                        class="product-info">
                                         @csrf
 
                                         @php

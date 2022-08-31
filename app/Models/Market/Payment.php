@@ -10,6 +10,8 @@ class Payment extends Model
 {
     use HasFactory;
 
+    protected $guarded = ['id'];
+
     public function paymentable()
     {
         return $this->morphTo();

@@ -30,6 +30,11 @@
                                 @endforeach
                             </ul>
                         @endif
+                        @if (session('coupon'))
+                            <div class="alert alert-success">
+                                {{ session('coupon') }}
+                            </div>
+                        @endif
                         <section class="col-md-9">
                             <section class="content-wrapper bg-white p-3 rounded-2 mb-4">
 
@@ -93,45 +98,49 @@
                                         </secrion>
                                     </section>
 
-                                    <input type="radio" name="payment_type" value="1" id="d1" />
-                                    <label for="d1" class="col-12 col-md-4 payment-wrapper mb-2 pt-2">
-                                        <section class="mb-2">
-                                            <i class="fa fa-credit-card mx-1"></i>
-                                            پرداخت آنلاین
-                                        </section>
-                                        <section class="mb-2">
-                                            <i class="fa fa-calendar-alt mx-1"></i>
-                                            درگاه پرداخت زرین پال
-                                        </section>
-                                    </label>
+                                    <form action="{{ route('customer.sales-process.payment-submit') }}" method="POST"
+                                        id="payment-submit">
+                                        @csrf
+                                        <input type="radio" name="payment_type" value="1" id="d1" />
+                                        <label for="d1" class="col-12 col-md-4 payment-wrapper mb-2 pt-2">
+                                            <section class="mb-2">
+                                                <i class="fa fa-credit-card mx-1"></i>
+                                                پرداخت آنلاین
+                                            </section>
+                                            <section class="mb-2">
+                                                <i class="fa fa-calendar-alt mx-1"></i>
+                                                درگاه پرداخت زرین پال
+                                            </section>
+                                        </label>
 
-                                    <section class="mb-2"></section>
+                                        <section class="mb-2"></section>
 
-                                    <input type="radio" name="payment_type" value="2" id="d2" />
-                                    <label for="d2" class="col-12 col-md-4 payment-wrapper mb-2 pt-2">
-                                        <section class="mb-2">
-                                            <i class="fa fa-id-card-alt mx-1"></i>
-                                            پرداخت آفلاین
-                                        </section>
-                                        <section class="mb-2">
-                                            <i class="fa fa-calendar-alt mx-1"></i>
-                                            حداکثر در 2 روز کاری بررسی می شود
-                                        </section>
-                                    </label>
+                                        <input type="radio" name="payment_type" value="2" id="d2" />
+                                        <label for="d2" class="col-12 col-md-4 payment-wrapper mb-2 pt-2">
+                                            <section class="mb-2">
+                                                <i class="fa fa-id-card-alt mx-1"></i>
+                                                پرداخت آفلاین
+                                            </section>
+                                            <section class="mb-2">
+                                                <i class="fa fa-calendar-alt mx-1"></i>
+                                                حداکثر در 2 روز کاری بررسی می شود
+                                            </section>
+                                        </label>
 
-                                    <section class="mb-2"></section>
+                                        <section class="mb-2"></section>
 
-                                    <input type="radio" name="payment_type" value="3" id="d3" />
-                                    <label for="d3" class="col-12 col-md-4 payment-wrapper mb-2 pt-2">
-                                        <section class="mb-2">
-                                            <i class="fa fa-money-check mx-1"></i>
-                                            پرداخت در محل
-                                        </section>
-                                        <section class="mb-2">
-                                            <i class="fa fa-calendar-alt mx-1"></i>
-                                            پرداخت به پیک هنگام دریافت کالا
-                                        </section>
-                                    </label>
+                                        <input type="radio" name="payment_type" value="3" id="d3" />
+                                        <label for="d3" class="col-12 col-md-4 payment-wrapper mb-2 pt-2">
+                                            <section class="mb-2">
+                                                <i class="fa fa-money-check mx-1"></i>
+                                                پرداخت در محل
+                                            </section>
+                                            <section class="mb-2">
+                                                <i class="fa fa-calendar-alt mx-1"></i>
+                                                پرداخت به پیک هنگام دریافت کالا
+                                            </section>
+                                        </label>
+                                    </form>
 
 
                                 </section>
@@ -238,8 +247,10 @@
                                     <section id="payment-button"
                                         class="text-warning border border-warning text-center py-2 pointer rounded-2 d-block">
                                         نوع پرداخت را انتخاب کن</section>
-                                    <a id="final-level" href="my-orders.html" class="btn btn-danger d-none">ثبت سفارش و
-                                        گرفتن کد رهگیری</a>
+                                    <button id="final-level" type="button"
+                                        onclick="document.getElementById('payment-submit').submit();"
+                                        class="btn btn-danger d-block w-100 d-none">ثبت سفارش و
+                                        گرفتن کد رهگیری</button>
                                 </section>
 
                             </section>
