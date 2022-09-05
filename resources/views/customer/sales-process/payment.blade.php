@@ -63,7 +63,7 @@
                                         <form action="{{ route('customer.sales-process.coupon-discount') }}" method="POST">
                                             @csrf
                                             <section class="input-group input-group-sm">
-                                                <input name="code" type="text" class="form-control"
+                                                <input name="coupon" type="text" class="form-control"
                                                     placeholder="کد تخفیف را وارد کنید">
                                                 <button class="btn btn-primary" type="submit">اعمال کد</button>
                                             </section>
@@ -129,8 +129,8 @@
 
                                         <section class="mb-2"></section>
 
-                                        <input type="radio" name="payment_type" value="3" id="d3" />
-                                        <label for="d3" class="col-12 col-md-4 payment-wrapper mb-2 pt-2">
+                                        <input type="radio" name="payment_type" value="3" id="cash_payment" />
+                                        <label for="cash_payment" class="col-12 col-md-4 payment-wrapper mb-2 pt-2">
                                             <section class="mb-2">
                                                 <i class="fa fa-money-check mx-1"></i>
                                                 پرداخت در محل
@@ -262,4 +262,20 @@
         </section>
     </section>
     <!-- end cart -->
+@endsection
+
+@section('script')
+    <script>
+        $(function() {
+            $("#cash_payment").click(function() {
+                var newDiv = document.createElement('div');
+                newDiv.innerHTML = `
+                    <section class="input-group input-group-sm">
+                        <input type="text" name="cash_receiver" class="form-control" form="payment-submit" placeholder="نام و نام خانوادگی گیرنده" >
+                    </section>
+                `;
+                document.getElementsByClassName('content-wrapper')[1].appendChild(newDiv);
+            });
+        });
+    </script>
 @endsection

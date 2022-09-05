@@ -28,11 +28,11 @@ class PaymentController extends Controller
     public function couponDiscount(Request $request)
     {
         $request->validate([
-            'code' => 'required',
+            'coupon' => 'required',
         ]);
 
         $coupon = Coupon::where([
-            ['code', $request->code],
+            ['code', $request->coupon],
             ['status', 1], ['end_date', '>', now()],
             ['start_date', '<', now()],
         ])->first();
@@ -40,7 +40,7 @@ class PaymentController extends Controller
         if ($coupon != null) {
             if ($coupon->user_id != null) {
                 $coupon = Coupon::where([
-                    ['code', $request->code],
+                    ['code', $request->coupon],
                     ['status', 1], ['end_date', '>', now()],
                     ['start_date', '<', now()],
                     ['user_id', auth()->user()->id],
@@ -101,6 +101,8 @@ class PaymentController extends Controller
         ])->first();
         $cartItems = CartItem::where('user_id', $user->id)->get();
 
+        $cash_receiver = null;
+
         switch ($request->payment_type) {
             case '1':
                 $targetModel = OnlinePayment::class;
@@ -113,6 +115,7 @@ class PaymentController extends Controller
             case '3':
                 $targetModel = CashPayment::class;
                 $type = 2;
+                $cash_receiver = $request->cash_receiver ?? null;
                 break;
             default:
                 return redirect()->back()->withErrors(['error' => 'خطایی رخ داده است.']);
@@ -122,6 +125,7 @@ class PaymentController extends Controller
             'amount' => $order->order_final_amount,
             'user_id' => $user->id,
             'pay_date' => now(),
+            'cash_receiver' => $cash_receiver,
             'status' => 1,
         ]);
 
