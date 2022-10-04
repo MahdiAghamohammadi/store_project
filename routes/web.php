@@ -423,13 +423,13 @@ Route::prefix('admin')->namespace('Admin')->group(function () {
 
 Route::get('/', [HomeController::class, 'home'])->name('customer.home');
 
-Route::namespace ('Market')->group(function () {
+Route::namespace('Market')->group(function () {
     Route::get('/product/{product:slug}', [CustomerProductController::class, 'product'])->name('customer.market.product');
     Route::post('/add-comment/{product:slug}', [CustomerProductController::class, 'addComment'])->name('customer.market.add-comment');
     Route::get('/add-to-favorite/{product:slug}', [CustomerProductController::class, 'addToFavorite'])->name('customer.market.add-to-favorite');
 });
 
-Route::namespace ('SalesProcess')->group(function () {
+Route::namespace('SalesProcess')->group(function () {
     // cart
     Route::get('/cart', [CartController::class, 'cart'])->name('customer.sales-process.cart');
     Route::post('/cart', [CartController::class, 'updateCart'])->name('customer.sales-process.update-cart');
@@ -452,11 +452,11 @@ Route::namespace ('SalesProcess')->group(function () {
         Route::get('/payment', [CustomerPaymentController::class, 'payment'])->name('customer.sales-process.payment');
         Route::post('/coupon-discount', [CustomerPaymentController::class, 'couponDiscount'])->name('customer.sales-process.coupon-discount');
         Route::post('/payment-submit', [CustomerPaymentController::class, 'paymentSubmit'])->name('customer.sales-process.payment-submit');
-
+        Route::any('/payment-callback{order}/{onlinePayment}', [CustomerPaymentController::class, 'paymentCallback'])->name('customer.sales-process.payment-call-back');
     });
 });
 
-Route::namespace ('Auth')->group(function () {
+Route::namespace('Auth')->group(function () {
     Route::get('/login-register', [LoginRegisterController::class, 'loginRegisterForm'])->name('auth.customer.login-register-form');
     Route::middleware('throttle:customer-login-register-limiter')->post('/login-register', [LoginRegisterController::class, 'loginRegister'])->name('auth.customer.login-register');
     Route::get('/login-confirm/{token}', [LoginRegisterController::class, 'loginConfirmForm'])->name('auth.customer.login-confirm-form');

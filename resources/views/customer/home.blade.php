@@ -8,6 +8,11 @@
             {{ session('order_success') }}
         </div>
     @endif
+    @if (session('order_danger'))
+        <div class="alert alert-danger">
+            {{ session('order_danger') }}
+        </div>
+    @endif
     <!-- start slideshow -->
     <section class="container-xxl my-4">
         <section class="row">
