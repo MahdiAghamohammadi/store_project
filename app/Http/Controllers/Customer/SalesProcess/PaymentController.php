@@ -10,6 +10,7 @@ use App\Models\Market\Coupon;
 use App\Models\Market\OfflinePayment;
 use App\Models\Market\OnlinePayment;
 use App\Models\Market\Order;
+use App\Models\Market\OrderItem;
 use App\Models\Market\Payment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -126,7 +127,6 @@ class PaymentController extends Controller
         $paymented = $targetModel::create([
             'amount' => $order->order_final_amount,
             'user_id' => $user->id,
-            'gateway' => 'زرین پال',
             'pay_date' => now(),
             'cash_receiver' => $cash_receiver,
             'status' => 1,
@@ -150,6 +150,21 @@ class PaymentController extends Controller
         ]);
 
         foreach ($cartItems as $cartItem) {
+            OrderItem::create([
+                'order_id' => $order->id,
+                'product_id' => $cartItem->product_id,
+                'product' => $cartItem->product,
+                'amazing_sale_id' => $cartItem->product->activeAmazingSales()->id ?? null,
+                'amazing_sale_object' => $cartItem->product->activeAmazingSales() ?? null,
+                'amazing_sale_discount_amount' =>  empty($cartItem->product->activeAmazingSales()) ? 0
+                    : $cartItem->cartItemProductPrice() * ($cartItem->product->activeAmazingSales()->percentage / 100),
+                'number' => $cartItem->number,
+                'final_product_price' => empty($cartItem->product->activeAmazingSales()) ? $cartItem->cartItemProductPrice()
+                    : ($cartItem->cartItemProductPrice() - $cartItem->cartItemProductPrice() * ($cartItem->product->activeAmazingSales()->percentage / 100)),
+                'final_total_price' => $cartItem->cartItemFinalPrice(),
+                'color_id' => $cartItem->color_id,
+                'guarantee_id' => $cartItem->guarantee_id,
+            ]);
             $cartItem->delete();
         }
 
@@ -166,6 +181,21 @@ class PaymentController extends Controller
 
         DB::transaction(function () use ($cartItems, $result, $order) {
             foreach ($cartItems as $cartItem) {
+                OrderItem::create([
+                    'order_id' => $order->id,
+                    'product_id' => $cartItem->product_id,
+                    'product' => $cartItem->product,
+                    'amazing_sale_id' => $cartItem->product->activeAmazingSales()->id ?? null,
+                    'amazing_sale_object' => $cartItem->product->activeAmazingSales() ?? null,
+                    'amazing_sale_discount_amount' =>  empty($cartItem->product->activeAmazingSales()) ? 0
+                        : $cartItem->cartItemProductPrice() * ($cartItem->product->activeAmazingSales()->percentage / 100),
+                    'number' => $cartItem->number,
+                    'final_product_price' => empty($cartItem->product->activeAmazingSales()) ? $cartItem->cartItemProductPrice()
+                        : ($cartItem->cartItemProductPrice() - $cartItem->cartItemProductPrice() * ($cartItem->product->activeAmazingSales()->percentage / 100)),
+                    'final_total_price' => $cartItem->cartItemFinalPrice(),
+                    'color_id' => $cartItem->color_id,
+                    'guarantee_id' => $cartItem->guarantee_id,
+                ]);
                 $cartItem->delete();
             }
 

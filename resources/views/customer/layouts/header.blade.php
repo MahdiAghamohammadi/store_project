@@ -57,7 +57,7 @@
                                 aria-labelledby="dropdownMenuButton1">
                                 <section><a class="dropdown-item" href="my-profile.html"><i
                                             class="fa fa-user-circle"></i>پروفایل کاربری</a></section>
-                                <section><a class="dropdown-item" href="my-orders.html"><i
+                                <section><a class="dropdown-item" href="{{ route('customer.profile.orders') }}"><i
                                             class="fa fa-newspaper"></i>سفارشات</a>
                                 </section>
                                 <section><a class="dropdown-item" href="my-favorites.html"><i class="fa fa-heart"></i>لیست

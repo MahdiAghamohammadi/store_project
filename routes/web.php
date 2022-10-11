@@ -62,6 +62,9 @@ use App\Http\Controllers\Customer\SalesProcess\AddressController;
 use App\Http\Controllers\Customer\SalesProcess\ProfileCompletionController;
 use App\Http\Controllers\Customer\SalesProcess\PaymentController as CustomerPaymentController;
 
+// Profile
+use App\Http\Controllers\Customer\Profile\OrderController as ProfileOrderController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -78,6 +81,7 @@ use App\Http\Controllers\Customer\SalesProcess\PaymentController as CustomerPaym
 |--------------------------------------------------------------------------
 |
  */
+
 Route::prefix('admin')->namespace('Admin')->group(function () {
     Route::get('/', [AdminDashboardController::class, 'index'])->name('admin.home');
     // Market Module
@@ -454,6 +458,10 @@ Route::namespace('SalesProcess')->group(function () {
         Route::post('/payment-submit', [CustomerPaymentController::class, 'paymentSubmit'])->name('customer.sales-process.payment-submit');
         Route::any('/payment-callback{order}/{onlinePayment}', [CustomerPaymentController::class, 'paymentCallback'])->name('customer.sales-process.payment-call-back');
     });
+});
+
+Route::namespace('Profile')->group(function () {
+    Route::get('/orders', [ProfileOrderController::class, 'index'])->name('customer.profile.orders');
 });
 
 Route::namespace('Auth')->group(function () {
