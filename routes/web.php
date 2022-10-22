@@ -55,6 +55,9 @@ use Illuminate\Support\Facades\Route;
 // Customer
 use App\Http\Controllers\Customer\HomeController;
 use App\Http\Controllers\Customer\Market\ProductController as CustomerProductController;
+// Profile
+use App\Http\Controllers\Customer\Profile\OrderController as ProfileOrderController;
+use App\Http\Controllers\Customer\Profile\FavoriteController;
 
 // Sales Process
 use App\Http\Controllers\Customer\SalesProcess\CartController;
@@ -62,8 +65,6 @@ use App\Http\Controllers\Customer\SalesProcess\AddressController;
 use App\Http\Controllers\Customer\SalesProcess\ProfileCompletionController;
 use App\Http\Controllers\Customer\SalesProcess\PaymentController as CustomerPaymentController;
 
-// Profile
-use App\Http\Controllers\Customer\Profile\OrderController as ProfileOrderController;
 
 /*
 |--------------------------------------------------------------------------
@@ -462,6 +463,8 @@ Route::namespace('SalesProcess')->group(function () {
 
 Route::namespace('Profile')->group(function () {
     Route::get('/orders', [ProfileOrderController::class, 'index'])->name('customer.profile.orders');
+    Route::get('/my-favorites', [FavoriteController::class, 'index'])->name('customer.profile.my-favorites');
+    Route::get('/my-favorites/delete/{product}', [FavoriteController::class, 'delete'])->name('customer.profile.my-favorites.delete');
 });
 
 Route::namespace('Auth')->group(function () {
