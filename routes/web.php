@@ -58,7 +58,7 @@ use App\Http\Controllers\Customer\Market\ProductController as CustomerProductCon
 // Profile
 use App\Http\Controllers\Customer\Profile\OrderController as ProfileOrderController;
 use App\Http\Controllers\Customer\Profile\FavoriteController;
-
+use App\Http\Controllers\Customer\Profile\ProfileController;
 // Sales Process
 use App\Http\Controllers\Customer\SalesProcess\CartController;
 use App\Http\Controllers\Customer\SalesProcess\AddressController;
@@ -465,6 +465,8 @@ Route::namespace('Profile')->group(function () {
     Route::get('/orders', [ProfileOrderController::class, 'index'])->name('customer.profile.orders');
     Route::get('/my-favorites', [FavoriteController::class, 'index'])->name('customer.profile.my-favorites');
     Route::get('/my-favorites/delete/{product}', [FavoriteController::class, 'delete'])->name('customer.profile.my-favorites.delete');
+    Route::get('/profile', [ProfileController::class, 'index'])->name('customer.profile.profile');
+    Route::put('/profile/update', [ProfileController::class, 'update'])->name('customer.profile.profile.update');
 });
 
 Route::namespace('Auth')->group(function () {
