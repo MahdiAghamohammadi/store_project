@@ -8,7 +8,8 @@
                         من</a></span>
             </section>
             <section class="sidebar-nav-item">
-                <span class="sidebar-nav-item-title"><a class="p-3" href="my-addresses.html">آدرس های من</a></span>
+                <span class="sidebar-nav-item-title"><a class="p-3"
+                        href="{{ route('customer.profile.my-addresses') }}">آدرس های من</a></span>
             </section>
             <section class="sidebar-nav-item">
                 <span class="sidebar-nav-item-title"><a class="p-3"

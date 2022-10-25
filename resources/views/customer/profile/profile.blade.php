@@ -6,6 +6,11 @@
 
 @section('content')
     <!-- start body -->
+    @if (session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+    @endif
     <section class="row">
         @include('customer.layouts.partials.profile-sidebar')
         <main id="main-body" class="main-body col-md-9">
