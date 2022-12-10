@@ -14,6 +14,13 @@
     <section class="row">
         @include('customer.layouts.partials.profile-sidebar')
         <main id="main-body" class="main-body col-md-9">
+            @if ($errors->any())
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li class="text-danger">{{ $error }}</li>
+                    @endforeach
+                </ul>
+            @endif
             <section class="content-wrapper bg-white p-3 rounded-2 mb-2">
 
                 <!-- start vontent header -->
