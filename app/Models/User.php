@@ -2,19 +2,20 @@
 
 namespace App\Models;
 
-use App\Models\Market\Address;
+use App\Models\User\Role;
 use App\Models\Market\Order;
+use App\Models\Ticket\Ticket;
+use App\Models\Market\Address;
 use App\Models\Market\Payment;
 use App\Models\Market\Product;
-use App\Models\Ticket\Ticket;
+use App\Models\User\Permission;
+use Laravel\Sanctum\HasApiTokens;
 use App\Models\Ticket\TicketAdmin;
-use App\Models\User\Role;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Foundation\Auth\User as Authenticatable;
+use Laravel\Jetstream\HasProfilePhoto;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
-use Laravel\Jetstream\HasProfilePhoto;
-use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
@@ -113,5 +114,10 @@ class User extends Authenticatable
     public function products()
     {
         return $this->belongsToMany(Product::class);
+    }
+
+    public function permissions()
+    {
+        return $this->belongsToMany(Permission::class);
     }
 }
