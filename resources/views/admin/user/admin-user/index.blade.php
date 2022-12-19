@@ -21,7 +21,8 @@
                 <section class="pb-2 mt-4 mb-3 d-flex justify-content-between align-items-center border-bottom">
                     <a href="{{ route('admin.user.admin-user.create') }}" class="btn btn-info btn-sm">ایجاد ادمین جدید</a>
                     <div class="max-width-16-rem">
-                        <input class="form-control form-control-sm form-text" type="text" name="" id="" placeholder="جستجو">
+                        <input class="form-control form-control-sm form-text" type="text" name="" id=""
+                            placeholder="جستجو">
                     </div>
                 </section>
                 <section class="table-responsive">
@@ -47,41 +48,50 @@
                                     <td>{{ $admin->mobile }}</td>
                                     <td>{{ $admin->first_name }}</td>
                                     <td>{{ $admin->last_name }}</td>
-                                    <td>سوپر ادمین</td>
-                                    {{-- <td>{{ $admin->role }}</td> --}}
+                                    <td>
+                                        @forelse ($admin->roles as $role)
+                                            <div>
+                                                {{ $role->name }}
+                                            </div>
+                                        @empty
+                                            <div class="text-danger">
+                                                نقشی یافت نشد.
+                                            </div>
+                                        @endforelse
+                                    </td>
                                     <td>
                                         <label>
                                             <input id="{{ $admin->id }}-activation"
                                                 onchange="changeActivation({{ $admin->id }})" type="checkbox"
                                                 data-url="{{ route('admin.user.admin-user.activation', $admin->id) }}"
-                                                @if ($admin->activation === 1)
-                                            checked
-                            @endif>
-                            </label>
-                            </td>
-                            <td>
-                                <label>
-                                    <input id="{{ $admin->id }}" onchange="changeStatus({{ $admin->id }})"
-                                        type="checkbox"
-                                        data-url="{{ route('admin.user.admin-user.status', $admin->id) }}" @if ($admin->status === 1)
-                                    checked
-                                    @endif>
-                                </label>
-                            </td>
-                            <td class="text-left width-16-rem">
-                                <a href="#" class="btn btn-warning btn-sm"><i class="pl-1 fa fa-edit"></i> نقش</a>
-                                <a href="{{ route('admin.user.admin-user.edit', $admin->id) }}"
-                                    class="btn btn-primary btn-sm"><i class="pl-1 fa fa-edit"></i>
-                                    ویرایش</a>
-                                    <form method="POST" action="{{ route('admin.user.admin-user.destroy', $admin->id) }}"
-                                        class="d-inline">
-                                        @csrf
-                                        {{ method_field('delete') }}
-                                        <button type="submit" class="btn delete btn-danger btn-sm"><i class="fa fa-trash-alt"></i>
-                                            حذف</button>
-                                    </form>
-                            </td>
-                            </tr>
+                                                @if ($admin->activation === 1) checked @endif>
+                                        </label>
+                                    </td>
+                                    <td>
+                                        <label>
+                                            <input id="{{ $admin->id }}" onchange="changeStatus({{ $admin->id }})"
+                                                type="checkbox"
+                                                data-url="{{ route('admin.user.admin-user.status', $admin->id) }}"
+                                                @if ($admin->status === 1) checked @endif>
+                                        </label>
+                                    </td>
+                                    <td class="text-left width-16-rem">
+                                        <a href="{{ route('admin.user.admin-user.roles', $admin->id) }}"
+                                            class="btn btn-warning btn-sm"><i class="pl-1 fa fa-edit"></i> نقش</a>
+                                        <a href="{{ route('admin.user.admin-user.edit', $admin->id) }}"
+                                            class="btn btn-primary btn-sm"><i class="pl-1 fa fa-edit"></i>
+                                            ویرایش</a>
+                                        <form method="POST"
+                                            action="{{ route('admin.user.admin-user.destroy', $admin->id) }}"
+                                            class="d-inline">
+                                            @csrf
+                                            {{ method_field('delete') }}
+                                            <button type="submit" class="btn delete btn-danger btn-sm"><i
+                                                    class="fa fa-trash-alt"></i>
+                                                حذف</button>
+                                        </form>
+                                    </td>
+                                </tr>
                             @endforeach
                         </tbody>
                     </table>
