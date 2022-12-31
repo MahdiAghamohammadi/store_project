@@ -18,4 +18,5 @@
 3. create `.env` file and copy everything's of `.env.example` file and paste in `.env`
 4. run `php artisan key:generate` for generate app key
 5. run `php artisan migrate` to create tables in your database
-6. run `php artisan serve` and open [http://127.0.0.1:8000/admin](http://127.0.0.1:8000/admin) in your browser to see admin panel
+6. run `php artisan serve` and open [http://127.0.0.1:8000/](http://127.0.0.1:8000/) in your browser to see index page
+7. open [http://127.0.0.1:8000/admin](http://127.0.0.1:8000/admin) in your browser to see admin panel
