@@ -34,9 +34,10 @@
                                 <th>شماره موبایل</th>
                                 <th>نام</th>
                                 <th>نام خوانوادگی</th>
-                                <th>نقش</th>
                                 <th>فعال سازی</th>
                                 <th>وضعیت</th>
+                                <th>نقش</th>
+                                <th>سطوح دسترسی</th>
                                 <th class="text-center max-width-16-rem"><i class="fa fa-cogs"></i> تنظیمات</th>
                             </tr>
                         </thead>
@@ -48,17 +49,6 @@
                                     <td>{{ $admin->mobile }}</td>
                                     <td>{{ $admin->first_name }}</td>
                                     <td>{{ $admin->last_name }}</td>
-                                    <td>
-                                        @forelse ($admin->roles as $role)
-                                            <div>
-                                                {{ $role->name }}
-                                            </div>
-                                        @empty
-                                            <div class="text-danger">
-                                                نقشی یافت نشد.
-                                            </div>
-                                        @endforelse
-                                    </td>
                                     <td>
                                         <label>
                                             <input id="{{ $admin->id }}-activation"
@@ -75,9 +65,33 @@
                                                 @if ($admin->status === 1) checked @endif>
                                         </label>
                                     </td>
-                                    <td class="text-left width-16-rem">
+                                    <td>
+                                        @forelse ($admin->roles as $role)
+                                            <div>
+                                                {{ $role->name }}
+                                            </div>
+                                        @empty
+                                            <div class="text-danger">
+                                                نقشی یافت نشد.
+                                            </div>
+                                        @endforelse
+                                    </td>
+                                    <td>
+                                        @forelse ($admin->permissions as $permission)
+                                            <div>
+                                                {{ $permission->name }}
+                                            </div>
+                                        @empty
+                                            <div class="text-danger">
+                                                سطوح دسترسی یافت نشد.
+                                            </div>
+                                        @endforelse
+                                    </td>
+                                    <td class="text-left width-30-rem">
+                                        <a href="{{ route('admin.user.admin-user.permissions', $admin->id) }}"
+                                            class="btn btn-warning btn-sm"><i class="pl-1 fa fa-edit"></i> سطوح دسترسی</a>
                                         <a href="{{ route('admin.user.admin-user.roles', $admin->id) }}"
-                                            class="btn btn-warning btn-sm"><i class="pl-1 fa fa-edit"></i> نقش</a>
+                                            class="btn btn-info btn-sm"><i class="pl-1 fa fa-edit"></i> نقش</a>
                                         <a href="{{ route('admin.user.admin-user.edit', $admin->id) }}"
                                             class="btn btn-primary btn-sm"><i class="pl-1 fa fa-edit"></i>
                                             ویرایش</a>
