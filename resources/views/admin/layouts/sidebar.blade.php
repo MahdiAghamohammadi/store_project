@@ -76,10 +76,12 @@
 
 
             <section class="sidebar-part-title pointer">بخش محتوی</section>
-            <a href="{{ route('admin.content.category.index') }}" class="sidebar-link">
-                <i class="fas fa-bars"></i>
-                <span>دسته بندی</span>
-            </a>
+            @role('operator')
+                <a href="{{ route('admin.content.category.index') }}" class="sidebar-link">
+                    <i class="fas fa-bars"></i>
+                    <span>دسته بندی</span>
+                </a>
+            @endrole
             <a href="{{ route('admin.content.post.index') }}" class="sidebar-link">
                 <i class="fas fa-bars"></i>
                 <span>پست ها</span>
