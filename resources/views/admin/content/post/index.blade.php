@@ -21,7 +21,8 @@
                 <section class="pb-2 mt-4 mb-3 d-flex justify-content-between align-items-center border-bottom">
                     <a href="{{ route('admin.content.post.create') }}" class="btn btn-info btn-sm">ایجاد پست جدید</a>
                     <div class="max-width-16-rem">
-                        <input class="form-control form-control-sm form-text" type="text" name="" id="" placeholder="جستجو">
+                        <input class="form-control form-control-sm form-text" type="text" name="" id=""
+                            placeholder="جستجو">
                     </div>
                 </section>
                 <section class="table-responsive">
@@ -58,33 +59,31 @@
                                             <input id="{{ $post->id }}" onchange="changeStatus({{ $post->id }})"
                                                 type="checkbox"
                                                 data-url="{{ route('admin.content.post.status', $post->id) }}"
-                                                @if ($post->status === 1)
-                                            checked
-                            @endif>
-                            </label>
-                            </td>
-                            <td>
-                                <label>
-                                    <input id="{{ $post->id }}-commentable"
-                                        onchange="commentable({{ $post->id }})" type="checkbox"
-                                        data-url="{{ route('admin.content.post.commentable', $post->id) }}" @if ($post->commentable === 1)
-                                    checked
-                                    @endif>
-                                </label>
-                            </td>
-                            <td class="text-left width-16-rem">
-                                <a href="{{ route('admin.content.post.edit', $post->id) }}"
-                                    class="btn btn-primary btn-sm"><i class="pl-1 fa fa-edit"></i>
-                                    ویرایش</a>
-                                <form method="POST" action="{{ route('admin.content.post.destroy', $post->id) }}"
-                                    class="d-inline">
-                                    @csrf
-                                    {{ method_field('delete') }}
-                                    <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-trash-alt"></i>
-                                        حذف</button>
-                                </form>
-                            </td>
-                            </tr>
+                                                @if ($post->status === 1) checked @endif>
+                                        </label>
+                                    </td>
+                                    <td>
+                                        <label>
+                                            <input id="{{ $post->id }}-commentable"
+                                                onchange="commentable({{ $post->id }})" type="checkbox"
+                                                data-url="{{ route('admin.content.post.commentable', $post->id) }}"
+                                                @if ($post->commentable === 1) checked @endif>
+                                        </label>
+                                    </td>
+                                    <td class="text-left width-16-rem">
+                                        <a href="{{ route('admin.content.post.edit', $post->id) }}"
+                                            class="btn btn-primary btn-sm"><i class="pl-1 fa fa-edit"></i>
+                                        </a>
+                                        <form method="POST" action="{{ route('admin.content.post.destroy', $post->id) }}"
+                                            class="d-inline">
+                                            @csrf
+                                            {{ method_field('delete') }}
+                                            <button type="submit" class="btn btn-danger btn-sm"><i
+                                                    class="fa fa-trash-alt"></i>
+                                            </button>
+                                        </form>
+                                    </td>
+                                </tr>
                             @endforeach
                         </tbody>
                     </table>

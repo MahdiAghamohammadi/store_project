@@ -21,7 +21,8 @@
                 <section class="pb-2 mt-4 mb-3 d-flex justify-content-between align-items-center border-bottom">
                     <a href="{{ route('admin.content.faq.create') }}" class="btn btn-info btn-sm">ایجاد سوال جدید</a>
                     <div class="max-width-16-rem">
-                        <input class="form-control form-control-sm form-text" type="text" name="" id="" placeholder="جستجو">
+                        <input class="form-control form-control-sm form-text" type="text" name="" id=""
+                            placeholder="جستجو">
                     </div>
                 </section>
                 <section class="table-responsive">
@@ -46,26 +47,24 @@
                                     <td>
                                         <label>
                                             <input id="{{ $faq->id }}" onchange="changeStatus({{ $faq->id }})"
-                                                type="checkbox"
-                                                data-url="{{ route('admin.content.faq.status', $faq->id) }}" @if ($faq->status === 1)
-                                            checked
-                            @endif>
-                            </label>
-                            </td>
-                            <td class="text-left width-16-rem">
-                                <a href="{{ route('admin.content.faq.edit', $faq->id) }}"
-                                    class="btn btn-primary btn-sm"><i class="pl-1 fa fa-edit"></i>
-                                    ویرایش</a>
-                                <form class="d-inline" action="{{ route('admin.content.faq.destroy', $faq->id) }}"
-                                    method="POST">
-                                    @csrf
-                                    {{ method_field('delete') }}
-                                    <button type="submit" class="btn delete btn-danger btn-sm"><i
-                                            class="fa fa-trash-alt"></i>
-                                        حذف</button>
-                                </form>
-                            </td>
-                            </tr>
+                                                type="checkbox" data-url="{{ route('admin.content.faq.status', $faq->id) }}"
+                                                @if ($faq->status === 1) checked @endif>
+                                        </label>
+                                    </td>
+                                    <td class="text-left width-16-rem">
+                                        <a href="{{ route('admin.content.faq.edit', $faq->id) }}"
+                                            class="btn btn-primary btn-sm"><i class="pl-1 fa fa-edit"></i>
+                                        </a>
+                                        <form class="d-inline" action="{{ route('admin.content.faq.destroy', $faq->id) }}"
+                                            method="POST">
+                                            @csrf
+                                            {{ method_field('delete') }}
+                                            <button type="submit" class="btn delete btn-danger btn-sm"><i
+                                                    class="fa fa-trash-alt"></i>
+                                            </button>
+                                        </form>
+                                    </td>
+                                </tr>
                             @endforeach
                         </tbody>
                     </table>

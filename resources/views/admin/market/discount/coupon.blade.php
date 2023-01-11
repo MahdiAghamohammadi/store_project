@@ -22,7 +22,8 @@
                     <a href="{{ route('admin.market.discount.coupon.create') }}" class="btn btn-info btn-sm">ایجاد کوپن
                         تخفیف</a>
                     <div class="max-width-16-rem">
-                        <input class="form-control form-control-sm form-text" type="text" name="" id="" placeholder="جستجو">
+                        <input class="form-control form-control-sm form-text" type="text" name="" id=""
+                            placeholder="جستجو">
                     </div>
                 </section>
                 <section class="table-responsive">
@@ -54,7 +55,7 @@
                                     <td class="text-left width-16-rem">
                                         <a href="{{ route('admin.market.discount.coupon.edit', $coupon->id) }}"
                                             class="btn btn-primary btn-sm"><i class="pl-1 fa fa-edit"></i>
-                                            ویرایش</a>
+                                        </a>
                                         <form class="d-inline"
                                             action="{{ route('admin.market.discount.coupon.destroy', $coupon->id) }}"
                                             method="POST">
@@ -62,7 +63,7 @@
                                             @method('delete')
                                             <button type="submit" class="btn delete btn-danger btn-sm"><i
                                                     class="fa fa-trash-alt"></i>
-                                                حذف</button>
+                                            </button>
                                         </form>
                                     </td>
                                 </tr>

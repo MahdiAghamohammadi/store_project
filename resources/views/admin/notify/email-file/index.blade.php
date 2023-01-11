@@ -24,7 +24,8 @@
                         فایل
                         اطلاعیه ایمیلی</a>
                     <div class="max-width-16-rem">
-                        <input class="form-control form-control-sm form-text" type="text" name="" id="" placeholder="جستجو">
+                        <input class="form-control form-control-sm form-text" type="text" name="" id=""
+                            placeholder="جستجو">
                     </div>
                 </section>
                 <section class="table-responsive">
@@ -51,24 +52,24 @@
                                             <input id="{{ $file->id }}" onchange="changeStatus({{ $file->id }})"
                                                 type="checkbox"
                                                 data-url="{{ route('admin.notify.email-file.status', $file->id) }}"
-                                                @if ($file->status === 1)
-                                            checked
-                            @endif>
-                            </label>
-                            </td>
-                            <td class="text-left width-16-rem">
-                                <a href="{{ route('admin.notify.email-file.edit', $file->id) }}"
-                                    class="btn btn-info btn-sm"><i class="pl-1 fa fa-edit"></i> ویرایش</a>
-                                <form class="d-inline"
-                                    action="{{ route('admin.notify.email-file.destroy', $file->id) }}" method="POST">
-                                    @csrf
-                                    {{ method_field('delete') }}
-                                    <button type="submit" class="delete btn btn-danger btn-sm"><i
-                                            class="fa fa-trash-alt"></i>
-                                        حذف</button>
-                                </form>
-                            </td>
-                            </tr>
+                                                @if ($file->status === 1) checked @endif>
+                                        </label>
+                                    </td>
+                                    <td class="text-left width-16-rem">
+                                        <a href="{{ route('admin.notify.email-file.edit', $file->id) }}"
+                                            class="btn btn-info btn-sm"><i class="pl-1 fa fa-edit"></i>
+                                        </a>
+                                        <form class="d-inline"
+                                            action="{{ route('admin.notify.email-file.destroy', $file->id) }}"
+                                            method="POST">
+                                            @csrf
+                                            {{ method_field('delete') }}
+                                            <button type="submit" class="delete btn btn-danger btn-sm"><i
+                                                    class="fa fa-trash-alt"></i>
+                                            </button>
+                                        </form>
+                                    </td>
+                                </tr>
                             @endforeach
                         </tbody>
                     </table>

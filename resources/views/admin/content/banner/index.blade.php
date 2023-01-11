@@ -23,60 +23,55 @@
                     <a href="{{ route('admin.content.banner.create') }}" class="btn btn-info btn-sm">ایجاد بنر</a>
                     <div class="max-width-16-rem">
                         <input class="form-control form-control-sm form-text" type="text" name="" id=""
-                               placeholder="جستجو">
+                            placeholder="جستجو">
                     </div>
                 </section>
                 <section class="table-responsive">
                     <table class="table table-striped table-hover">
                         <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>عنوان بنر</th>
-                            <th>آدرس</th>
-                            <th>تصویر</th>
-                            <th>وضعیت</th>
-                            <th>مکان</th>
-                            <th class="text-center max-width-16-rem"><i class="fa fa-cogs"></i> تنظیمات</th>
-                        </tr>
+                            <tr>
+                                <th>#</th>
+                                <th>عنوان بنر</th>
+                                <th>آدرس</th>
+                                <th>تصویر</th>
+                                <th>وضعیت</th>
+                                <th>مکان</th>
+                                <th class="text-center max-width-16-rem"><i class="fa fa-cogs"></i> تنظیمات</th>
+                            </tr>
                         </thead>
                         <tbody>
-                        @foreach ($banners as $banner)
-                            <tr>
-                                <th>{{ $loop->iteration }}</th>
-                                <td>{{ $banner->title }}</td>
-                                <td>{{ $banner->url }}</td>
-                                <td><img
-                                        src="{{ asset($banner->image) }}"
-                                        alt="" width="50px" height="50px">
-                                </td>
-                                <td>
-                                    <label>
-                                        <input id="{{ $banner->id }}"
-                                               onchange="changeStatus({{ $banner->id }})" type="checkbox"
-                                               data-url="{{ route('admin.content.banner.status', $banner->id) }}"
-                                               @if ($banner->status === 1)
-                                               checked
-                                            @endif>
-                                    </label>
-                                </td>
-                                <td>{{ $positions[$banner->position] }}</td>
-                                <td class="text-left width-16-rem">
-                                    <a href="{{ route('admin.content.banner.edit', $banner->id) }}"
-                                       class="btn btn-primary btn-sm"><i class="pl-1 fa fa-edit"></i>
-                                        ویرایش</a>
-                                    <form class="d-inline"
-                                          action="{{ route('admin.content.banner.destroy', $banner->id) }}"
-                                          method="post">
-                                        @csrf
-                                        {{ method_field('delete') }}
-                                        <button type="submit" class="btn btn-danger btn-sm delete"><i
-                                                class="fa fa-trash-alt"></i>
-                                            حذف
-                                        </button>
-                                    </form>
-                                </td>
-                            </tr>
-                        @endforeach
+                            @foreach ($banners as $banner)
+                                <tr>
+                                    <th>{{ $loop->iteration }}</th>
+                                    <td>{{ $banner->title }}</td>
+                                    <td>{{ $banner->url }}</td>
+                                    <td><img src="{{ asset($banner->image) }}" alt="" width="50px" height="50px">
+                                    </td>
+                                    <td>
+                                        <label>
+                                            <input id="{{ $banner->id }}" onchange="changeStatus({{ $banner->id }})"
+                                                type="checkbox"
+                                                data-url="{{ route('admin.content.banner.status', $banner->id) }}"
+                                                @if ($banner->status === 1) checked @endif>
+                                        </label>
+                                    </td>
+                                    <td>{{ $positions[$banner->position] }}</td>
+                                    <td class="text-left width-16-rem">
+                                        <a href="{{ route('admin.content.banner.edit', $banner->id) }}"
+                                            class="btn btn-primary btn-sm"><i class="pl-1 fa fa-edit"></i>
+                                        </a>
+                                        <form class="d-inline"
+                                            action="{{ route('admin.content.banner.destroy', $banner->id) }}"
+                                            method="post">
+                                            @csrf
+                                            {{ method_field('delete') }}
+                                            <button type="submit" class="btn btn-danger btn-sm delete"><i
+                                                    class="fa fa-trash-alt"></i>
+                                            </button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </section>
@@ -93,7 +88,7 @@
             $.ajax({
                 url: url,
                 type: "GET",
-                success: function (response) {
+                success: function(response) {
                     if (response.status) {
                         if (response.checked) {
                             element.prop('checked', true);
@@ -107,7 +102,7 @@
                         errorToast('هنگام ویرایش مشکلی رخ داده است');
                     }
                 },
-                error: function () {
+                error: function() {
                     element.prop('checked', elementValue);
                     errorToast('ارتباط برقرار نشد');
                 }
@@ -123,7 +118,7 @@
                     '</section>\n' +
                     '</section>';
                 $('.toast-wrapper').append(successToastTag);
-                $('.toast').toast('show').delay(5000).queue(function () {
+                $('.toast').toast('show').delay(5000).queue(function() {
                     $(this).remove();
                 });
             }
@@ -138,7 +133,7 @@
                     '</section>\n' +
                     '</section>';
                 $('.toast-wrapper').append(errorToastTag);
-                $('.toast').toast('show').delay(5000).queue(function () {
+                $('.toast').toast('show').delay(5000).queue(function() {
                     $(this).remove();
                 });
             }

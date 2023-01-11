@@ -57,7 +57,7 @@
                                     <td class="text-left width-22-rem">
                                         <a href="{{ route('admin.user.permission.edit', $permission->id) }}"
                                             class="btn btn-primary btn-sm"><i class="pl-1 fa fa-edit"></i>
-                                            ویرایش</a>
+                                        </a>
                                         <form class="d-inline"
                                             action="{{ route('admin.user.permission.destroy', $permission->id) }}"
                                             method="post">
@@ -65,7 +65,6 @@
                                             {{ method_field('delete') }}
                                             <button type="submit" class="btn delete btn-danger btn-sm"><i
                                                     class="fa fa-trash-alt"></i>
-                                                حذف
                                             </button>
                                         </form>
                                     </td>

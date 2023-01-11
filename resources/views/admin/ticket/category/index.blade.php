@@ -21,7 +21,8 @@
                 <section class="pb-2 mt-4 mb-3 d-flex justify-content-between align-items-center border-bottom">
                     <a href="{{ route('admin.ticket.category.create') }}" class="btn btn-info btn-sm">ایجاد دسته بندی</a>
                     <div class="max-width-16-rem">
-                        <input class="form-control form-control-sm form-text" type="text" name="" id="" placeholder="جستجو">
+                        <input class="form-control form-control-sm form-text" type="text" name="" id=""
+                            placeholder="جستجو">
                     </div>
                 </section>
                 <section class="table-responsive">
@@ -44,24 +45,24 @@
                                             <input id="{{ $ticketCategory->id }}"
                                                 onchange="changeStatus({{ $ticketCategory->id }})" type="checkbox"
                                                 data-url="{{ route('admin.ticket.category.status', $ticketCategory->id) }}"
-                                                @if ($ticketCategory->status === 1)
-                                            checked
-                            @endif>
-                            </label>
-                            </td>
-                            <td class="text-left width-16-rem">
-                                <a href="{{ route('admin.ticket.category.edit', $ticketCategory->id) }}"
-                                    class="btn btn-primary btn-sm"><i class="fa fa-edit"></i> ویرایش</a>
-                                <form class="d-inline"
-                                    action="{{ route('admin.ticket.category.destroy', $ticketCategory->id) }}"
-                                    method="post">
-                                    @csrf
-                                    {{ method_field('delete') }}
-                                    <button class="btn btn-danger btn-sm delete" type="submit"><i
-                                            class="fa fa-trash-alt"></i> حذف</button>
-                                </form>
-                            </td>
-                            </tr>
+                                                @if ($ticketCategory->status === 1) checked @endif>
+                                        </label>
+                                    </td>
+                                    <td class="text-left width-16-rem">
+                                        <a href="{{ route('admin.ticket.category.edit', $ticketCategory->id) }}"
+                                            class="btn btn-primary btn-sm"><i class="fa fa-edit"></i>
+                                        </a>
+                                        <form class="d-inline"
+                                            action="{{ route('admin.ticket.category.destroy', $ticketCategory->id) }}"
+                                            method="post">
+                                            @csrf
+                                            {{ method_field('delete') }}
+                                            <button class="btn btn-danger btn-sm delete" type="submit"><i
+                                                    class="fa fa-trash-alt"></i>
+                                            </button>
+                                        </form>
+                                    </td>
+                                </tr>
                             @endforeach
                         </tbody>
                     </table>

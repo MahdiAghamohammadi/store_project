@@ -21,7 +21,8 @@
                 <section class="pb-2 mt-4 mb-3 d-flex justify-content-between align-items-center border-bottom">
                     <a href="#" class="btn btn-info btn-sm disabled">ایجاد پرداخت جدید</a>
                     <div class="max-width-16-rem">
-                        <input class="form-control form-control-sm form-text" type="text" name="" id="" placeholder="جستجو">
+                        <input class="form-control form-control-sm form-text" type="text" name="" id=""
+                            placeholder="جستجو">
                     </div>
                 </section>
                 <section class="table-responsive">
@@ -64,18 +65,22 @@
                                             در محل
                                         @endif
                                     </td>
-                                    <td class="text-left width-30-rem">
+                                    <td class="text-left width-22-rem">
                                         <a href="{{ route('admin.market.payment.show', $payment->id) }}"
-                                            class="btn btn-info btn-sm"><i class="pl-1 fa fa-edit"></i> مشاهده</a>
+                                            class="btn btn-info btn-sm"><i class="pl-1 fa fa-eye"></i>
+                                        </a>
                                         <a href="{{ route('admin.market.payment.not-paid', $payment->id) }}"
-                                            class="btn btn-danger btn-sm">پرداخت نشده</a>
+                                            class="btn btn-danger btn-sm"><i class="pl-1 fa fa-hand-holding"></i>
+                                        </a>
                                         <a href="{{ route('admin.market.payment.paid', $payment->id) }}"
-                                            class="btn btn-success btn-sm">پرداخت شده</a>
+                                            class="btn btn-success btn-sm"><i class="pl-1 fa fa-check"></i>
+                                        </a>
                                         <a href="{{ route('admin.market.payment.canceled', $payment->id) }}"
-                                            class="btn btn-warning btn-sm">باطل کردن</a>
+                                            class="btn btn-warning btn-sm"><i class="pl-1 fa fa-ban"></i>
+                                        </a>
                                         <a href="{{ route('admin.market.payment.returned', $payment->id) }}"
                                             class="btn btn-danger btn-sm"><i class="fa fa-reply"></i>
-                                            برگرداندن</a>
+                                        </a>
                                     </td>
                                 </tr>
                             @endforeach

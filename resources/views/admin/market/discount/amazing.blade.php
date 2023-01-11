@@ -48,7 +48,7 @@
                                     <td class="text-left width-16-rem">
                                         <a href="{{ route('admin.market.discount.amazingSale.edit', $amazingSale->id) }}"
                                             class="btn btn-primary btn-sm"><i class="pl-1 fa fa-edit"></i>
-                                            ویرایش</a>
+                                        </a>
                                         <form class="d-inline"
                                             action="{{ route('admin.market.discount.amazingSale.destroy', $amazingSale->id) }}"
                                             method="POST">
@@ -56,7 +56,7 @@
                                             @method('delete')
                                             <button type="submit" class="btn delete btn-danger btn-sm"><i
                                                     class="fa fa-trash-alt"></i>
-                                                حذف</button>
+                                            </button>
                                         </form>
                                     </td>
                                 </tr>

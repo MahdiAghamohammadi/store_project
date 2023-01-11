@@ -23,7 +23,8 @@
                     <a href="{{ route('admin.content.category.create') }}" class="btn btn-info btn-sm">ایجاد دسته
                         بندی</a>
                     <div class="max-width-16-rem">
-                        <input class="form-control form-control-sm form-text" type="text" name="" id="" placeholder="جستجو">
+                        <input class="form-control form-control-sm form-text" type="text" name="" id=""
+                            placeholder="جستجو">
                     </div>
                 </section>
                 <section class="table-responsive">
@@ -56,27 +57,24 @@
                                             <input id="{{ $postCategory->id }}"
                                                 onchange="changeStatus({{ $postCategory->id }})" type="checkbox"
                                                 data-url="{{ route('admin.content.category.status', $postCategory->id) }}"
-                                                @if ($postCategory->status === 1)
-                                            checked
-                            @endif>
-                            </label>
-                            </td>
-                            <td class="text-left width-16-rem">
-                                <a href="{{ route('admin.content.category.edit', $postCategory->id) }}"
-                                    class="btn btn-primary btn-sm"><i class="pl-1 fa fa-edit"></i>
-                                    ویرایش</a>
-                                <form class="d-inline"
-                                    action="{{ route('admin.content.category.destroy', $postCategory->id) }}"
-                                    method="post">
-                                    @csrf
-                                    {{ method_field('delete') }}
-                                    <button type="submit" class="btn btn-danger btn-sm delete"><i
-                                            class="fa fa-trash-alt"></i>
-                                        حذف
-                                    </button>
-                                </form>
-                            </td>
-                            </tr>
+                                                @if ($postCategory->status === 1) checked @endif>
+                                        </label>
+                                    </td>
+                                    <td class="text-left width-16-rem">
+                                        <a href="{{ route('admin.content.category.edit', $postCategory->id) }}"
+                                            class="btn btn-primary btn-sm"><i class="pl-1 fa fa-edit"></i>
+                                        </a>
+                                        <form class="d-inline"
+                                            action="{{ route('admin.content.category.destroy', $postCategory->id) }}"
+                                            method="post">
+                                            @csrf
+                                            {{ method_field('delete') }}
+                                            <button type="submit" class="btn btn-danger btn-sm delete"><i
+                                                    class="fa fa-trash-alt"></i>
+                                            </button>
+                                        </form>
+                                    </td>
+                                </tr>
                             @endforeach
                         </tbody>
                     </table>

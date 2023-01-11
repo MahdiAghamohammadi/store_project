@@ -22,7 +22,8 @@
                     <a href="{{ route('admin.notify.email.create') }}" class="btn btn-info btn-sm">ایجاد اطلاعیه
                         ایمیلی</a>
                     <div class="max-width-16-rem">
-                        <input class="form-control form-control-sm form-text" type="text" name="" id="" placeholder="جستجو">
+                        <input class="form-control form-control-sm form-text" type="text" name="" id=""
+                            placeholder="جستجو">
                     </div>
                 </section>
                 <section class="table-responsive">
@@ -49,27 +50,26 @@
                                             <input id="{{ $email->id }}" onchange="changeStatus({{ $email->id }})"
                                                 type="checkbox"
                                                 data-url="{{ route('admin.notify.email.status', $email->id) }}"
-                                                @if ($email->status === 1)
-                                            checked
-                            @endif>
-                            </label>
-                            </td>
-                            <td class="text-left width-22-rem">
-                                <a href="{{ route('admin.notify.email-file.index', $email->id) }}"
-                                    class="text-white btn btn-warning btn-sm"><i class="pl-1 fa fa-file"></i> فایل های ضمیمه
-                                    شده</a>
-                                <a href="{{ route('admin.notify.email.edit', $email->id) }}"
-                                    class="btn btn-info btn-sm"><i class="pl-1 fa fa-edit"></i> ویرایش</a>
-                                <form class="d-inline"
-                                    action="{{ route('admin.notify.email.destroy', $email->id) }}" method="POST">
-                                    @csrf
-                                    {{ method_field('delete') }}
-                                    <button type="submit" class="delete btn btn-danger btn-sm"><i
-                                            class="fa fa-trash-alt"></i>
-                                        حذف</button>
-                                </form>
-                            </td>
-                            </tr>
+                                                @if ($email->status === 1) checked @endif>
+                                        </label>
+                                    </td>
+                                    <td class="text-left width-22-rem">
+                                        <a href="{{ route('admin.notify.email-file.index', $email->id) }}"
+                                            class="text-white btn btn-warning btn-sm"><i class="pl-1 fa fa-file"></i>
+                                        </a>
+                                        <a href="{{ route('admin.notify.email.edit', $email->id) }}"
+                                            class="btn btn-info btn-sm"><i class="pl-1 fa fa-edit"></i>
+                                        </a>
+                                        <form class="d-inline"
+                                            action="{{ route('admin.notify.email.destroy', $email->id) }}" method="POST">
+                                            @csrf
+                                            {{ method_field('delete') }}
+                                            <button type="submit" class="delete btn btn-danger btn-sm"><i
+                                                    class="fa fa-trash-alt"></i>
+                                            </button>
+                                        </form>
+                                    </td>
+                                </tr>
                             @endforeach
                         </tbody>
                     </table>

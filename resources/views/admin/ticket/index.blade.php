@@ -50,7 +50,7 @@
                                     <td>{{ $ticket->parent->subject ?? '-' }}</td>
                                     <td class="text-left width-16-rem">
                                         <a href="{{ route('admin.ticket.show', $ticket->id) }}"
-                                            class="btn btn-info btn-sm"><i class="pl-1 fa fa-eye"></i> مشاهده</a>
+                                            class="btn btn-info btn-sm"><i class="pl-1 fa fa-eye"></i></a>
                                         <a href="{{ route('admin.ticket.change', $ticket->id) }}"
                                             class="text-white btn btn-warning btn-sm"><i class="pl-1 fa fa-check"></i>
                                             {{ $ticket->status ? 'بازکردن' : 'بستن' }}

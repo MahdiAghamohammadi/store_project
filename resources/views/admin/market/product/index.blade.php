@@ -22,68 +22,68 @@
                     <a href="{{ route('admin.market.product.create') }}" class="btn btn-info btn-sm">ایجاد کالا جدید</a>
                     <div class="max-width-16-rem">
                         <input class="form-control form-control-sm form-text" type="text" name="" id=""
-                               placeholder="جستجو">
+                            placeholder="جستجو">
                     </div>
                 </section>
                 <section class="table-responsive">
                     <table class="table table-striped table-hover">
                         <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>نام کالا</th>
-                            <th>تصویر کالا</th>
-                            <th>قیمت</th>
-                            <th>دسته</th>
-                            <th class="text-center max-width-16-rem"><i class="fa fa-cogs"></i> تنظیمات</th>
-                        </tr>
+                            <tr>
+                                <th>#</th>
+                                <th>نام کالا</th>
+                                <th>تصویر کالا</th>
+                                <th>قیمت</th>
+                                <th>دسته</th>
+                                <th class="text-center max-width-16-rem"><i class="fa fa-cogs"></i> تنظیمات</th>
+                            </tr>
                         </thead>
                         <tbody>
-                        @foreach ($products as $key => $product)
-                            <tr>
-                                <th>{{ $key += 1 }}</th>
-                                <td>{{ $product->name }}</td>
-                                <td>
-                                    <img
-                                        src="{{ asset($product->image['indexArray'][$product->image['currentImage']]) }}"
-                                        alt="" width="50px" height="50px">
-                                </td>
-                                <td>{{ $product->price }} تومان</td>
-                                <td>{{ $product->category->name }}</td>
-                                <td class="text-left width-16-rem">
-                                    <div class="dropdown">
-                                        <a href="" class="btn btn-success btn-sm btn-block dropdown-toggle"
-                                           id="dropdownMenuLink" data-toggle="dropdown" aria-expanded="false"
-                                           role="button">
-                                            <i class="fas fa-tools"></i> عملیات
-                                        </a>
-                                        <div class="dropdown-menu" aria-label="dropdownMenuLink">
-                                            <a href="{{ route('admin.market.gallery.index', $product->id) }}"
-                                               class="text-right dropdown-item"><i class="fas fa-images">
-                                                    گالری</i></a>
-                                            <a href="{{ route('admin.market.color.index', $product->id) }}"
-                                               class="text-right dropdown-item"><i class="fas fa-list-ul">مدیریت رنگ
-                                                    کالا</i></a>
-                                            <a href="{{ route('admin.market.guarantee.index', $product->id) }}"
-                                               class="text-right dropdown-item"><i class="fas fa-shield-alt">مدیریت گارانتی
-                                                    کالا</i></a>
-                                            <a href="{{ route('admin.market.product.edit', $product->id) }}"
-                                               class="text-right dropdown-item"><i class="fas fa-edit">
-                                                    ویرایش</i></a>
-                                            <form class="d-inline"
-                                                  action="{{ route('admin.market.product.destroy', $product->id) }}"
-                                                  method="POST">
-                                                @csrf
-                                                @method('delete')
-                                                <button type="submit" class="text-right delete dropdown-item"><i
-                                                        class="fa fa-window-close"></i>
-                                                    حذف
-                                                </button>
-                                            </form>
+                            @foreach ($products as $key => $product)
+                                <tr>
+                                    <th>{{ $key += 1 }}</th>
+                                    <td>{{ $product->name }}</td>
+                                    <td>
+                                        <img src="{{ asset($product->image['indexArray'][$product->image['currentImage']]) }}"
+                                            alt="" width="50px" height="50px">
+                                    </td>
+                                    <td>{{ $product->price }} تومان</td>
+                                    <td>{{ $product->category->name }}</td>
+                                    <td class="text-left width-8-rem">
+                                        <div class="dropdown">
+                                            <a href="" class="btn btn-success btn-sm btn-block dropdown-toggle"
+                                                id="dropdownMenuLink" data-toggle="dropdown" aria-expanded="false"
+                                                role="button">
+                                                <i class="fas fa-tools"></i>
+                                            </a>
+                                            <div class="dropdown-menu" aria-label="dropdownMenuLink">
+                                                <a href="{{ route('admin.market.gallery.index', $product->id) }}"
+                                                    class="text-right dropdown-item"><i class="fas fa-images">
+                                                        گالری</i></a>
+                                                <a href="{{ route('admin.market.color.index', $product->id) }}"
+                                                    class="text-right dropdown-item"><i class="fas fa-list-ul">مدیریت رنگ
+                                                        کالا</i></a>
+                                                <a href="{{ route('admin.market.guarantee.index', $product->id) }}"
+                                                    class="text-right dropdown-item"><i class="fas fa-shield-alt">مدیریت
+                                                        گارانتی
+                                                        کالا</i></a>
+                                                <a href="{{ route('admin.market.product.edit', $product->id) }}"
+                                                    class="text-right dropdown-item"><i class="fas fa-edit">
+                                                        ویرایش</i></a>
+                                                <form class="d-inline"
+                                                    action="{{ route('admin.market.product.destroy', $product->id) }}"
+                                                    method="POST">
+                                                    @csrf
+                                                    @method('delete')
+                                                    <button type="submit" class="text-right delete dropdown-item"><i
+                                                            class="fa fa-window-close"></i>
+                                                        حذف
+                                                    </button>
+                                                </form>
+                                            </div>
                                         </div>
-                                    </div>
-                                </td>
-                            </tr>
-                        @endforeach
+                                    </td>
+                                </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </section>

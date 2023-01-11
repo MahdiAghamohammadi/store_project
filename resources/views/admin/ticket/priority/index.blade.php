@@ -45,24 +45,24 @@
                                             <input id="{{ $ticketPriority->id }}"
                                                 onchange="changeStatus({{ $ticketPriority->id }})"
                                                 data-url="{{ route('admin.ticket.priority.status', $ticketPriority->id) }}"
-                                                type="checkbox" @if ($ticketPriority->status === 1)
-                                            checked
-                            @endif>
-                            </label>
-                            </td>
-                            <td class="text-left width-16-rem">
-                                <a href="{{ route('admin.ticket.priority.edit', $ticketPriority->id) }}"
-                                    class="btn btn-primary btn-sm"><i class="fa fa-edit"></i> ویرایش</a>
-                                <form class="d-inline"
-                                    action="{{ route('admin.ticket.priority.destroy', $ticketPriority->id) }}"
-                                    method="post">
-                                    @csrf
-                                    {{ method_field('delete') }}
-                                    <button class="btn btn-danger btn-sm delete" type="submit"><i
-                                            class="fa fa-trash-alt"></i> حذف</button>
-                                </form>
-                            </td>
-                            </tr>
+                                                type="checkbox" @if ($ticketPriority->status === 1) checked @endif>
+                                        </label>
+                                    </td>
+                                    <td class="text-left width-16-rem">
+                                        <a href="{{ route('admin.ticket.priority.edit', $ticketPriority->id) }}"
+                                            class="btn btn-primary btn-sm"><i class="fa fa-edit"></i>
+                                        </a>
+                                        <form class="d-inline"
+                                            action="{{ route('admin.ticket.priority.destroy', $ticketPriority->id) }}"
+                                            method="post">
+                                            @csrf
+                                            {{ method_field('delete') }}
+                                            <button class="btn btn-danger btn-sm delete" type="submit"><i
+                                                    class="fa fa-trash-alt"></i>
+                                            </button>
+                                        </form>
+                                    </td>
+                                </tr>
                             @endforeach
                         </tbody>
                     </table>
@@ -71,7 +71,6 @@
             </section>
         </section>
     </section>
-
 @endsection
 @section('script')
     {{-- this is for change status --}}

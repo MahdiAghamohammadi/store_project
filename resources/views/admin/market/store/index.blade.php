@@ -21,7 +21,8 @@
                 <section class="pb-2 mt-4 mb-3 d-flex justify-content-between align-items-center border-bottom">
                     <a href="#" class="btn btn-info btn-sm disabled">ایجاد انبار جدید</a>
                     <div class="max-width-16-rem">
-                        <input class="form-control form-control-sm form-text" type="text" name="" id="" placeholder="جستجو">
+                        <input class="form-control form-control-sm form-text" type="text" name="" id=""
+                            placeholder="جستجو">
                     </div>
                 </section>
                 <section class="table-responsive">
@@ -49,13 +50,11 @@
                                     <td>{{ $product->marketable_number }}</td>
                                     <td>{{ $product->frozen_number }}</td>
                                     <td>{{ $product->sold_number }}</td>
-                                    <td class="text-left width-22-rem">
+                                    <td class="text-left width-8-rem">
                                         <a href="{{ route('admin.market.store.add-to-store', $product->id) }}"
-                                            class="btn btn-primary btn-sm"><i class="pl-1 fa fa-edit"></i> افزایش
-                                            موجودی</a>
+                                            class="btn btn-primary btn-sm"><i class="pl-1 fa fa-plus"></i></a>
                                         <a href="{{ route('admin.market.store.edit', $product->id) }}"
-                                            class="btn btn-warning btn-sm"><i class="pl-1 fa fa-edit"></i> اصلاح
-                                            موجودی</a>
+                                            class="btn btn-warning btn-sm"><i class="pl-1 fa fa-edit"></i></a>
                                     </td>
                                 </tr>
                             @endforeach

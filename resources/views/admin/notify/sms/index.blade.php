@@ -21,7 +21,8 @@
                 <section class="pb-2 mt-4 mb-3 d-flex justify-content-between align-items-center border-bottom">
                     <a href="{{ route('admin.notify.sms.create') }}" class="btn btn-info btn-sm">ایجاد اطلاعیه پیامکی</a>
                     <div class="max-width-16-rem">
-                        <input class="form-control form-control-sm form-text" type="text" name="" id="" placeholder="جستجو">
+                        <input class="form-control form-control-sm form-text" type="text" name="" id=""
+                            placeholder="جستجو">
                     </div>
                 </section>
                 <section class="table-responsive">
@@ -45,27 +46,27 @@
                                     <td>{{ jalaliDate($single_sms->published_at, 'H:i:s Y/m/d') }}</td>
                                     <td>
                                         <label>
-                                            <input id="{{ $single_sms->id }}"
-                                                onchange="changeStatus({{ $single_sms->id }})" type="checkbox"
+                                            <input id="{{ $single_sms->id }}" onchange="changeStatus({{ $single_sms->id }})"
+                                                type="checkbox"
                                                 data-url="{{ route('admin.notify.sms.status', $single_sms->id) }}"
-                                                @if ($single_sms->status === 1)
-                                            checked
-                            @endif>
-                            </label>
-                            </td>
-                            <td class="text-left width-16-rem">
-                                <a href="{{ route('admin.notify.sms.edit', $single_sms->id) }}"
-                                    class="btn btn-info btn-sm"><i class="pl-1 fa fa-eye"></i> ویرایش</a>
-                                <form class="d-inline"
-                                    action="{{ route('admin.notify.sms.destroy', $single_sms->id) }}" method="POST">
-                                    @csrf
-                                    {{ method_field('delete') }}
-                                    <button type="submit" class="delete btn btn-danger btn-sm"><i
-                                            class="fa fa-trash-alt"></i>
-                                        حذف</button>
-                                </form>
-                            </td>
-                            </tr>
+                                                @if ($single_sms->status === 1) checked @endif>
+                                        </label>
+                                    </td>
+                                    <td class="text-left width-16-rem">
+                                        <a href="{{ route('admin.notify.sms.edit', $single_sms->id) }}"
+                                            class="btn btn-info btn-sm"><i class="pl-1 fa fa-eye"></i>
+                                        </a>
+                                        <form class="d-inline"
+                                            action="{{ route('admin.notify.sms.destroy', $single_sms->id) }}"
+                                            method="POST">
+                                            @csrf
+                                            {{ method_field('delete') }}
+                                            <button type="submit" class="delete btn btn-danger btn-sm"><i
+                                                    class="fa fa-trash-alt"></i>
+                                            </button>
+                                        </form>
+                                    </td>
+                                </tr>
                             @endforeach
                         </tbody>
                     </table>

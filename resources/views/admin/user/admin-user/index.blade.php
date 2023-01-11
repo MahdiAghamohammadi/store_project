@@ -87,22 +87,20 @@
                                             </div>
                                         @endforelse
                                     </td>
-                                    <td class="text-left width-30-rem">
+                                    <td class="text-left width-16-rem">
                                         <a href="{{ route('admin.user.admin-user.permissions', $admin->id) }}"
-                                            class="btn btn-warning btn-sm"><i class="pl-1 fa fa-edit"></i> سطوح دسترسی</a>
+                                            class="btn btn-warning btn-sm"><i class="pl-1 fa fa-user-shield"></i></a>
                                         <a href="{{ route('admin.user.admin-user.roles', $admin->id) }}"
-                                            class="btn btn-info btn-sm"><i class="pl-1 fa fa-edit"></i> نقش</a>
+                                            class="btn btn-info btn-sm"><i class="pl-1 fa fa-user-check"></i></a>
                                         <a href="{{ route('admin.user.admin-user.edit', $admin->id) }}"
-                                            class="btn btn-primary btn-sm"><i class="pl-1 fa fa-edit"></i>
-                                            ویرایش</a>
+                                            class="btn btn-primary btn-sm"><i class="pl-1 fa fa-edit"></i></a>
                                         <form method="POST"
                                             action="{{ route('admin.user.admin-user.destroy', $admin->id) }}"
                                             class="d-inline">
                                             @csrf
                                             {{ method_field('delete') }}
                                             <button type="submit" class="btn delete btn-danger btn-sm"><i
-                                                    class="fa fa-trash-alt"></i>
-                                                حذف</button>
+                                                    class="fa fa-trash-alt"></i></button>
                                         </form>
                                     </td>
                                 </tr>

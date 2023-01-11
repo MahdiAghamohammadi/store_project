@@ -21,7 +21,8 @@
                 <section class="pb-2 mt-4 mb-3 d-flex justify-content-between align-items-center border-bottom">
                     <a href="#" class="btn btn-info btn-sm disabled">ایجاد نظر جدید</a>
                     <div class="max-width-16-rem">
-                        <input class="form-control form-control-sm form-text" type="text" name="" id="" placeholder="جستجو">
+                        <input class="form-control form-control-sm form-text" type="text" name="" id=""
+                            placeholder="جستجو">
                     </div>
                 </section>
                 <section class="table-responsive">
@@ -61,15 +62,15 @@
                                     </td>
                                     <td class="text-left width-16-rem">
                                         <a href="{{ route('admin.market.comment.show', $comment->id) }}"
-                                            class="btn btn-info btn-sm"><i class="pl-1 fa fa-eye"></i> نمایش</a>
+                                            class="btn btn-info btn-sm"><i class="pl-1 fa fa-eye"></i></a>
                                         @if ($comment->approved == 1)
                                             <a href="{{ route('admin.market.comment.approved', $comment->id) }}"
-                                                class="btn btn-warning btn-sm"><i class="fa fa-clock"></i>
-                                                عدم تایید</a>
+                                                class="btn btn-warning btn-sm"><i class="fa fa-ban"></i>
+                                            </a>
                                         @else
                                             <a href="{{ route('admin.market.comment.approved', $comment->id) }}"
                                                 class="text-white btn btn-success btn-sm"><i class="fa fa-check"></i>
-                                                تایید</a>
+                                            </a>
                                         @endif
                                     </td>
                                 </tr>

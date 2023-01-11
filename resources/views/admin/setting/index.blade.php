@@ -20,7 +20,8 @@
                 <section class="pb-2 mt-4 mb-3 d-flex justify-content-between align-items-center border-bottom">
                     <a class="btn btn-info btn-sm disabled">ایجاد تنظیمات جدید</a>
                     <div class="max-width-16-rem">
-                        <input class="form-control form-control-sm form-text" type="text" name="" id="" placeholder="جستجو">
+                        <input class="form-control form-control-sm form-text" type="text" name="" id=""
+                            placeholder="جستجو">
                     </div>
                 </section>
                 <section class="table-responsive">
@@ -46,7 +47,8 @@
                                 <td><img src="{{ asset($setting->icon) }}" width="50" alt="icon"></td>
                                 <td class="text-left width-8-rem">
                                     <a href="{{ route('admin.setting.edit', $setting->id) }}"
-                                        class="btn btn-primary btn-sm"><i class="pl-1 fa fa-edit"></i> ویرایش</a>
+                                        class="btn btn-primary btn-sm"><i class="pl-1 fa fa-edit"></i>
+                                    </a>
                                 </td>
                             </tr>
                         </tbody>
