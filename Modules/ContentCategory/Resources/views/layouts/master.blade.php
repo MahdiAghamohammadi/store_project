@@ -1,19 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Module ContentCategory</title>
 
-       {{-- Laravel Vite - CSS File --}}
-       {{-- {{ module_vite('build-contentcategory', 'Resources/assets/sass/app.scss') }} --}}
+<head>
+    @include('admin.layouts.head-tag')
+    @yield('head-tag')
+</head>
 
-    </head>
-    <body>
-        @yield('content')
+<body dir="rtl">
 
-        {{-- Laravel Vite - JS File --}}
-        {{-- {{ module_vite('build-contentcategory', 'Resources/assets/js/app.js') }} --}}
-    </body>
+    @include('admin.layouts.header')
+
+    <section class="body-container">
+        <!-- side bar -->
+        @include('admin.layouts.sidebar')
+
+        <!-- body of panel -->
+        <section id="main-body" class="main-body">
+            @yield('content')
+        </section>
+    </section>
+
+    @include('admin.layouts.scripts')
+    @yield('script')
+    {{-- using toast alert --}}
+    <section class="flex-row-reverse toast-wrapper">
+        @include('admin.alerts.toast.success')
+        @include('admin.alerts.toast.error')
+    </section>
+    {{-- using sweetalert --}}
+    @include('admin.alerts.sweetalerts.success')
+    @include('admin.alerts.sweetalerts.error')
+</body>
+
 </html>

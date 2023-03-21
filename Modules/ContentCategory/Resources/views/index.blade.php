@@ -1,6 +1,5 @@
-{{-- @extends('contentcategory::layouts.master') --}}
+@extends('contentcategory::layouts.master')
 
-@extends('admin.layouts.master')
 @section('head-tag')
     <title>دسته بندی</title>
 @endsection
