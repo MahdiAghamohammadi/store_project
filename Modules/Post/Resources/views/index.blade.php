@@ -1,4 +1,4 @@
-@extends('admin.layouts.master')
+@extends('post::layouts.master')
 @section('head-tag')
     <title>پست ها</title>
 @endsection

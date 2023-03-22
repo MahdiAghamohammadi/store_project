@@ -282,7 +282,7 @@ Route::prefix('admin')->namespace('Admin')->group(function () {
             Route::get('/status/{page}', [PageController::class, 'status'])->name('admin.content.page.status');
         });
         // Post
-        Route::prefix('post')->group(function () {
+        /* Route::prefix('post')->group(function () {
             Route::get('/', [PostController::class, 'index'])->name('admin.content.post.index');
             Route::get('/create', [PostController::class, 'create'])->name('admin.content.post.create');
             Route::post('/store', [PostController::class, 'store'])->name('admin.content.post.store');
@@ -291,7 +291,7 @@ Route::prefix('admin')->namespace('Admin')->group(function () {
             Route::delete('/destroy/{post}', [PostController::class, 'destroy'])->name('admin.content.post.destroy');
             Route::get('/status/{post}', [PostController::class, 'status'])->name('admin.content.post.status');
             Route::get('/commentable/{post}', [PostController::class, 'commentable'])->name('admin.content.post.commentable');
-        });
+        }); */
         // Banner
         Route::prefix('banner')->group(function () {
             Route::get('/', [BannerController::class, 'index'])->name('admin.content.banner.index');
