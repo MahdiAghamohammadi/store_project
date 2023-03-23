@@ -55,11 +55,14 @@ use Illuminate\Support\Facades\Route;
 // Customer
 use App\Http\Controllers\Customer\HomeController;
 use App\Http\Controllers\Customer\Market\ProductController as CustomerProductController;
+
 // Profile
 use App\Http\Controllers\Customer\Profile\OrderController as ProfileOrderController;
 use App\Http\Controllers\Customer\Profile\FavoriteController;
 use App\Http\Controllers\Customer\Profile\ProfileController;
 use App\Http\Controllers\Customer\Profile\AddressController as ProfileAddressController;
+use App\Http\Controllers\Customer\Profile\TicketController as CustomerTicketController;
+
 // Sales Process
 use App\Http\Controllers\Customer\SalesProcess\CartController;
 use App\Http\Controllers\Customer\SalesProcess\AddressController;
@@ -473,6 +476,7 @@ Route::namespace('Profile')->group(function () {
     Route::get('/profile', [ProfileController::class, 'index'])->name('customer.profile.profile');
     Route::put('/profile/update', [ProfileController::class, 'update'])->name('customer.profile.profile.update');
     Route::get('/my-addresses', [ProfileAddressController::class, 'index'])->name('customer.profile.my-addresses');
+    Route::get('/my-tickets', [CustomerTicketController::class, 'index'])->name('customer.profile.my-tickets');
 });
 
 Route::namespace('Auth')->group(function () {
