@@ -36,6 +36,7 @@
                             <th>اولویت تیکت</th>
                             <th>ارجاع شده از</th>
                             <th>تیکت مرجع</th>
+                            <th>وضعیت تیکت</th>
                             <th class="text-center max-width-16-rem"><i class="fa fa-cogs"></i> تنظیمات</th>
                         </tr>
                         </thead>
@@ -49,10 +50,11 @@
                                 <td>{{ $ticket->priority->name }}</td>
                                 <td>{{ $ticket->admin->user->fullName }}</td>
                                 <td>{{ $ticket->parent->subject ?? '-' }}</td>
+                                <td>{{ $ticket->status == 0 ? 'باز' : 'بسته' }}</td>
                                 <td class="text-left width-16-rem">
-                                    <a href="{{ route('admin.ticket.show', $ticket->id) }}"
+                                    <a href="{{ route('customer.profile.my-tickets.show', $ticket->id) }}"
                                        class="btn btn-info btn-sm"><i class="pl-1 fa fa-eye"></i></a>
-                                    <a href="{{ route('admin.ticket.change', $ticket->id) }}"
+                                    <a href="{{ route('customer.profile.my-tickets.change', $ticket->id) }}"
                                        class="text-white btn btn-warning btn-sm"><i class="pl-1 fa fa-check"></i>
                                         {{ $ticket->status ? 'بازکردن' : 'بستن' }}
                                     </a>

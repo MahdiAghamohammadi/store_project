@@ -477,6 +477,9 @@ Route::namespace('Profile')->group(function () {
     Route::put('/profile/update', [ProfileController::class, 'update'])->name('customer.profile.profile.update');
     Route::get('/my-addresses', [ProfileAddressController::class, 'index'])->name('customer.profile.my-addresses');
     Route::get('/my-tickets', [CustomerTicketController::class, 'index'])->name('customer.profile.my-tickets');
+    Route::get('/my-tickets/show/{ticket}', [CustomerTicketController::class, 'show'])->name('customer.profile.my-tickets.show');
+    Route::post('/my-tickets/answer/{ticket}', [CustomerTicketController::class, 'answer'])->name('customer.profile.my-tickets.answer');
+    Route::get('/my-tickets/change/{ticket}', [CustomerTicketController::class, 'change'])->name('customer.profile.my-tickets.change');
 });
 
 Route::namespace('Auth')->group(function () {
