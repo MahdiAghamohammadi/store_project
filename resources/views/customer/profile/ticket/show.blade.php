@@ -17,13 +17,12 @@
                         <h2 class="content-header-title">
                             <span>نمایش تیکت</span>
                         </h2>
+                        <section class="pb-2 mt-3 mb-3">
+                            <a href="{{ route('customer.profile.my-tickets') }}" class="btn btn-info btn-sm">بازگشت</a>
+                        </section>
                     </section>
                 </section>
                 <!-- end vontent header -->
-                <section class="pb-2 mt-3 mb-3 d-flex justify-content-between align-items-center border-bottom">
-                    <a href="{{ route('customer.profile.my-tickets') }}" class="btn btn-info btn-sm">بازگشت</a>
-                </section>
-
                 <section class="mb-3 card my-3">
                     <section class="text-white card-header bg-primary d-flex justify-content-between">
                         <div>{{ $ticket->user->fullName }}</div>

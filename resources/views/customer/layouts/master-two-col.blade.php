@@ -14,6 +14,10 @@
         @yield('content')
     </main>
 
+    {{-- using sweetalert --}}
+    @include('admin.alerts.sweetalerts.success')
+    @include('admin.alerts.sweetalerts.error')
+
     @include('customer.layouts.footer')
     @include('customer.layouts.scripts')
     @yield('script')

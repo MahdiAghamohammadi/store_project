@@ -18,7 +18,8 @@
                             <span>لیست تیکت ها</span>
                         </h2>
                         <section class="content-header-link m-2">
-                            <a href="#" class="btn btn-info text-white">ارسال تیکت جدید</a>
+                            <a href="{{ route('customer.profile.my-tickets.create') }}" class="btn btn-info text-white">ارسال
+                                تیکت جدید</a>
                         </section>
                     </section>
                 </section>
@@ -32,6 +33,7 @@
                                 <th>#</th>
                                 <th>نویسنده تیکت</th>
                                 <th>عنوان تیکت</th>
+                                <th>متن تیکت</th>
                                 <th>دسته تیکت</th>
                                 <th>اولویت تیکت</th>
                                 <th>ارجاع شده از</th>
@@ -46,6 +48,7 @@
                                     <th>{{ $loop->iteration }}</th>
                                     <td>{{ $ticket->user->fullName }}</td>
                                     <td>{{ $ticket->subject }}</td>
+                                    <td>{{ Str::limit($ticket->description, 15) }}</td>
                                     <td>{{ $ticket->category->name }}</td>
                                     <td>{{ $ticket->priority->name }}</td>
                                     <td>{{ $ticket->admin->user->fullName }}</td>

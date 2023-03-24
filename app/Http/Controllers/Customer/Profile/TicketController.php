@@ -4,13 +4,16 @@ namespace App\Http\Controllers\Customer\Profile;
 
 use App\Models\Ticket\Ticket;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Customer\Profile\TicketAnswerRequest;
 use App\Http\Requests\Customer\Profile\TicketRequest;
+use App\Models\Ticket\TicketCategory;
+use App\Models\Ticket\TicketPriority;
 
 class TicketController extends Controller
 {
     public function index()
     {
-        $tickets = auth()->user()->tickets;
+        $tickets = auth()->user()->tickets()->whereNull('ticket_id')->get();
         return view('customer.profile.ticket.tickets', compact('tickets'));
     }
 
@@ -23,10 +26,10 @@ class TicketController extends Controller
     {
         $ticket->status = $ticket->status == 0 ? 1 : 0;
         $result = $ticket->save();
-        return redirect()->back()->with('swal-success', 'وضعیت تیکت مورد نظر تغییر کرد');
+        return to_route('customer.profile.my-tickets')->with('swal-success', 'وضعیت تیکت مورد نظر تغییر کرد');
     }
 
-    public function answer(TicketRequest $request, Ticket $ticket)
+    public function answer(TicketAnswerRequest $request, Ticket $ticket)
     {
         $inputs = $request->all();
         $inputs['subject'] = $ticket->subject;
@@ -39,5 +42,21 @@ class TicketController extends Controller
         $inputs['ticket_id'] = $ticket->id;
         $ticket = Ticket::create($inputs);
         return redirect()->back()->with('swal-success', 'پاسخ مورد نظر با موفقیت ثبت شد.');
+    }
+
+    public function create()
+    {
+        $ticketCategories = TicketCategory::all();
+        $ticketPriorities = TicketPriority::all();
+        return view('customer.profile.ticket.create', compact('ticketCategories', 'ticketPriorities'));
+    }
+
+    public function store(TicketRequest $request)
+    {
+        $inputs = $request->all();
+        $inputs['reference_id'] = 6;
+        $inputs['user_id'] = auth()->user()->id;
+        $ticket = Ticket::create($inputs);
+        return to_route('customer.profile.my-tickets')->with('swal-success', 'تیکت مورد نظر با موفقیت ثبت شد.');
     }
 }

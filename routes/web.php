@@ -480,6 +480,8 @@ Route::namespace('Profile')->group(function () {
     Route::get('/my-tickets/show/{ticket}', [CustomerTicketController::class, 'show'])->name('customer.profile.my-tickets.show');
     Route::post('/my-tickets/answer/{ticket}', [CustomerTicketController::class, 'answer'])->name('customer.profile.my-tickets.answer');
     Route::get('/my-tickets/change/{ticket}', [CustomerTicketController::class, 'change'])->name('customer.profile.my-tickets.change');
+    Route::get('/my-tickets/create', [CustomerTicketController::class, 'create'])->name('customer.profile.my-tickets.create');
+    Route::post('/my-tickets/store', [CustomerTicketController::class, 'store'])->name('customer.profile.my-tickets.store');
 });
 
 Route::namespace('Auth')->group(function () {
