@@ -25,23 +25,41 @@
                 </section>
 
                 <section class="mb-3 card my-3">
-                    <section class="text-white card-header bg-primary">
-                        {{ $ticket->user->fullName }}
+                    <section class="text-white card-header bg-primary d-flex justify-content-between">
+                        <div>{{ $ticket->user->fullName }}</div>
+                        <small>{{ jalaliDate($ticket->created_at) }}</small>
                     </section>
                     <section class="card-body">
-                        <h5 class="card-title">موضوع: {{ $ticket->subject }}</h5>
+                        <h5 class="card-title">موضوع: {{ $ticket->subject }}
+                        </h5>
                         <p class="card-text">{{ $ticket->description }}</p>
                     </section>
                 </section>
+
+                <hr>
+
+                <div class="border">
+                    @foreach ($ticket->children as $child)
+                        <section class="card m-4 ">
+                            <section class="card-header bg-light d-flex justify-content-between">
+                                <div>{{ $child->user->fullName }}</div>
+                                <small>{{ jalaliDate($child->created_at) }}</small>
+                            </section>
+                            <section class="card-body">
+                                <p class="card-text">{{ $child->description }}</p>
+                            </section>
+                        </section>
+                    @endforeach
+                </div>
+
                 <section>
                     <form action="{{ route('customer.profile.my-tickets.answer', $ticket->id) }}" method="POST">
                         @csrf
                         <section class="row">
                             <section class="col-12 ">
                                 <div class="form-group">
-                                    <label for="description">پاسخ تیکت</label>
-                                    <textarea name="description" class="form-control form-control-sm" id="description"
-                                              rows="4">{{ old('description') }}</textarea>
+                                    <label for="description" class="my-2">پاسخ تیکت</label>
+                                    <textarea name="description" class="form-control form-control-sm" id="description" rows="4">{{ old('description') }}</textarea>
                                 </div>
                             </section>
                             <section class="col-12 mt-2">
