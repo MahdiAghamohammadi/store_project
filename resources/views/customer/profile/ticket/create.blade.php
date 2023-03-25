@@ -26,12 +26,13 @@
 
 
                 <section>
-                    <form action="{{ route('customer.profile.my-tickets.store') }}" method="POST">
+                    <form action="{{ route('customer.profile.my-tickets.store') }}" method="POST"
+                        enctype="multipart/form-data">
                         @csrf
                         <section class="row">
                             <section class="col-12 my-2">
                                 <div class="form-group">
-                                    <label for="subject">موضوع</label>
+                                    <label for="subject">عنوان</label>
                                     <input type="text" class="form-control form-control-sm" name="subject" id="subject"
                                         value="{{ old('subject') }}">
                                 </div>
@@ -98,12 +99,12 @@
                             </section>
                             <section class="my-2 col-12">
                                 <div class="form-group">
-                                    <label for="ticket_file">فایل</label>
-                                    <input type="file" name="ticket_file" id="ticket_file"
+                                    <label for="file">فایل</label>
+                                    <input type="file" name="file" id="file"
                                         class="form-control form-control-sm">
                                 </div>
-                                @error('ticket_file')
-                                    <span class="p-1 text-white rounded alert_required bg-danger" role="alert">
+                                @error('file')
+                                    <span class="p-1 rounded alert_required text-danger" role="alert">
                                         <strong>
                                             {{ $message }}
                                         </strong>
