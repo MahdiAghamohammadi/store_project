@@ -33,6 +33,12 @@
                         </h5>
                         <p class="card-text">{{ $ticket->description }}</p>
                     </section>
+                    @if ($ticket->file()->count() > 0)
+                        <section class="card-footer">
+                            <a href="{{ asset($ticket->file->file_path) }}" class="btn btn-success btn-sm" download>دانلود
+                                ضمیمه</a>
+                        </section>
+                    @endif
                 </section>
 
                 <hr>

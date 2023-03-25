@@ -71,19 +71,14 @@ class TicketController extends Controller
                 $result = $fileService->moveToPublic($request->file('file'));
                 // $result = $fileService->moveToStorage($request->file('file'));
                 $fileFormat = $fileService->getFileFormat();
-                if ($result === false) {
-                    return redirect()->back()->with('swal-success', 'آپلود فایل با خطا مواجه شد.');
-                }
+                $inputs['ticket_id'] = $ticket->id;
+                $inputs['file_path'] = $result;
+                $inputs['file_size'] = $fileSize;
+                $inputs['file_type'] = $fileFormat;
+                $inputs['user_id'] = auth()->user()->id;
+
+                $file = TicketFile::create($inputs);
             }
-
-
-            $inputs['ticket_id'] = $ticket->id;
-            $inputs['file_path'] = $result;
-            $inputs['file_size'] = $fileSize;
-            $inputs['file_type'] = $fileFormat;
-            $inputs['user_id'] = auth()->user()->id;
-
-            $file = TicketFile::create($inputs);
         });
         return to_route('customer.profile.my-tickets')->with('swal-success', 'تیکت مورد نظر با موفقیت ثبت شد.');
     }
