@@ -10,6 +10,7 @@ use App\Models\Ticket\TicketPriority;
 use App\Http\Services\File\FileService;
 use App\Http\Requests\Customer\Profile\TicketRequest;
 use App\Http\Requests\Customer\Profile\TicketAnswerRequest;
+use Illuminate\Support\Facades\DB;
 
 class TicketController extends Controller
 {
@@ -55,33 +56,35 @@ class TicketController extends Controller
 
     public function store(TicketRequest $request, FileService $fileService)
     {
-        // Ticket Body
-        $inputs = $request->all();
-        $inputs['reference_id'] = 6;
-        $inputs['user_id'] = auth()->user()->id;
-        $ticket = Ticket::create($inputs);
+        DB::transaction(function () use ($request, $fileService) {
+            // Ticket Body
+            $inputs = $request->all();
+            $inputs['reference_id'] = 6;
+            $inputs['user_id'] = auth()->user()->id;
+            $ticket = Ticket::create($inputs);
 
-        // Ticket Files
-        if ($request->hasFile('file')) {
-            $fileService->setExclusiveDirectory('files' . DIRECTORY_SEPARATOR . 'ticket-files');
-            $fileService->setFileSize($request->file('file'));
-            $fileSize = $fileService->getFileSize();
-            $result = $fileService->moveToPublic($request->file('file'));
-            // $result = $fileService->moveToStorage($request->file('file'));
-            $fileFormat = $fileService->getFileFormat();
-            if ($result === false) {
-                return redirect()->back()->with('swal-success', 'آپلود فایل با خطا مواجه شد.');
+            // Ticket Files
+            if ($request->hasFile('file')) {
+                $fileService->setExclusiveDirectory('files' . DIRECTORY_SEPARATOR . 'ticket-files');
+                $fileService->setFileSize($request->file('file'));
+                $fileSize = $fileService->getFileSize();
+                $result = $fileService->moveToPublic($request->file('file'));
+                // $result = $fileService->moveToStorage($request->file('file'));
+                $fileFormat = $fileService->getFileFormat();
+                if ($result === false) {
+                    return redirect()->back()->with('swal-success', 'آپلود فایل با خطا مواجه شد.');
+                }
             }
-        }
 
 
-        $inputs['ticket_id'] = $ticket->id;
-        $inputs['file_path'] = $result;
-        $inputs['file_size'] = $fileSize;
-        $inputs['file_type'] = $fileFormat;
-        $inputs['user_id'] = auth()->user()->id;
+            $inputs['ticket_id'] = $ticket->id;
+            $inputs['file_path'] = $result;
+            $inputs['file_size'] = $fileSize;
+            $inputs['file_type'] = $fileFormat;
+            $inputs['user_id'] = auth()->user()->id;
 
-        $file = TicketFile::create($inputs);
+            $file = TicketFile::create($inputs);
+        });
         return to_route('customer.profile.my-tickets')->with('swal-success', 'تیکت مورد نظر با موفقیت ثبت شد.');
     }
 }
