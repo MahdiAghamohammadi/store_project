@@ -21,7 +21,8 @@
                 <section class="pb-2 mt-4 mb-3 d-flex justify-content-between align-items-center border-bottom">
                     <a href="#" class="btn btn-info btn-sm disabled">ایجاد تیکت جدید</a>
                     <div class="max-width-16-rem">
-                        <input class="form-control form-control-sm form-text" type="text" name="" id="" placeholder="جستجو">
+                        <input class="form-control form-control-sm form-text" type="text" name="" id=""
+                            placeholder="جستجو">
                     </div>
                 </section>
                 <section class="table-responsive">
@@ -46,7 +47,7 @@
                                     <td>{{ $ticket->subject }}</td>
                                     <td>{{ $ticket->category->name }}</td>
                                     <td>{{ $ticket->priority->name }}</td>
-                                    <td>{{ $ticket->admin->user->fullName }}</td>
+                                    <td>{{ $ticket->admin ? $ticket->admin->user->fullName : 'نامشخص' }}</td>
                                     <td>{{ $ticket->parent->subject ?? '-' }}</td>
                                     <td class="text-left width-16-rem">
                                         <a href="{{ route('admin.ticket.show', $ticket->id) }}"

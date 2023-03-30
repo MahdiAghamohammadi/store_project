@@ -36,7 +36,6 @@
                                 <th>متن تیکت</th>
                                 <th>دسته تیکت</th>
                                 <th>اولویت تیکت</th>
-                                <th>ارجاع شده از</th>
                                 <th>تیکت مرجع</th>
                                 <th>وضعیت تیکت</th>
                                 <th class="text-center max-width-16-rem"><i class="fa fa-cogs"></i> تنظیمات</th>
@@ -51,7 +50,6 @@
                                     <td>{{ Str::limit($ticket->description, 15) }}</td>
                                     <td>{{ $ticket->category->name }}</td>
                                     <td>{{ $ticket->priority->name }}</td>
-                                    <td>{{ $ticket->admin->user->fullName }}</td>
                                     <td>{{ $ticket->parent->subject ?? '-' }}</td>
                                     <td>{{ $ticket->status == 0 ? 'باز' : 'بسته' }}</td>
                                     <td class="text-left width-16-rem">

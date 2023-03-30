@@ -24,14 +24,40 @@
                 </section>
 
                 <section class="mb-3 card">
-                    <section class="text-white card-header bg-primary">
+                    <section class="text-white card-header bg-primary d-flex justify-content-between">
                         {{ $ticket->user->fullName }} - {{ $ticket->user->id }}
+                        <small>{{ jalaliDate($ticket->created_at) }}</small>
                     </section>
                     <section class="card-body">
                         <h5 class="card-title">موضوع: {{ $ticket->subject }}</h5>
                         <p class="card-text">{{ $ticket->description }}</p>
                     </section>
                 </section>
+
+                @if ($ticket->children()->count())
+                    <hr>
+
+                    <div class="border">
+                        @foreach ($ticket->children as $child)
+                            <section class="card m-4 ">
+                                <section class="card-header bg-light d-flex justify-content-between">
+                                    <div>
+                                        {{ $child->user->fullName }}
+                                        @if ($child->admin)
+                                            - پاسخ دهنده:
+                                            {{ $child->admin->user->fullName }}
+                                        @endif
+                                    </div>
+                                    <small>{{ jalaliDate($child->created_at) }}</small>
+                                </section>
+                                <section class="card-body">
+                                    <p class="card-text">{{ $child->description }}</p>
+                                </section>
+                            </section>
+                        @endforeach
+                    </div>
+                @endif
+
                 <section>
                     <form action="{{ route('admin.ticket.answer', $ticket->id) }}" method="POST">
                         @csrf
@@ -39,8 +65,7 @@
                             <section class="col-12 ">
                                 <div class="form-group">
                                     <label for="description">پاسخ تیکت</label>
-                                    <textarea name="description" class="form-control form-control-sm" id="description"
-                                        rows="4">{{ old('description') }}</textarea>
+                                    <textarea name="description" class="form-control form-control-sm" id="description" rows="4">{{ old('description') }}</textarea>
                                 </div>
                             </section>
                             <section class="col-12">

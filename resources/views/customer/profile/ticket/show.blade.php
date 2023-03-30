@@ -41,21 +41,29 @@
                     @endif
                 </section>
 
-                <hr>
+                @if ($ticket->children()->count())
+                    <hr>
 
-                <div class="border">
-                    @foreach ($ticket->children as $child)
-                        <section class="card m-4 ">
-                            <section class="card-header bg-light d-flex justify-content-between">
-                                <div>{{ $child->user->fullName }}</div>
-                                <small>{{ jalaliDate($child->created_at) }}</small>
+                    <div class="border">
+                        @foreach ($ticket->children as $child)
+                            <section class="card m-4 ">
+                                <section class="card-header bg-light d-flex justify-content-between">
+                                    <div>
+                                        {{ $child->user->fullName }}
+                                        @if ($child->admin)
+                                            - پاسخ دهنده:
+                                            {{ $child->admin->user->fullName }}
+                                        @endif
+                                    </div>
+                                    <small>{{ jalaliDate($child->created_at) }}</small>
+                                </section>
+                                <section class="card-body">
+                                    <p class="card-text">{{ $child->description }}</p>
+                                </section>
                             </section>
-                            <section class="card-body">
-                                <p class="card-text">{{ $child->description }}</p>
-                            </section>
-                        </section>
-                    @endforeach
-                </div>
+                        @endforeach
+                    </div>
+                @endif
 
                 <section>
                     <form action="{{ route('customer.profile.my-tickets.answer', $ticket->id) }}" method="POST">
