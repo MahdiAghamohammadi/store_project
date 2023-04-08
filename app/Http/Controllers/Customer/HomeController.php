@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Content\Banner;
 use App\Models\Market\Brand;
 use App\Models\Market\Product;
+use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
@@ -20,5 +21,13 @@ class HomeController extends Controller
         $mostVisitedProducts = Product::latest()->take(10)->get();
         $offerProducts = Product::latest()->take(10)->get();
         return view('customer.home', compact('slideShowImages', 'topBanners', 'middleBanners', 'bottomBanner', 'brands', 'mostVisitedProducts', 'offerProducts'));
+    }
+
+    public function products(Request $request)
+    {
+        if ($request->search) {
+            $products = Product::where('name', 'LIKE', "%{$request->search}%")->get();
+        }
+        return view('customer.market.product.products', compact('products'));
     }
 }
