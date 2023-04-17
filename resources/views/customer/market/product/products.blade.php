@@ -8,6 +8,7 @@
         <aside id="sidebar" class="sidebar col-md-3">
             <section class="content-wrapper bg-white p-3 rounded-2 mb-3">
                 <form action="{{ route('customer.products') }}" method="GET">
+                    <input type="hidden" name="sort" value="{{ request()->sort }}">
                     <!-- start sidebar nav-->
                     <section class="sidebar-nav">
                         <section class="sidebar-nav-item">
@@ -675,17 +676,17 @@
                 <section class="sort ">
                     <span>مرتب سازی بر اساس : </span>
                     <a class="btn {{ request()->sort == 1 ? 'btn-info' : '' }} btn-sm px-1 py-0"
-                        href="{{ route('customer.products', ['search' => request()->search, 'sort' => '1']) }}">جدیدترین</a>
+                        href="{{ route('customer.products', ['search' => request()->search, 'sort' => '1', 'min_price' => request()->min_price, 'max_price' => request()->max_price]) }}">جدیدترین</a>
                     <a class="btn {{ request()->sort == 2 ? 'btn-info' : '' }} btn-sm px-1 py-0"
-                        href="{{ route('customer.products', ['search' => request()->search, 'sort' => '2']) }}">گران
+                        href="{{ route('customer.products', ['search' => request()->search, 'sort' => '2', 'min_price' => request()->min_price, 'max_price' => request()->max_price]) }}">گران
                         ترین</a>
                     <a class="btn {{ request()->sort == 3 ? 'btn-info' : '' }} btn-sm px-1 py-0"
-                        href="{{ route('customer.products', ['search' => request()->search, 'sort' => '3']) }}">ارزان
+                        href="{{ route('customer.products', ['search' => request()->search, 'sort' => '3', 'min_price' => request()->min_price, 'max_price' => request()->max_price]) }}">ارزان
                         ترین</a>
                     <a class="btn {{ request()->sort == 4 ? 'btn-info' : '' }} btn-sm px-1 py-0"
-                        href="{{ route('customer.products', ['search' => request()->search, 'sort' => '4']) }}">پربازدیدترین</a>
+                        href="{{ route('customer.products', ['search' => request()->search, 'sort' => '4', 'min_price' => request()->min_price, 'max_price' => request()->max_price]) }}">پربازدیدترین</a>
                     <a class="btn {{ request()->sort == 5 ? 'btn-info' : '' }} btn-sm px-1 py-0"
-                        href="{{ route('customer.products', ['search' => request()->search, 'sort' => '5']) }}">پرفروش
+                        href="{{ route('customer.products', ['search' => request()->search, 'sort' => '5', 'min_price' => request()->min_price, 'max_price' => request()->max_price]) }}">پرفروش
                         ترین</a>
                 </section>
 
