@@ -25,6 +25,10 @@ class HomeController extends Controller
 
     public function products(Request $request)
     {
+        // get brands
+        $brands = Brand::all();
+
+        // switch for sort filtering
         switch ($request->sort) {
             case "1":
                 $column = "created_at";
@@ -56,6 +60,7 @@ class HomeController extends Controller
         } else {
             $query = Product::orderBy($column, $direction);
         }
+
         $products = $request->min_price && $request->max_price ?
             $query->whereBetween('price', [$request->min_price, $request->max_price])->get() :
             $query->when($request->min_price, function ($query) use ($request) {
@@ -64,7 +69,14 @@ class HomeController extends Controller
                 $query->where('price', '<=', $request->max_price)->get();
             })->when(!($request->min_price && $request->max_price), function ($query) {
                 $query->get();
-            })->get();
-        return view('customer.market.product.products', compact('products'));
+            });
+
+        $products = $products->when($request->brands, function () use ($request, $products) {
+            $products->whereIn('brand_id', $request->brands);
+        });
+
+        $products = $products->get();
+
+        return view('customer.market.product.products', compact('products', 'brands'));
     }
 }
