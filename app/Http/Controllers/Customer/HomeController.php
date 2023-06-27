@@ -62,7 +62,7 @@ class HomeController extends Controller
         }
 
         $products = $request->min_price && $request->max_price ?
-            $query->whereBetween('price', [$request->min_price, $request->max_price])->get() :
+            $query->whereBetween('price', [$request->min_price, $request->max_price]) :
             $query->when($request->min_price, function ($query) use ($request) {
                 $query->where('price', '>=', $request->min_price)->get();
             })->when($request->max_price, function ($query) use ($request) {
@@ -77,6 +77,15 @@ class HomeController extends Controller
 
         $products = $products->get();
 
-        return view('customer.market.product.products', compact('products', 'brands'));
+        // get selected brands
+        $selectedBrandArray = [];
+        if ($request->brands) {
+            $selectedBrands = Brand::find($request->brands);
+            foreach ($selectedBrands as $selectedBrand) {
+                array_push($selectedBrandArray, $selectedBrand->original_name);
+            }
+        }
+
+        return view('customer.market.product.products', compact('products', 'brands', 'selectedBrandArray'));
     }
 }
