@@ -24,10 +24,16 @@ class HomeController extends Controller
         return view('customer.home', compact('slideShowImages', 'topBanners', 'middleBanners', 'bottomBanner', 'brands', 'mostVisitedProducts', 'offerProducts'));
     }
 
-    public function products(Request $request)
+    public function products(Request $request, ProductCategory $category = null)
     {
         // get brands
         $brands = Brand::all();
+
+        // category selection
+        if ($category)
+            $productModel = $category->products();
+        else
+            $productModel = new Product();
 
         // get categories
         $categories = ProductCategory::whereNull('parent_id')->get();
@@ -60,9 +66,9 @@ class HomeController extends Controller
                 break;
         }
         if ($request->search) {
-            $query = Product::where('name', 'LIKE', "%{$request->search}%")->orderBy($column, $direction);
+            $query = $productModel->where('name', 'LIKE', "%{$request->search}%")->orderBy($column, $direction);
         } else {
-            $query = Product::orderBy($column, $direction);
+            $query = $productModel->orderBy($column, $direction);
         }
 
         $products = $request->min_price && $request->max_price ?

@@ -139,17 +139,17 @@
                 <section class="sort ">
                     <span>مرتب سازی بر اساس : </span>
                     <a class="btn {{ request()->sort == 1 ? 'btn-info' : '' }} btn-sm px-1 py-0"
-                        href="{{ route('customer.products', ['search' => request()->search, 'sort' => '1', 'min_price' => request()->min_price, 'max_price' => request()->max_price, 'brands' => request()->brands]) }}">جدیدترین</a>
+                        href="{{ route('customer.products', [request()->category ? request()->category->id : null, 'search' => request()->search, 'sort' => '1', 'min_price' => request()->min_price, 'max_price' => request()->max_price, 'brands' => request()->brands]) }}">جدیدترین</a>
                     <a class="btn {{ request()->sort == 2 ? 'btn-info' : '' }} btn-sm px-1 py-0"
-                        href="{{ route('customer.products', ['search' => request()->search, 'sort' => '2', 'min_price' => request()->min_price, 'max_price' => request()->max_price, 'brands' => request()->brands]) }}">گران
+                        href="{{ route('customer.products', [request()->category ? request()->category->id : null, 'search' => request()->search, 'sort' => '2', 'min_price' => request()->min_price, 'max_price' => request()->max_price, 'brands' => request()->brands]) }}">گران
                         ترین</a>
                     <a class="btn {{ request()->sort == 3 ? 'btn-info' : '' }} btn-sm px-1 py-0"
-                        href="{{ route('customer.products', ['search' => request()->search, 'sort' => '3', 'min_price' => request()->min_price, 'max_price' => request()->max_price, 'brands' => request()->brands]) }}">ارزان
+                        href="{{ route('customer.products', [request()->category ? request()->category->id : null, 'search' => request()->search, 'sort' => '3', 'min_price' => request()->min_price, 'max_price' => request()->max_price, 'brands' => request()->brands]) }}">ارزان
                         ترین</a>
                     <a class="btn {{ request()->sort == 4 ? 'btn-info' : '' }} btn-sm px-1 py-0"
-                        href="{{ route('customer.products', ['search' => request()->search, 'sort' => '4', 'min_price' => request()->min_price, 'max_price' => request()->max_price, 'brands' => request()->brands]) }}">پربازدیدترین</a>
+                        href="{{ route('customer.products', [request()->category ? request()->category->id : null, 'search' => request()->search, 'sort' => '4', 'min_price' => request()->min_price, 'max_price' => request()->max_price, 'brands' => request()->brands]) }}">پربازدیدترین</a>
                     <a class="btn {{ request()->sort == 5 ? 'btn-info' : '' }} btn-sm px-1 py-0"
-                        href="{{ route('customer.products', ['search' => request()->search, 'sort' => '5', 'min_price' => request()->min_price, 'max_price' => request()->max_price, 'brands' => request()->brands]) }}">پرفروش
+                        href="{{ route('customer.products', [request()->category ? request()->category->id : null, 'search' => request()->search, 'sort' => '5', 'min_price' => request()->min_price, 'max_price' => request()->max_price, 'brands' => request()->brands]) }}">پرفروش
                         ترین</a>
                 </section>
 
@@ -186,17 +186,10 @@
                         <h5 class="text-danger">محصولی یافت نشد.</h5>
                     @endforelse
 
-                    <section class="col-12">
-                        <section class="my-4 d-flex justify-content-center">
-                            <nav>
-                                {{ $products->links('pagination::bootstrap-5') }}
-                            </nav>
-                        </section>
+                    <section class="my-4 d-flex justify-content-center border-0">
+                        {{ $products->links('pagination::bootstrap-5') }}
                     </section>
-
                 </section>
-
-
             </section>
         </main>
     </section>
