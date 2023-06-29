@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Content\Banner;
 use App\Models\Market\Brand;
 use App\Models\Market\Product;
+use App\Models\Market\ProductCategory;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -27,6 +28,9 @@ class HomeController extends Controller
     {
         // get brands
         $brands = Brand::all();
+
+        // get categories
+        $categories = ProductCategory::whereNull('parent_id')->get();
 
         // switch for sort filtering
         switch ($request->sort) {
@@ -87,6 +91,6 @@ class HomeController extends Controller
             }
         }
 
-        return view('customer.market.product.products', compact('products', 'brands', 'selectedBrandArray'));
+        return view('customer.market.product.products', compact('products', 'brands', 'selectedBrandArray', 'categories'));
     }
 }
