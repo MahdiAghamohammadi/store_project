@@ -85,4 +85,7 @@
         </section>
     </section>
     </form>
+    <div class="mb-3">
+        <a href="{{ route('customer.products') }}" class="btn btn-warning">حذف فیلتر ها</a>
+    </div>
 </aside>
