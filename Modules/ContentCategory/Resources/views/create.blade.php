@@ -2,6 +2,10 @@
 
 @section('head-tag')
     <title>ایجاد دسته بندی</title>
+    {{-- recaptcha V3 --}}
+    {{-- <meta name="csrf-token" content="{{ csrf_token() }}"> --}}
+    {{-- recaptcha V3 and V2 --}}
+    {!! htmlScriptTagJsApi() !!}
 @endsection
 @section('content')
     <nav aria-label="breadcrumb">
@@ -99,6 +103,17 @@
                                             </textarea>
                                 </div>
                                 @error('description')
+                                    <span class="p-1 text-white rounded alert_required bg-danger" role="alert">
+                                        <strong>
+                                            {{ $message }}
+                                        </strong>
+                                    </span>
+                                @enderror
+                            </section>
+                            {{-- Just recaptcha V2 --}}
+                            {!! htmlFormSnippet() !!}
+                            <section>
+                                @error('g-recaptcha-response')
                                     <span class="p-1 text-white rounded alert_required bg-danger" role="alert">
                                         <strong>
                                             {{ $message }}
