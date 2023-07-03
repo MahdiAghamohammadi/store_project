@@ -11,10 +11,11 @@ use App\Models\Market\Product;
 use App\Models\User\Permission;
 use Laravel\Sanctum\HasApiTokens;
 use App\Models\Ticket\TicketAdmin;
-use App\Traits\Permissions\HasPermissionsTrait;
 use Laravel\Jetstream\HasProfilePhoto;
+use Nagy\LaravelRating\Traits\CanRate;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
+use App\Traits\Permissions\HasPermissionsTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
@@ -26,6 +27,7 @@ class User extends Authenticatable
     use Notifiable;
     use TwoFactorAuthenticatable;
     use HasPermissionsTrait;
+    use CanRate;
 
     /**
      * The attributes that are mass assignable.

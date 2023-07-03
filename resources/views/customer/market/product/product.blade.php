@@ -1,6 +1,7 @@
 @extends('customer.layouts.master-one-col')
 @section('head-tag')
     <title>{{ $product->name }}</title>
+    <link rel="stylesheet" href="{{ asset('customer-assets/css/rating-style.css') }}">
 @endsection
 @section('content')
     <!-- start cart -->
@@ -192,9 +193,9 @@
 
 
                                 @php
-
+                                    
                                     $amazingSale = $product->activeAmazingSales();
-
+                                    
                                 @endphp
                                 @if (!empty($amazingSale))
                                     <section class="d-flex justify-content-between align-items-center">
@@ -346,6 +347,8 @@
                                                     href="#features">ویژگی ها</a></span>
                                             <span class="me-2"><a class="text-decoration-none text-dark"
                                                     href="#comments">دیدگاه ها</a></span>
+                                            <span class="me-2"><a class="text-decoration-none text-dark"
+                                                    href="#rating">امتیاز ها</a></span>
                                         </h2>
                                         <section class="content-header-link">
                                             <!--<a href="#">مشاهده همه</a>-->
@@ -433,42 +436,40 @@
                                                         <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                             aria-label="Close"></button>
                                                     </section>
-                                                    <section class="modal-body">
-                                                        <form class="row"
-                                                            action="{{ route('customer.market.add-comment', $product) }}"
-                                                            method="POST">
-                                                            @csrf
-                                                            {{-- <section class="col-6 mb-2">
-                                                            <label for="first_name" class="form-label mb-1">نام</label>
-                                                            <input type="text" name="first_name"
-                                                                class="form-control form-control-sm" id="first_name"
-                                                                placeholder="نام ...">
+                                                    @guest
+                                                        <section class="modal-body">
+                                                            <p>کاربر گرامی لطفا برای ثبت نظر ابتدا وارد حساب کاربری خود شوید
+                                                            </p>
+                                                            <p>لینک ثبت نام و یا ورود
+                                                                <a href="{{ route('auth.customer.login-register-form') }}">کلیک
+                                                                    کنید</a>
+                                                            </p>
                                                         </section>
-                                                        <section class="col-6 mb-2">
-                                                            <label for="last_name" class="form-label mb-1">نام
-                                                                خانوادگی</label>
-                                                            <input type="text" name="last_name"
-                                                                class="form-control form-control-sm" id="last_name"
-                                                                placeholder="نام خانوادگی ...">
-                                                        </section> --}}
+                                                    @endguest
+                                                    @auth
+                                                        <section class="modal-body">
+                                                            <form class="row"
+                                                                action="{{ route('customer.market.add-comment', $product) }}"
+                                                                method="POST">
+                                                                @csrf
+                                                                <section class="col-12 mb-2">
+                                                                    <label for="body" class="form-label mb-1">دیدگاه
+                                                                        شما</label>
+                                                                    <textarea class="form-control form-control-sm" id="body" name="body" placeholder="دیدگاه شما ...."
+                                                                        rows="4"></textarea>
+                                                                </section>
 
-                                                            <section class="col-12 mb-2">
-                                                                <label for="body" class="form-label mb-1">دیدگاه
-                                                                    شما</label>
-                                                                <textarea class="form-control form-control-sm" id="body" name="body" placeholder="دیدگاه شما ...."
-                                                                    rows="4"></textarea>
-                                                            </section>
-
-                                                            <section class="modal-footer py-1">
-                                                                <button type="submit" class="btn btn-sm btn-primary">ثبت
-                                                                    دیدگاه
-                                                                </button>
-                                                                <button type="button" class="btn btn-sm btn-danger"
-                                                                    data-bs-dismiss="modal">بستن
-                                                                </button>
-                                                            </section>
-                                                        </form>
-                                                    </section>
+                                                                <section class="modal-footer py-1">
+                                                                    <button type="submit" class="btn btn-sm btn-primary">ثبت
+                                                                        دیدگاه
+                                                                    </button>
+                                                                    <button type="button" class="btn btn-sm btn-danger"
+                                                                        data-bs-dismiss="modal">بستن
+                                                                    </button>
+                                                                </section>
+                                                            </form>
+                                                        </section>
+                                                    @endauth
                                                 </section>
                                             </section>
                                         </section>
@@ -517,6 +518,63 @@
                                             @endforeach
                                         </section>
                                     @endforeach
+                                </section>
+
+                                <!-- start rating -->
+                                <section id="rating" class="content-header mt-2 mb-4">
+                                    <section class="d-flex justify-content-between align-items-center">
+                                        <h2 class="content-header-title content-header-title-small">
+                                            امیتاز ها
+                                        </h2>
+                                        <section class="content-header-link">
+                                            <!--<a href="#">مشاهده همه</a>-->
+                                        </section>
+                                    </section>
+                                </section>
+                                <section class="product-rating mb-4">
+                                    @auth
+                                        <div class="container">
+                                            <h5 class="text-danger">
+                                                امتیاز خود را به این محصول بدهید.
+                                            </h5>
+                                            <form action="{{ route('customer.market.add-rate', $product) }}" method="POST"
+                                                class="starrating risingstar d-flex justify-content-end flex-row-reverse align-items-center">
+                                                @csrf
+                                                <div class="mx-3">
+                                                    <button class="btn btn-info btn-sm" type="submit">ثبت امتیاز</button>
+                                                </div>
+
+                                                <input type="radio" name="rating" id="star5" value="5" />
+                                                <label for="star5" title="5 star"></label>
+
+                                                <input type="radio" name="rating" id="star4" value="4" />
+                                                <label for="star4" title="4 star"></label>
+
+                                                <input type="radio" name="rating" id="star3" value="3" />
+                                                <label for="star3" title="3 star"></label>
+
+                                                <input type="radio" name="rating" id="star2" value="2" />
+                                                <label for="star2" title="2 star"></label>
+
+                                                <input type="radio" name="rating" id="star1" value="1" />
+                                                <label for="star1" title="1 star"></label>
+                                            </form>
+                                            <h6>
+                                                میانگین امتیاز:
+                                                {{ number_format($product->ratingsAvg(), 1, '/') ?? 'شما اولین امتیاز را ثبت نمایید.' }}
+                                            </h6>
+                                        </div>
+                                    @endauth
+                                    @guest
+                                        <section class="modal-body">
+                                            <p>کاربر گرامی لطفا برای ثبت نظر ابتدا وارد حساب کاربری خود شوید </p>
+                                            <p>لینک ثبت نام و یا ورود
+                                                <a href="{{ route('auth.customer.login-register-form') }}">کلیک
+                                                    کنید</a>
+                                            </p>
+                                        </section>
+                                    @endguest
+
                                 </section>
                             </section>
                         </section>

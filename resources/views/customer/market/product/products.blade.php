@@ -77,11 +77,35 @@
                                 <section class="product-add-to-cart"><a href="#" data-bs-toggle="tooltip"
                                         data-bs-placement="left" title="افزودن به سبد خرید"><i
                                             class="fa fa-cart-plus"></i></a></section>
-                                <section class="product-add-to-favorite"><a href="#" data-bs-toggle="tooltip"
-                                        data-bs-placement="left" title="افزودن به علاقه مندی"><i
-                                            class="fa fa-heart"></i></a>
-                                </section>
-                                <a class="product-link" href="#">
+                                @guest
+                                    <section class="product-add-to-favorite">
+                                        <button class="btn btn-light btn-sm"
+                                            data-url="{{ route('customer.market.add-to-favorite', $product) }}"
+                                            data-bs-toggle="tooltip" data-bs-placement="left" title="افزودن به علاقه مندی">
+                                            <i class="fa fa-heart"></i>
+                                        </button>
+                                    </section>
+                                @endguest
+                                @auth
+                                    @if ($product->user->contains(auth()->user()->id))
+                                        <section class="product-add-to-favorite">
+                                            <button class="btn btn-light btn-sm"
+                                                data-url="{{ route('customer.market.add-to-favorite', $product) }}"
+                                                data-bs-toggle="tooltip" data-bs-placement="left" title="حذف از علاقه مندی">
+                                                <i class="fa fa-heart text-danger"></i>
+                                            </button>
+                                        </section>
+                                    @else
+                                        <section class="product-add-to-favorite">
+                                            <button class="btn btn-light btn-sm"
+                                                data-url="{{ route('customer.market.add-to-favorite', $product) }}"
+                                                data-bs-toggle="tooltip" data-bs-placement="left" title="افزودن به علاقه مندی">
+                                                <i class="fa fa-heart"></i>
+                                            </button>
+                                        </section>
+                                    @endif
+                                @endauth
+                                <a class="product-link" href="{{ route('customer.market.product', $product) }}">
                                     <section class="product-image">
                                         <img class="" src="{{ asset($product->image['indexArray']['medium']) }}"
                                             alt="">
