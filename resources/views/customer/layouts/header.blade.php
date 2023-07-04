@@ -109,7 +109,8 @@
                                         <section>مبلغ قابل پرداخت</section>
                                         <section> {{ priceFormat($totalProductPrice - $totalDiscount) }} تومان</section>
                                     </section>
-                                    <section class=""><a class="btn btn-danger btn-sm d-block" href="cart.html">ثبت
+                                    <section class=""><a class="btn btn-danger btn-sm d-block"
+                                            href="{{ route('customer.sales-process.cart') }}">ثبت
                                             سفارش</a></section>
                                 </section>
                             </section>

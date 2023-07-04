@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers\Customer\Market;
 
-use App\Http\Controllers\Controller;
-use App\Models\Content\Comment;
-use App\Models\Market\Product;
+use App\Models\User;
 use Illuminate\Http\Request;
+use App\Models\Market\Product;
+use App\Models\Content\Comment;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 
 class ProductController extends Controller
@@ -46,10 +47,13 @@ class ProductController extends Controller
 
     public function addRate(Request $request, Product $product)
     {
-        if (Auth::check()) {
+        $productIds = auth()->user()->isUserPurchasedProduct($product->id);
+        if (Auth::check() && $productIds->count() > 0) {
             $user = Auth::user();
             $user->rate($product, $request->rating);
+            return back()->with('alert-section-success', 'امتیاز شما ثبت شد.');
+        } else {
+            return back()->with('alert-section-error', 'شما اجازه ثبت امتیاز ندارید - برای ثبت امتیاز باید محصول را خریداری کنید.');
         }
-        return back()->with('alert-section-success', 'امتیاز شما ثبت شد.');
     }
 }

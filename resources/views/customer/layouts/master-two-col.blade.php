@@ -10,6 +10,7 @@
     @include('customer.layouts.header')
 
     @include('admin.alerts.alert-section.success')
+    @include('admin.alerts.alert-section.error')
     <main id="main-body-two-col" class="container-xxl body-container">
         @yield('content')
     </main>

@@ -6,6 +6,7 @@ use App\Models\User\Role;
 use App\Models\Market\Order;
 use App\Models\Ticket\Ticket;
 use App\Models\Market\Address;
+use App\Models\Market\OrderItem;
 use App\Models\Market\Payment;
 use App\Models\Market\Product;
 use App\Models\User\Permission;
@@ -123,5 +124,20 @@ class User extends Authenticatable
     public function permissions()
     {
         return $this->belongsToMany(Permission::class);
+    }
+
+    public function orderItems()
+    {
+        return $this->hasManyThrough(OrderItem::class, Order::class);
+    }
+
+    public function isUserPurchasedProduct($product_id)
+    {
+        $productIds = collect();
+        foreach ($this->orderItems()->where('product_id', $product_id)->get() as $item) {
+            $productIds->push($item->product_id);
+        }
+        $productIds = $productIds->unique();
+        return $productIds;
     }
 }

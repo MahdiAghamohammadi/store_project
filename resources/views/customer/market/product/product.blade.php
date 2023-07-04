@@ -533,37 +533,45 @@
                                 </section>
                                 <section class="product-rating mb-4">
                                     @auth
-                                        <div class="container">
-                                            <h5 class="text-danger">
-                                                امتیاز خود را به این محصول بدهید.
-                                            </h5>
-                                            <form action="{{ route('customer.market.add-rate', $product) }}" method="POST"
-                                                class="starrating risingstar d-flex justify-content-end flex-row-reverse align-items-center">
-                                                @csrf
-                                                <div class="mx-3">
-                                                    <button class="btn btn-info btn-sm" type="submit">ثبت امتیاز</button>
-                                                </div>
+                                        @if (auth()->user()->isUserPurchasedProduct($product->id)->count() > 0)
+                                            <div class="container">
+                                                <h5 class="text-danger">
+                                                    امتیاز خود را به این محصول بدهید.
+                                                </h5>
+                                                <form action="{{ route('customer.market.add-rate', $product) }}"
+                                                    method="POST"
+                                                    class="starrating risingstar d-flex justify-content-end flex-row-reverse align-items-center">
+                                                    @csrf
+                                                    <div class="mx-3">
+                                                        <button class="btn btn-info btn-sm" type="submit">ثبت امتیاز</button>
+                                                    </div>
 
-                                                <input type="radio" name="rating" id="star5" value="5" />
-                                                <label for="star5" title="5 star"></label>
+                                                    <input type="radio" name="rating" id="star5" value="5" />
+                                                    <label for="star5" title="5 star"></label>
 
-                                                <input type="radio" name="rating" id="star4" value="4" />
-                                                <label for="star4" title="4 star"></label>
+                                                    <input type="radio" name="rating" id="star4" value="4" />
+                                                    <label for="star4" title="4 star"></label>
 
-                                                <input type="radio" name="rating" id="star3" value="3" />
-                                                <label for="star3" title="3 star"></label>
+                                                    <input type="radio" name="rating" id="star3" value="3" />
+                                                    <label for="star3" title="3 star"></label>
 
-                                                <input type="radio" name="rating" id="star2" value="2" />
-                                                <label for="star2" title="2 star"></label>
+                                                    <input type="radio" name="rating" id="star2" value="2" />
+                                                    <label for="star2" title="2 star"></label>
 
-                                                <input type="radio" name="rating" id="star1" value="1" />
-                                                <label for="star1" title="1 star"></label>
-                                            </form>
-                                            <h6>
-                                                میانگین امتیاز:
-                                                {{ number_format($product->ratingsAvg(), 1, '/') ?? 'شما اولین امتیاز را ثبت نمایید.' }}
-                                            </h6>
-                                        </div>
+                                                    <input type="radio" name="rating" id="star1" value="1" />
+                                                    <label for="star1" title="1 star"></label>
+                                                </form>
+                                                <h6>
+                                                    میانگین امتیاز:
+                                                    {{ number_format($product->ratingsAvg(), 1, '/') ?? 'شما اولین امتیاز را ثبت نمایید.' }}
+                                                </h6>
+                                            </div>
+                                        @else
+                                            <section class="modal-body">
+                                                <p class="text-danger">برای ثبت امتیاز ابتدا باید محصول را خریداری کرده باشید.
+                                                </p>
+                                            </section>
+                                        @endif
                                     @endauth
                                     @guest
                                         <section class="modal-body">

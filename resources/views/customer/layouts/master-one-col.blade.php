@@ -9,6 +9,7 @@
 <body>
     @include('customer.layouts.header')
     @include('admin.alerts.alert-section.success')
+    @include('admin.alerts.alert-section.error')
     <main id="main-body-one-col" class="main-body">
         @yield('content')
     </main>
