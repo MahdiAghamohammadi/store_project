@@ -1,72 +1,73 @@
 <?php
 
-use App\Http\Controllers\Admin\AdminDashboardController;
+use Illuminate\Support\Facades\Route;
 
 // Content
-use App\Http\Controllers\Admin\Content\CategoryController as ContentCategoryController;
-use App\Http\Controllers\Admin\Content\CommentController as ContentCommentController;
+use App\Http\Controllers\Customer\HomeController;
+use App\Http\Controllers\Admin\User\RoleController;
+use App\Http\Controllers\Admin\Notify\SMSController;
 use App\Http\Controllers\Admin\Content\FAQController;
 use App\Http\Controllers\Admin\Content\MenuController;
 use App\Http\Controllers\Admin\Content\PageController;
 use App\Http\Controllers\Admin\Content\PostController;
-use App\Http\Controllers\Admin\Content\BannerController;
 
 // Market
 use App\Http\Controllers\Admin\Market\BrandController;
-use App\Http\Controllers\Admin\Market\CategoryController;
-use App\Http\Controllers\Admin\Market\CommentController;
-use App\Http\Controllers\Admin\Market\DeliveryController;
-use App\Http\Controllers\Admin\Market\DiscountController;
-use App\Http\Controllers\Admin\Market\GalleryController;
 use App\Http\Controllers\Admin\Market\OrderController;
-use App\Http\Controllers\Admin\Market\PaymentController;
-use App\Http\Controllers\Admin\Market\ProductColorController;
-use App\Http\Controllers\Admin\Market\ProductController;
-use App\Http\Controllers\Admin\Market\PropertyController;
-use App\Http\Controllers\Admin\Market\PropertyValueController;
 use App\Http\Controllers\Admin\Market\StoreController;
-use App\Http\Controllers\Admin\Market\GuaranteeController;
 use App\Http\Controllers\Admin\NotificationController;
+use App\Http\Controllers\Admin\Notify\EmailController;
+use App\Http\Controllers\Admin\Ticket\TicketController;
+use App\Http\Controllers\Admin\User\CustomerController;
+use App\Http\Controllers\Admin\AdminDashboardController;
+use App\Http\Controllers\Admin\Content\BannerController;
+use App\Http\Controllers\Admin\Market\CommentController;
+use App\Http\Controllers\Admin\Market\GalleryController;
+use App\Http\Controllers\Admin\Market\PaymentController;
+use App\Http\Controllers\Admin\Market\ProductController;
+use App\Http\Controllers\Admin\User\AdminUserController;
+use App\Http\Controllers\Admin\Market\CategoryController;
 
 // Notify
-use App\Http\Controllers\Admin\Notify\EmailController;
-use App\Http\Controllers\Admin\Notify\EmailFileController;
-use App\Http\Controllers\Admin\Notify\SMSController;
+use App\Http\Controllers\Admin\Market\DeliveryController;
+use App\Http\Controllers\Admin\Market\DiscountController;
+use App\Http\Controllers\Admin\Market\PropertyController;
 
 // Setting
 use App\Http\Controllers\Admin\Setting\SettingController;
 
 // Ticket
+use App\Http\Controllers\Admin\User\PermissionController;
+use App\Http\Controllers\Admin\Market\GuaranteeController;
+use App\Http\Controllers\Admin\Notify\EmailFileController;
 use App\Http\Controllers\Admin\Ticket\TicketAdminController;
-use App\Http\Controllers\Admin\Ticket\TicketCategoryController;
-use App\Http\Controllers\Admin\Ticket\TicketController;
-use App\Http\Controllers\Admin\Ticket\TicketPriorityController;
 
 // User
-use App\Http\Controllers\Admin\User\AdminUserController;
-use App\Http\Controllers\Admin\User\CustomerController;
-use App\Http\Controllers\Admin\User\PermissionController;
-use App\Http\Controllers\Admin\User\RoleController;
+use App\Http\Controllers\Customer\Profile\CompareController;
+use App\Http\Controllers\Customer\Profile\ProfileController;
+use App\Http\Controllers\Admin\Market\ProductColorController;
+use App\Http\Controllers\Customer\Profile\FavoriteController;
 
 // Auth
-use App\Http\Controllers\Auth\Customer\LoginRegisterController;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\Market\PropertyValueController;
+use App\Http\Controllers\Customer\SalesProcess\CartController;
 
 // Customer
-use App\Http\Controllers\Customer\HomeController;
-use App\Http\Controllers\Customer\Market\ProductController as CustomerProductController;
+use App\Http\Controllers\Admin\Ticket\TicketCategoryController;
+use App\Http\Controllers\Admin\Ticket\TicketPriorityController;
 
 // Profile
-use App\Http\Controllers\Customer\Profile\OrderController as ProfileOrderController;
-use App\Http\Controllers\Customer\Profile\FavoriteController;
-use App\Http\Controllers\Customer\Profile\ProfileController;
-use App\Http\Controllers\Customer\Profile\AddressController as ProfileAddressController;
-use App\Http\Controllers\Customer\Profile\TicketController as CustomerTicketController;
-
-// Sales Process
-use App\Http\Controllers\Customer\SalesProcess\CartController;
+use App\Http\Controllers\Auth\Customer\LoginRegisterController;
 use App\Http\Controllers\Customer\SalesProcess\AddressController;
 use App\Http\Controllers\Customer\SalesProcess\ProfileCompletionController;
+use App\Http\Controllers\Customer\Profile\OrderController as ProfileOrderController;
+use App\Http\Controllers\Admin\Content\CommentController as ContentCommentController;
+
+// Sales Process
+use App\Http\Controllers\Admin\Content\CategoryController as ContentCategoryController;
+use App\Http\Controllers\Customer\Profile\TicketController as CustomerTicketController;
+use App\Http\Controllers\Customer\Market\ProductController as CustomerProductController;
+use App\Http\Controllers\Customer\Profile\AddressController as ProfileAddressController;
 use App\Http\Controllers\Customer\SalesProcess\PaymentController as CustomerPaymentController;
 
 
@@ -475,6 +476,7 @@ Route::namespace('SalesProcess')->group(function () {
 Route::namespace('Profile')->group(function () {
     Route::get('/orders', [ProfileOrderController::class, 'index'])->name('customer.profile.orders');
     Route::get('/my-favorites', [FavoriteController::class, 'index'])->name('customer.profile.my-favorites');
+    Route::get('/my-compares', [CompareController::class, 'index'])->name('customer.profile.my-compares');
     Route::get('/my-favorites/delete/{product}', [FavoriteController::class, 'delete'])->name('customer.profile.my-favorites.delete');
     Route::get('/profile', [ProfileController::class, 'index'])->name('customer.profile.profile');
     Route::put('/profile/update', [ProfileController::class, 'update'])->name('customer.profile.profile.update');

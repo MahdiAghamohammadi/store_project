@@ -3,30 +3,53 @@
         <!-- start sidebar nav-->
         <section class="sidebar-nav">
             <section class="sidebar-nav-item">
-                <span class="sidebar-nav-item-title"><a class="p-3" href="{{ route('customer.profile.orders') }}">سفارش
-                        های
-                        من</a></span>
+                <span class="sidebar-nav-item-title">
+                    <a class="p-3" href="{{ route('customer.profile.orders') }}">
+                        سفارش های من
+                    </a>
+                </span>
             </section>
             <section class="sidebar-nav-item">
-                <span class="sidebar-nav-item-title"><a class="p-3"
-                        href="{{ route('customer.profile.my-addresses') }}">آدرس های من</a></span>
+                <span class="sidebar-nav-item-title">
+                    <a class="p-3" href="{{ route('customer.profile.my-compares') }}">
+                        لیست مقایسه های من
+                    </a>
+                </span>
             </section>
             <section class="sidebar-nav-item">
-                <span class="sidebar-nav-item-title"><a class="p-3"
-                        href="{{ route('customer.profile.my-favorites') }}">لیست علاقه مندی</a></span>
+                <span class="sidebar-nav-item-title">
+                    <a class="p-3" href="{{ route('customer.profile.my-addresses') }}">
+                        آدرس های من
+                    </a>
+                </span>
             </section>
             <section class="sidebar-nav-item">
-                <span class="sidebar-nav-item-title"><a class="p-3"
-                        href="{{ route('customer.profile.my-tickets') }}">مدیریت تیکت ها</a></span>
+                <span class="sidebar-nav-item-title">
+                    <a class="p-3" href="{{ route('customer.profile.my-favorites') }}">
+                        لیست علاقه مندی
+                    </a>
+                </span>
             </section>
             <section class="sidebar-nav-item">
-                <span class="sidebar-nav-item-title"><a class="p-3"
-                        href="{{ route('customer.profile.profile') }}">ویرایش حساب</a></span>
+                <span class="sidebar-nav-item-title">
+                    <a class="p-3" href="{{ route('customer.profile.my-tickets') }}">
+                        مدیریت تیکت ها
+                    </a>
+                </span>
             </section>
             <section class="sidebar-nav-item">
-                <span class="sidebar-nav-item-title"><a class="p-3" href="{{ route('auth.customer.logout') }}">خروج
-                        از
-                        حساب کاربری</a></span>
+                <span class="sidebar-nav-item-title">
+                    <a class="p-3" href="{{ route('customer.profile.profile') }}">
+                        ویرایش حساب
+                    </a>
+                </span>
+            </section>
+            <section class="sidebar-nav-item">
+                <span class="sidebar-nav-item-title">
+                    <a class="p-3" href="{{ route('auth.customer.logout') }}">
+                        خروج از حساب کاربری
+                    </a>
+                </span>
             </section>
 
         </section>
