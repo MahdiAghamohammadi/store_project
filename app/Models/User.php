@@ -6,6 +6,7 @@ use App\Models\User\Role;
 use App\Models\Market\Order;
 use App\Models\Ticket\Ticket;
 use App\Models\Market\Address;
+use App\Models\Market\Compare;
 use App\Models\Market\OrderItem;
 use App\Models\Market\Payment;
 use App\Models\Market\Product;
@@ -129,6 +130,11 @@ class User extends Authenticatable
     public function orderItems()
     {
         return $this->hasManyThrough(OrderItem::class, Order::class);
+    }
+
+    public function compare()
+    {
+        return $this->hasOne(Compare::class);
     }
 
     public function isUserPurchasedProduct($product_id)

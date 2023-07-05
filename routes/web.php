@@ -441,6 +441,7 @@ Route::namespace('Market')->group(function () {
     Route::get('/product/{product:slug}', [CustomerProductController::class, 'product'])->name('customer.market.product');
     Route::post('/add-comment/{product:slug}', [CustomerProductController::class, 'addComment'])->name('customer.market.add-comment');
     Route::get('/add-to-favorite/{product:slug}', [CustomerProductController::class, 'addToFavorite'])->name('customer.market.add-to-favorite');
+    Route::get('/add-to-compare/{product:slug}', [CustomerProductController::class, 'addToCompare'])->name('customer.market.add-to-compare');
     Route::post('/add-rate/{product:slug}', [CustomerProductController::class, 'addRate'])->name('customer.market.add-rate');
 });
 
