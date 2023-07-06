@@ -14,7 +14,9 @@ class ProductController extends Controller
 {
     public function product(Product $product)
     {
-        $relatedProducts = Product::all()->except($product->id);
+        $relatedProducts = Product::with('category')->whereHas('category', function ($q) use ($product) {
+            $q->where('id', $product->category->id);
+        })->get()->except($product->id);
         return view('customer.market.product.product', compact('product', 'relatedProducts'));
     }
 
