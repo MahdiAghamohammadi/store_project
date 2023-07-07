@@ -497,3 +497,6 @@ Route::namespace('Auth')->group(function () {
     Route::middleware('throttle:customer-login-resend-otp-limiter')->get('/login-resend-otp/{token}', [LoginRegisterController::class, 'loginResendOtp'])->name('auth.customer.login-resend-otp');
     Route::get('/logout', [LoginRegisterController::class, 'logout'])->name('auth.customer.logout');
 });
+
+// get products api example
+Route::get('/api-products', [CustomerProductController::class, 'viewProductsApi']);

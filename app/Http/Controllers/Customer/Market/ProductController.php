@@ -81,4 +81,9 @@ class ProductController extends Controller
             return response()->json(['status' => 3]);
         }
     }
+
+    public function viewProductsApi()
+    {
+        return view('api.products');
+    }
 }
