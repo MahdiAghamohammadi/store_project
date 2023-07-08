@@ -437,6 +437,7 @@ Route::prefix('admin')->namespace('Admin')->group(function () {
 
 Route::get('/', [HomeController::class, 'home'])->name('customer.home');
 Route::get('/products/{category?}', [HomeController::class, 'products'])->name('customer.products');
+Route::get('/page/{page:slug}', [HomeController::class, 'page'])->name('customer.page');
 
 Route::namespace('Market')->group(function () {
     Route::get('/product/{product:slug}', [CustomerProductController::class, 'product'])->name('customer.market.product');
