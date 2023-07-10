@@ -2,10 +2,14 @@
 
 namespace App\Http\Controllers\Admin\Notify;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\Admin\Notify\EmailRequest;
 use App\Models\Notify\Email;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Http\Services\Message\MessageService;
+use App\Http\Requests\Admin\Notify\EmailRequest;
+use App\Http\Services\Message\Email\EmailService;
+use App\Jobs\SendEmailToUsers;
+use App\Models\User;
 
 class EmailController extends Controller
 {
@@ -110,5 +114,11 @@ class EmailController extends Controller
         } else {
             return response()->json(['status' => false]);
         }
+    }
+
+    public function sendMail(Email $email)
+    {
+        SendEmailToUsers::dispatch($email);
+        return back()->with('swal-success', 'اعلامیه ایمیلی مورد نظر با موفقیت ارسال شد.');
     }
 }

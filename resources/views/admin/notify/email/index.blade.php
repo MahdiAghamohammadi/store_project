@@ -55,19 +55,24 @@
                                     </td>
                                     <td class="text-left width-22-rem">
                                         <a href="{{ route('admin.notify.email-file.index', $email->id) }}"
-                                            class="text-white btn btn-warning btn-sm"><i class="pl-1 fa fa-file"></i>
+                                            class="text-white btn btn-warning btn-sm"><i class="pl-1 fa fa-file"
+                                                title="فایل"></i>
                                         </a>
                                         <a href="{{ route('admin.notify.email.edit', $email->id) }}"
-                                            class="btn btn-info btn-sm"><i class="pl-1 fa fa-edit"></i>
+                                            class="btn btn-info btn-sm"><i class="pl-1 fa fa-edit" title="ویرایش"></i>
                                         </a>
                                         <form class="d-inline"
                                             action="{{ route('admin.notify.email.destroy', $email->id) }}" method="POST">
                                             @csrf
                                             {{ method_field('delete') }}
                                             <button type="submit" class="delete btn btn-danger btn-sm"><i
-                                                    class="fa fa-trash-alt"></i>
+                                                    class="fa fa-trash-alt" title="حذف"></i>
                                             </button>
                                         </form>
+                                        <a class="btn btn-sm btn-primary"
+                                            href="{{ route('admin.notify.email.send', $email->id) }}">
+                                            <i class="fa fa-paper-plane" title="ارسال"></i>
+                                        </a>
                                     </td>
                                 </tr>
                             @endforeach
