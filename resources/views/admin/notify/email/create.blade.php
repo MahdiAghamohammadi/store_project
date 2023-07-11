@@ -60,8 +60,10 @@
                                 <div class="form-group">
                                     <label for="status">وضعیت</label>
                                     <select name="status" id="status" class="form-control form-control-sm">
-                                        <option value="0" @if (old('status') == 0) selected @endif>غیرفعال</option>
-                                        <option value="1" @if (old('status') == 1) selected @endif>فعال</option>
+                                        <option value="0" @if (old('status') == 0) selected @endif>غیرفعال
+                                        </option>
+                                        <option value="1" @if (old('status') == 1) selected @endif>فعال
+                                        </option>
                                     </select>
                                 </div>
                                 @error('status')
@@ -75,8 +77,7 @@
                             <section class="my-2 col-12">
                                 <div class="form-group">
                                     <label for="body">متن ایمیل</label>
-                                    <textarea class="form-control form-control-sm" name="body" id="body"
-                                        rows="10">{{ old('body') }}</textarea>
+                                    <textarea class="form-control form-control-sm" name="body" id="body" rows="10">{{ old('body') }}</textarea>
                                 </div>
                                 @error('body')
                                     <span class="p-1 text-white rounded alert_required bg-danger" role="alert">
