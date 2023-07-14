@@ -13,10 +13,11 @@ class EmailService implements MessageInterface
         ['address' => null, 'name' => null],
     ];
     private $to;
+    private $emailFiles;
 
     public function fire()
     {
-        Mail::to($this->to)->send(new MailViewProvider($this->details, $this->subject, $this->from));
+        Mail::to($this->to)->send(new MailViewProvider($this->details, $this->subject, $this->from, $this->emailFiles));
     }
 
     public function getDetails()
@@ -59,5 +60,15 @@ class EmailService implements MessageInterface
     public function setTo($to)
     {
         $this->to = $to;
+    }
+
+    public function getEmailFiles()
+    {
+        return $this->emailFiles;
+    }
+
+    public function setEmailFiles($emailFiles)
+    {
+        $this->emailFiles = $emailFiles;
     }
 }
