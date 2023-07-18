@@ -388,6 +388,7 @@ Route::prefix('admin')->namespace('Admin')->group(function () {
             Route::put('/update/{sms}', [SMSController::class, 'update'])->name('admin.notify.sms.update');
             Route::delete('/destroy/{sms}', [SMSController::class, 'destroy'])->name('admin.notify.sms.destroy');
             Route::get('/status/{sms}', [SMSController::class, 'status'])->name('admin.notify.sms.status');
+            Route::get('/send-sms/{sms}', [SMSController::class, 'sendSms'])->name('admin.notify.sms.send');
         });
     });
     // Ticket Module

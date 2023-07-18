@@ -65,6 +65,10 @@
                                                     class="fa fa-trash-alt"></i>
                                             </button>
                                         </form>
+                                        <a class="btn btn-sm btn-primary"
+                                            href="{{ route('admin.notify.sms.send', $single_sms->id) }}">
+                                            <i class="fa fa-paper-plane" title="ارسال"></i>
+                                        </a>
                                     </td>
                                 </tr>
                             @endforeach
